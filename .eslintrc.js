@@ -18,7 +18,7 @@ module.exports = {
         'singleline': 5,
         'multiline': {
           'max': 1,
-          'allowFirstLine': false
+          'allowFirstLine': true
         }
       }
     ],
@@ -56,7 +56,8 @@ module.exports = {
       }
     ],
     'template-curly-spacing': 'off',
-    'indent': 'off'
+    'indent': 'off',
+    'linebreak-style': [0, 'error', 'windows']
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -126,11 +126,11 @@ export const generator = (routerMap, parent) => {
   return routerMap.map(item => {
     const currentRouter = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
-      path: item.path || `${ parent && parent.path || '' }/${ item.key }`,
+      path: item.path || `${parent && parent.path || ''}/${item.key}`,
       // 路由名称，建议唯一
       name: item.name || item.key || '',
       // 该路由对应页面的 组件 优先根据组件名或者key从constantRouterComponents获取，没有则通过组件名地址查询
-      component: constantRouterComponents[ item.component || item.key ] ||
+      component: constantRouterComponents[item.component || item.key] ||
         loadView(item.component),
       hideChildrenInMenu: item.hideChildrenInMenu || false,
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
@@ -164,7 +164,7 @@ export const generator = (routerMap, parent) => {
   })
 }
 export const loadView = (view) => { // 路由懒加载
-  return () => import(`@/views/${ view }`)
+  return () => import(`@/views/${view}`)
 }
 export function getRootMenu (rows) {
   // 根菜单
