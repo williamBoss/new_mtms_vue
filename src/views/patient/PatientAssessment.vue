@@ -1,5 +1,6 @@
 <template>
-  <div style="height:100%;margin-top: -25px;">
+  <div class="patientAss"
+       style="margin-top: -25px;">
     <patient-info @onChangeCardContentWidth="onChangeCardContentWidth"
                   ref="patientInfo"
                   @patient-id="getPatientId" />
@@ -12,17 +13,21 @@
     <a-card :bordered="false"
             :style="{ width: cardContentWidth }"
             ref="cardContent">
-      <a-tabs :defaultActiveKey="'BasicInformation'"
+      <a-tabs :defaultActiveKey="'HistoryInfo'"
               :active-key="activeKey"
               @change="tabChange">
-        <a-tab-pane :key="'BasicInformation'"
-                    :tab="'基本信息'">
+        <a-tab-pane :key="'HistoryInfo'"
+                    :tab="'家族史和既往史'">
+        </a-tab-pane>
+        <a-tab-pane :key="'ExistingSymptoms'"
+                    :tab="'现有症状'">
         </a-tab-pane>
         <a-tab-pane :key="'LifeStyle'"
                     :tab="'生活方式'">
         </a-tab-pane>
         <a-tab-pane :key="'MedicationRecords'"
-                    :tab="'用药记录'">
+                    :tab="'用药记录'"
+                    :patientId="patientId">
         </a-tab-pane>
         <a-tab-pane :key="'InspectionAndInspection'"
                     :tab="'检验检查'">
@@ -44,9 +49,12 @@
         </a-tab-pane>
       </a-tabs>
       <!-- 页面 -->
-      <keep-alive>
-        <component :is="activeKey"></component>
-      </keep-alive>
+      <div class="content-view">
+        <keep-alive>
+          <component :is="activeKey"
+                     :patientId="patientId"></component>
+        </keep-alive>
+      </div>
     </a-card>
     <a-card :bordered="false"
             :style="{width: cardContentWidth,background:'#f0f2f5'}">
@@ -68,7 +76,8 @@
 </template>
 <script>
 import PatientInfo from '@/views/patient/PatientInfo'
-import BasicInformation from '@/views/questionnaire/BasicInformation'
+import ExistingSymptoms from '@/views/questionnaire/ExistingSymptoms'
+import HistoryInfo from '@/views/questionnaire/HistoryInfo'
 import LifeStyle from '@/views/questionnaire/LifeStyle'
 import MedicationRecords from '@/views/questionnaire/MedicationRecords'
 import InspectionAndInspection from '@/views/questionnaire/InspectionAndInspection'
@@ -89,19 +98,21 @@ export default {
     InspectionAndInspection,
     MedicationRecords,
     LifeStyle,
-    BasicInformation,
-    PatientInfo
+    PatientInfo,
+    HistoryInfo,
+    ExistingSymptoms
   },
   data () {
     return {
       cardContentWidth: '100%',
       isShowGoBack: false,
       clientHeight: '',
-      patientId: 0,
+      patientId: 1,
       assessmentId: 0,
-      activeKey: 'BasicInformation',
+      activeKey: 'HistoryInfo',
       tabs: [
-        'BasicInformation',
+        'HistoryInfo',
+        'ExistingSymptoms',
         'LifeStyle',
         'MedicationRecords',
         'InspectionAndInspection',
@@ -164,5 +175,61 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="less">
+.patientAss {
+  height: calc(100vh - 162px);
+  overflow: scroll;
+}
+.patientAss::-webkit-scrollbar {
+  display: none;
+}
+.patientAss {
+  .flex {
+    display: flex;
+  }
+  .flex-bettween {
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-btn-box {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .table-addbtn-box {
+    margin-bottom: 10px;
+  }
+  .ant-collapse-content-box > div {
+    margin-bottom: 24px;
+  }
+  .ant-form-item:not(.user-set) .ant-form-item-control {
+    width: 250px;
+  }
+  .ant-form-item-label {
+    display: inline-block;
+    min-width: 100px;
+    vertical-align: top;
+  }
+  .ant-form-item-control-wrapper {
+    display: inline-block;
+    width: 56.6666%;
+  }
+  .ant-form-item-children {
+    .title,
+    .content-box {
+      display: inline-block;
+      vertical-align: text-top;
+    }
+    .content-box {
+      div {
+        word-break: keep-all;
+      }
+    }
+  }
+  .title {
+    margin-right: 8px;
+  }
+  .unit {
+    margin-left: 5px;
+  }
+}
 </style>

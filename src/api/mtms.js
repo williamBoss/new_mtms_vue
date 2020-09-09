@@ -5,7 +5,8 @@ const baseUrl = '/mtms'
 const api = {
   disease: baseUrl + '/disease',
   assessment: baseUrl + '/assessment',
-  patient: baseUrl + '/patient'
+  patient: baseUrl + '/patient',
+  med: baseUrl + '/med'
 }
 export default api
 // disease
@@ -104,5 +105,67 @@ export function getAssessmentListByPatientId (parameter) {
     url: api.assessment + '/patientId',
     method: 'get',
     params: parameter
+  })
+}
+// lifeStyle
+export function saveLifestyle (parameter) {
+  return axios({
+    url: api.assessment + '/saveLifestyle',
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function getUseMedRecordList (data) {
+  return axios({
+    url: api.assessment + '/getUseMedRecordList',
+    method: 'post',
+    data
+  })
+}
+
+export function saveMedicationSideEffect (data) {
+  return axios({
+    url: api.assessment + '/saveMedicationSideEffect',
+    method: 'post',
+    data
+  })
+}
+
+export function saveExistSymptoms (data) {
+  return axios({
+    url: api.assessment + '/saveExistSymptoms',
+    method: 'post',
+    data
+  })
+}
+export function saveUseMedRecord (data) {
+  return axios({
+    url: api.assessment + '/saveUseMedRecord',
+    method: 'post',
+    data
+  })
+}
+
+export function getMedicationSideEffectList (params) {
+  return axios({
+    url: api.assessment + '/getMedicationSideEffectList',
+    method: 'get',
+    params
+  })
+}
+
+// med
+export function getMedByName (params) {
+  return axios({
+    url: api.med,
+    method: 'get',
+    params
+  })
+}
+export function getAllMed () {
+  return axios({
+    url: api.med + '/allMed',
+    method: 'get'
   })
 }
