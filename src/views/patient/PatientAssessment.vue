@@ -44,9 +44,6 @@
         <a-tab-pane :key="'FollowUp'"
                     :tab="'随访复诊'">
         </a-tab-pane>
-        <a-tab-pane :key="'EvaluationRecord'"
-                    :tab="'评估记录'">
-        </a-tab-pane>
       </a-tabs>
       <!-- 页面 -->
       <div class="content-view">
@@ -85,12 +82,10 @@ import MedicationProblems from '@/views/questionnaire/MedicationProblems'
 import AssessmentScale from '@/views/questionnaire/AssessmentScale'
 import EvaluationReport from '@/views/questionnaire/EvaluationReport'
 import FollowUp from '@/views/questionnaire/FollowUp'
-import EvaluationRecord from '@/views/questionnaire/EvaluationRecord'
 
 export default {
   name: 'PatientAssessment',
   components: {
-    EvaluationRecord,
     FollowUp,
     EvaluationReport,
     AssessmentScale,
@@ -119,8 +114,7 @@ export default {
         'MedicationProblems',
         'AssessmentScale',
         'EvaluationReport',
-        'FollowUp',
-        'EvaluationRecord'
+        'FollowUp'
       ]
     }
   },

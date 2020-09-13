@@ -134,11 +134,19 @@ export function saveMedicationSideEffect (data) {
 
 export function saveExistSymptoms (data) {
   return axios({
-    url: api.assessment + '/saveExistSymptoms',
+    url: api.assessment + '/save_exist_symptoms',
     method: 'post',
     data
   })
 }
+export function saveDiagnosis (data) {
+  return axios({
+    url: api.assessment + '/save_diagnosis',
+    method: 'post',
+    data
+  })
+}
+
 export function saveUseMedRecord (data) {
   return axios({
     url: api.assessment + '/saveUseMedRecord',
@@ -152,6 +160,21 @@ export function getMedicationSideEffectList (params) {
     url: api.assessment + '/getMedicationSideEffectList',
     method: 'get',
     params
+  })
+}
+
+export function saveFamilyMedicalHistory (data) {
+  return axios({
+    url: api.assessment + '/save_family_medical_history',
+    method: 'post',
+    data
+  })
+}
+export function savePastHistoryMedicalHistory (data) {
+  return axios({
+    url: api.assessment + '/save_past_medical_history',
+    method: 'post',
+    data
   })
 }
 

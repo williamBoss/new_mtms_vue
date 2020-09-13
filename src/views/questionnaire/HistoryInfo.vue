@@ -6,42 +6,23 @@
         <a-collapse-panel key="1"
                           header="家族史">
           <a-form-model-item label="家族史">
-            <a-checkbox-group v-model="form.history">
-              <a-checkbox :value="item.name"
-                          v-for="(item,index) in familyHistoryList"
-                          :key="index">
-                {{ item.name }}
-              </a-checkbox>
-            </a-checkbox-group>
-            <div class="other-div">
-              <div class=" input-div flex">
-                <div>其他</div>
-                <div class="input-item">
-                  <a-input v-model="form.otherHistory" />
-                </div>
-              </div>
-            </div>
+            <a-tag color="green"
+                   v-for="(item, index) in familyMedicalHistoryDisease"
+                   :key="index">{{item.diseaseName}}</a-tag>
+            <a-button type="primary"
+                      @click="addPaint('family')">添加病种</a-button>
           </a-form-model-item>
+
         </a-collapse-panel>
         <!-- 2 -->
         <a-collapse-panel key="2"
                           header="既往病史">
           <a-form-model-item label="既往病史">
-            <a-checkbox-group v-model="form.history">
-              <a-checkbox :value="item.name"
-                          v-for="(item,index) in historyList"
-                          :key="index">
-                {{ item.name }}
-              </a-checkbox>
-            </a-checkbox-group>
-            <div class="other-div">
-              <div class=" input-div flex">
-                <div>其他</div>
-                <div class="input-item">
-                  <a-input v-model="form.otherHistory" />
-                </div>
-              </div>
-            </div>
+            <a-tag color="green"
+                   v-for="(item, index) in pastMedicalHistoryDisease"
+                   :key="index">{{item.diseaseName}}</a-tag>
+            <a-button type="primary"
+                      @click="addPaint('history')">添加病种</a-button>
           </a-form-model-item>
         </a-collapse-panel>
         <!-- 3 -->
@@ -192,7 +173,8 @@
                 <!-- medId -->
                 <div>
                   <a-auto-complete v-model="item.medId"
-                                   :data-source="medicData"
+                                   :data-source="medicFilterData"
+                                   @change="changeMedicData"
                                    placeholder="药品名称" />
                 </div>
                 <!-- adverseReactionsSymptoms -->
@@ -234,21 +216,40 @@
         </a-collapse-panel>
       </a-collapse>
     </div>
+    <a-modal v-model="visible"
+             title="选择病种"
+             class="paintDiolag"
+             @ok="handleOk">
+      <div class="checkPainBoxList">
+        <a-checkbox-group v-model="choicedList">
+          <div class="item"
+               v-for="(sitem, sindex) in painList"
+               :key="sindex">
+            <a-checkbox :value="sitem">
+              {{ sitem.diseaseName }}
+            </a-checkbox>
+          </div>
+        </a-checkbox-group>
+      </div>
+    </a-modal>
   </div>
 </template>
 <script>
 import {
   getAllMed,
+  getDiseaseList,
+  saveFamilyMedicalHistory,
+  savePastHistoryMedicalHistory,
   saveMedicationSideEffect
 } from '@/api/mtms'
 export default {
   props: {
-    patientId: {
-      // type:
-    }
+    patientId: {}
   },
   data () {
     return {
+      visible: false,
+      visibleType: '',
       historyList: [
         { name: '糖尿病' },
         { name: '高血压' },
@@ -301,6 +302,8 @@ export default {
         saved: false
       }],
       medicData: [],
+      medicFilterData: [],
+      painList: [],
       symptomslist: [
         { name: '恶心' },
         { name: '呕吐' },
@@ -311,17 +314,35 @@ export default {
         { name: '头晕' },
         { name: '肌痛' },
         { name: '肝功能异常' }
-      ]
+      ],
+      familyMedicalHistoryDisease: [],
+      pastMedicalHistoryDisease: [],
+      choicedList: []
     }
   },
   mounted () {
     this.getMedList()
+    this.getDiseaseList()
   },
   methods: {
     // 药物列表
     getMedList () {
       getAllMed().then(res => {
         console.log('药品列表：', res)
+        let { data } = res
+        if (data) {
+          this.medicData = data
+        }
+      })
+    },
+    // 所有疾病列表
+    getDiseaseList () {
+      getDiseaseList().then(res => {
+        console.log('所有病种：', res)
+        let { rows } = res
+        if (rows) {
+          this.painList = rows
+        }
       })
     },
     pushSymptoms () {
@@ -369,7 +390,60 @@ export default {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
-    }
+    },
+    handleOk () {
+      const _arr = JSON.parse(JSON.stringify(this.choicedList))
+      let ids = []
+      _arr.forEach(item => {
+        ids.push(item.diseaseId)
+      })
+      if (this.visibleType === 'family') {
+        saveFamilyMedicalHistory({
+          patientId: this.patientId,
+          familyMedicalHistoryDiseaseIds: ids
+        }).then(res => {
+          console.log(res)
+          if (res.code === 200) {
+            this.$message.success('新增成功')
+            this.visible = false
+            this.familyMedicalHistoryDisease = _arr
+          } else {
+            this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          }
+        })
+      } else if (this.visibleType === 'history') {
+        savePastHistoryMedicalHistory({
+          patientId: this.patientId,
+          pastMedicalHistoryDiseaseIds: ids
+        }).then(res => {
+          if (res.code === 200) {
+            this.$message.success('新增成功')
+            this.visible = false
+            this.pastMedicalHistoryDisease = _arr
+          } else {
+            this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          }
+        })
+      }
+
+    },
+    addPaint (type) {
+      this.visibleType = type
+      if (type === 'family') {
+        this.choicedList = this.familyMedicalHistoryDisease
+      } else if (type === 'history') {
+        this.choicedList = this.pastMedicalHistoryDisease
+      }
+      this.visible = true
+    },
+    changeMedicData (searchText) {
+      const _data = this.medicData.filter(item => { return item.medName.includes(searchText) })
+      const _arr = []
+      _data.forEach(item => {
+        _arr.push(item.medName)
+      })
+      this.medicFilterData = _arr
+    },
   },
   watch: {
     medicHostoryList: {
@@ -442,6 +516,8 @@ export default {
   }
   .addHistoryBtn {
     margin-bottom: 15px;
+  }
+  .checkPainBoxList {
   }
 }
 </style>

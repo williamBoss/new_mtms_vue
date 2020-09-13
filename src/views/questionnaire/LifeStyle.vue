@@ -4,16 +4,10 @@
       <a-collapse>
         <a-collapse-panel key="1"
                           header="生活方式">
-          <div class="line-div">
-            <a-form-model-item label="身高">
-              <a-input v-model="heihgt" />
-            </a-form-model-item>
-            <a-form-model-item label="体重">
-              <a-input v-model="weight" />
-            </a-form-model-item>
-            <a-form-model-item label="BMI">
-              <a-input v-model="bmi" />
-            </a-form-model-item>
+          <div class="line-div flex">
+            <div><span>身高: </span><span>{{height}}</span></div>
+            <div><span>体重: </span><span>{{weight}}</span></div>
+            <div><span>BMI: </span><span>{{bmi}}</span></div>
           </div>
           <a-form-model-item class="user-set">
             <div class="title">
@@ -420,6 +414,12 @@ export default {
       if (!this.patientId) return
       getPatientInfoById(this.patientId).then(res => {
         console.log(res)
+        if (res.code === 200) {
+          const { data } = res
+          this.height = data.height
+          this.weight = data.weight
+          this.bmi = data.bmi
+        }
       })
     },
     async confirmData () {
@@ -452,6 +452,11 @@ export default {
 
 <style lang="less">
 .lifeStyle-page {
+  .line-div {
+    > div {
+      margin-right: 10px;
+    }
+  }
   // .line-div {
   //   display: flex;
   //   .ant-form-item {

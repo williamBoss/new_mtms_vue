@@ -5,16 +5,6 @@
         <a-form-model :layout="'vertical'"
                       :model="form"
                       :rules="rules">
-          <!-- <div style="padding: 12px 16px;">
-            <a-form-model-item label="接诊日期"
-                               ref="fillDate"
-                               prop="fillDate">
-              <a-date-picker v-model="form.fillDate"
-                             placeholder="选择日期"
-                             :defaultValue="moment(getCurrentDate(), 'YYYY-MM-DD')" />
-            </a-form-model-item>
-          </div>
-          <a-divider style="margin: 8px 0;" /> -->
           <a-collapse v-model="collapseActiveKey">
             <a-collapse-panel key="MainConsult"
                               header="主诉"
@@ -33,7 +23,7 @@
               <a-form-model-item label="1.诊断"
                                  ref="diseaseIds"
                                  prop="diseaseIds">
-                <a-checkbox-group v-model="form.diseaseId">
+                <a-checkbox-group v-model="diagnosisDiseaseIds">
                   <a-checkbox value="1"
                               name="diseaseIds">高血压</a-checkbox>
                   <a-checkbox value="2"
@@ -95,58 +85,62 @@
                               header="当前症状描述"
                               :style="customStyle">
               <a-form-model-item label="1.体质"
-                                 ref="physique"
-                                 prop="physique">
-                <a-checkbox-group v-model="form.physique">
+                                 ref="physiques"
+                                 prop="physiques">
+                <a-checkbox-group v-model="form.physiques">
                   <a-checkbox value="1"
-                              name="physique">
+                              name="physiques">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="physique">
+                              name="physiques">
                     体重减轻
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="physique">
+                              name="physiques">
                     体重增加
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="physique">
+                              name="physiques">
                     盗汗
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="physique">
+                              name="physiques">
                     疲劳
+                  </a-checkbox>
+                  <a-checkbox value="6"
+                              name="physiques">
+                    其他
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
               <a-form-model-item label="其他体质问题"
-                                 ref="physiqueOtherDesc"
-                                 prop="physiqueOtherDesc">
-                <a-input v-model="form.physiqueOtherDesc"
+                                 ref="psychologicalOtherDesc"
+                                 prop="psychologicalOtherDesc">
+                <a-input v-model="form.psychologicalOtherDesc"
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="2.五官"
-                                 ref="facialFeatures"
-                                 prop="facialFeatures">
-                <a-checkbox-group v-model="form.facialFeatures">
+                                 ref="facialFeaturess"
+                                 prop="facialFeaturess">
+                <a-checkbox-group v-model="form.facialFeaturess">
                   <a-checkbox value="1"
-                              name="facialFeatures">
+                              name="facialFeaturess">
                     无
                   </a-checkbox>
                   <div class="flex">
                     <div class="title"> 视力问题</div>
                     <div>
                       <a-checkbox value="3"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         重影
                       </a-checkbox>
                       <a-checkbox value="4"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         青光眼
                       </a-checkbox>
                       <a-checkbox value="5"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         白内障
                       </a-checkbox>
                     </div>
@@ -156,15 +150,15 @@
                     <div class="title">听力障碍</div>
                     <div>
                       <a-checkbox value="7"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         耳鸣
                       </a-checkbox>
                       <a-checkbox value="8"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         耳痛
                       </a-checkbox>
                       <a-checkbox value="9"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         眩晕
                       </a-checkbox>
                     </div>
@@ -173,19 +167,19 @@
                     <div class="title">鼻子问题</div>
                     <div>
                       <a-checkbox value="10"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         鼻塞
                       </a-checkbox>
                       <a-checkbox value="11"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         流涕
                       </a-checkbox>
                       <a-checkbox value="12"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         鼻血
                       </a-checkbox>
                       <a-checkbox value="13"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         感染
                       </a-checkbox>
                     </div>
@@ -194,19 +188,19 @@
                     <div class="title">咽喉口腔问题</div>
                     <div>
                       <a-checkbox value="14"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         吞咽困难
                       </a-checkbox>
                       <a-checkbox value="15"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         声音嘶哑
                       </a-checkbox>
                       <a-checkbox value="16"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         喉咙痛
                       </a-checkbox>
                       <a-checkbox value="17"
-                                  name="facialFeatures">
+                                  name="facialFeaturess">
                         牙龈出血
                       </a-checkbox>
                     </div>
@@ -220,59 +214,63 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="3.内分泌"
-                                 ref="endocrine"
-                                 prop="endocrine">
-                <a-checkbox-group v-model="form.endocrine">
+                                 ref="endocrines"
+                                 prop="endocrines">
+                <a-checkbox-group v-model="form.endocrines">
                   <a-checkbox value="1"
-                              name="endocrine">
+                              name="endocrines">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="endocrine">
+                              name="endocrines">
                     腺体肿胀
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="endocrine">
+                              name="endocrines">
                     甲状腺问题
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="endocrine">
+                              name="endocrines">
                     糖尿病
+                  </a-checkbox>
+                  <a-checkbox value="5"
+                              name="endocrines">
+                    其他
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
               <a-form-model-item label="其他内分泌问题"
-                                 ref="diseaseName"
-                                 prop="diseaseName">
-                <a-input v-model="form.diseaseName"
+                                 ref="endocrineOtherDesc"
+                                 prop="endocrineOtherDesc">
+                <a-input v-model="form.endocrineOtherDesc"
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="4.呼吸系统"
-                                 ref="respiratorySystem"
-                                 prop="respiratorySystem">
-                <a-checkbox-group v-model="form.respiratorySystem">
+                                 ref="respiratorySystems"
+                                 prop="respiratorySystems">
+                <a-checkbox-group v-model="form.respiratorySystems">
                   <a-checkbox value="1"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     咳嗽
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     呼吸急促
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     咯痰
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     哮喘
                   </a-checkbox>
                   <a-checkbox value="6"
-                              name="respiratorySystem">
+                              name="respiratorySystems">
                     吸烟
                   </a-checkbox>
                 </a-checkbox-group>
@@ -284,36 +282,40 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="5.心血管"
-                                 ref="cardiovascular"
-                                 prop="cardiovascular">
-                <a-checkbox-group v-model="form.cardiovascular">
+                                 ref="cardiovasculars"
+                                 prop="cardiovasculars">
+                <a-checkbox-group v-model="form.cardiovasculars">
                   <a-checkbox value="1"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     心痛
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     高血压
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     心律失常
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     心悸
                   </a-checkbox>
                   <a-checkbox value="6"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     腿部水肿
                   </a-checkbox>
                   <a-checkbox value="7"
-                              name="cardiovascular">
+                              name="cardiovasculars">
                     平躺时呼吸困难
+                  </a-checkbox>
+                  <a-checkbox value="8"
+                              name="cardiovasculars">
+                    其他
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
@@ -324,36 +326,40 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="6.消化系统"
-                                 ref="digestiveSystem"
-                                 prop="digestiveSystem">
-                <a-checkbox-group v-model="form.digestiveSystem">
+                                 ref="digestiveSystems"
+                                 prop="digestiveSystems">
+                <a-checkbox-group v-model="form.digestiveSystems">
                   <a-checkbox value="1"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     便秘
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     胃食管返流
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     烧心
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     胃肠溃疡
                   </a-checkbox>
                   <a-checkbox value="6"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     肝炎
                   </a-checkbox>
                   <a-checkbox value="7"
-                              name="digestiveSystem">
+                              name="digestiveSystems">
                     恶心/呕吐
+                  </a-checkbox>
+                  <a-checkbox value="8"
+                              name="digestiveSystems">
+                    其他
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
@@ -364,28 +370,32 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="7.泌尿生殖系统"
-                                 ref="urogenitalSystem"
-                                 prop="urogenitalSystem">
-                <a-checkbox-group v-model="form.urogenitalSystem">
+                                 ref="urogenitalSystems"
+                                 prop="urogenitalSystems">
+                <a-checkbox-group v-model="form.urogenitalSystems">
                   <a-checkbox value="1"
-                              name="urogenitalSystem">
+                              name="urogenitalSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="urogenitalSystem">
+                              name="urogenitalSystems">
                     尿频
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="urogenitalSystem">
+                              name="urogenitalSystems">
                     尿痛
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="urogenitalSystem">
+                              name="urogenitalSystems">
                     血尿
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="urogenitalSystem">
+                              name="urogenitalSystems">
                     尿失禁
+                  </a-checkbox>
+                  <a-checkbox value="6"
+                              name="urogenitalSystems">
+                    其他
                   </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
@@ -396,29 +406,30 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="8.肌肉骨骼系统"
-                                 ref="musculoskeletalSystem"
-                                 prop="musculoskeletalSystem">
-                <a-checkbox-group v-model="form.musculoskeletalSystem">
+                                 ref="musculoskeletalSystems"
+                                 prop="musculoskeletalSystems">
+                <a-checkbox-group v-model="form.musculoskeletalSystems">
                   <a-checkbox value="1"
-                              name="musculoskeletalSystem">
+                              name="musculoskeletalSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="musculoskeletalSystem">
+                              name="musculoskeletalSystems">
                     关节痛
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="musculoskeletalSystem">
+                              name="musculoskeletalSystems">
                     肌无力
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="musculoskeletalSystem">
+                              name="musculoskeletalSystems">
                     腿部无力
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="musculoskeletalSystem">
+                              name="musculoskeletalSystems">
                     肌肉抽筋
                   </a-checkbox>
+
                 </a-checkbox-group>
               </a-form-model-item>
               <a-form-model-item label="其他肌肉骨骼系统问题"
@@ -428,35 +439,35 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="9.神经系统"
-                                 ref="nervousSystem"
-                                 prop="nervousSystem">
-                <a-checkbox-group v-model="form.nervousSystem">
+                                 ref="nervousSystems"
+                                 prop="nervousSystems">
+                <a-checkbox-group v-model="form.nervousSystems">
                   <a-checkbox value="1"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     头痛
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     偏头痛
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     癫痫
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     麻木
                   </a-checkbox>
                   <a-checkbox value="6"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     震颤
                   </a-checkbox>
                   <a-checkbox value="7"
-                              name="nervousSystem">
+                              name="nervousSystems">
                     晕厥
                   </a-checkbox>
                 </a-checkbox-group>
@@ -468,23 +479,23 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="10.血液淋巴系统"
-                                 ref="hemolymphSystem"
-                                 prop="hemolymphSystem">
-                <a-checkbox-group v-model="form.hemolymphSystem">
+                                 ref="hemolymphSystems"
+                                 prop="hemolymphSystems">
+                <a-checkbox-group v-model="form.hemolymphSystems">
                   <a-checkbox value="1"
-                              name="hemolymphSystem">
+                              name="hemolymphSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="hemolymphSystem">
+                              name="hemolymphSystems">
                     出血
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="hemolymphSystem">
+                              name="hemolymphSystems">
                     血栓
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="hemolymphSystem">
+                              name="hemolymphSystems">
                     腺体肿胀
                   </a-checkbox>
                 </a-checkbox-group>
@@ -496,23 +507,23 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="11.免疫系统"
-                                 ref="immuneSystem"
-                                 prop="immuneSystem">
-                <a-checkbox-group v-model="form.immuneSystem">
+                                 ref="immuneSystems"
+                                 prop="immuneSystems">
+                <a-checkbox-group v-model="form.immuneSystems">
                   <a-checkbox value="1"
-                              name="immuneSystem">
+                              name="immuneSystems">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="immuneSystem">
+                              name="immuneSystems">
                     过敏
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="immuneSystem">
+                              name="immuneSystems">
                     皮疹
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="immuneSystem">
+                              name="immuneSystems">
                     感染
                   </a-checkbox>
                 </a-checkbox-group>
@@ -524,31 +535,31 @@
                          placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="12.心理"
-                                 ref="psychological"
-                                 prop="psychological">
-                <a-checkbox-group v-model="form.psychological">
+                                 ref="psychologicals"
+                                 prop="psychologicals">
+                <a-checkbox-group v-model="form.psychologicals">
                   <a-checkbox value="1"
-                              name="psychological">
+                              name="psychologicals">
                     无
                   </a-checkbox>
                   <a-checkbox value="2"
-                              name="psychological">
+                              name="psychologicals">
                     抑郁
                   </a-checkbox>
                   <a-checkbox value="3"
-                              name="psychological">
+                              name="psychologicals">
                     哭闹
                   </a-checkbox>
                   <a-checkbox value="4"
-                              name="psychological">
+                              name="psychologicals">
                     焦虑
                   </a-checkbox>
                   <a-checkbox value="5"
-                              name="psychological">
+                              name="psychologicals">
                     嗜睡
                   </a-checkbox>
                   <a-checkbox value="6"
-                              name="psychological">
+                              name="psychologicals">
                     睡眠障碍
                   </a-checkbox>
                 </a-checkbox-group>
@@ -576,6 +587,7 @@
 import MedicationSideEffectTemplate from './medicationSideEffectTemplate'
 import moment from 'moment'
 import {
+  saveDiagnosis,
   saveExistSymptoms
 } from '@/api/mtms'
 export default {
@@ -583,9 +595,10 @@ export default {
   components: {
     MedicationSideEffectTemplate
   },
+  props: ['patientId'],
   data () {
     return {
-      collapseActiveKey: ['MainConsult', 'DiseaseIds'],
+      collapseActiveKey: ['MainConsult'],
       customStyle:
         'background: #ffffff;border-radius: 4px;',
       dataSource: [
@@ -624,37 +637,33 @@ export default {
           scopedSlots: { customRender: 'operation' }
         }
       ],
+      diagnosisDiseaseIds: [],
       form: {
-        fillDate: '',
         mainConsult: '',
-        diseaseId: [],
-        diseaseName: '',
-        physique: [],
-        physiqueOtherDesc: '',
-        facialFeatures: [],
-        facialFeaturesOtherDesc: '',
-        endocrine: [],
-        endocrineOtherDesc: '',
-        respiratorySystem: [],
-        respiratorySystemOtherDesc: '',
-        cardiovascular: [],
-        cardiovascularOtherDesc: '',
-        digestiveSystem: [],
-        digestiveSystemOtherDesc: '',
-        urogenitalSystem: [],
-        urogenitalSystemOtherDesc: '',
-        musculoskeletalSystem: [],
-        musculoskeletalSystemOtherDesc: '',
-        nervousSystem: [],
-        nervousSystemOtherDesc: '',
-        hemolymphSystem: [],
-        hemolymphSystemOtherDesc: '',
-        immuneSystem: [],
-        immuneSystemOtherDesc: '',
-        psychological: [],
+        physiques: [],
         psychologicalOtherDesc: '',
-        pastMedicalHistoryDiseaseIds: [],
-        pastMedicalHistoryDiseaseName: ''
+        facialFeaturess: [],
+        facialFeaturesOtherDesc: '',
+        endocrines: [],
+        endocrineOtherDesc: '',
+        respiratorySystems: [],
+        respiratorySystemOtherDesc: '',
+        cardiovasculars: [],
+        cardiovascularOtherDesc: '',
+        digestiveSystems: [],
+        digestiveSystemOtherDesc: '',
+        urogenitalSystems: [],
+        urogenitalSystemOtherDesc: '',
+        musculoskeletalSystems: [],
+        musculoskeletalSystemOtherDesc: '',
+        nervousSystems: [],
+        nervousSystemOtherDesc: '',
+        hemolymphSystems: [],
+        hemolymphSystemOtherDesc: '',
+        immuneSystems: [],
+        immuneSystemOtherDesc: '',
+        psychologicals: [],
+        psychologicalOtherDesc: ''
       },
       rules: {
         mainConsult: [
@@ -668,11 +677,18 @@ export default {
     getCurrentDate () {
       return new Date().toLocaleDateString()
     },
-    confirmData () {
+    async confirmData () {
       console.log('submit!', this.form)
-      saveExistSymptoms({
-
-        // diseaseId: this.form.diseaseId,
+      let res1 = await saveDiagnosis({
+        patientId: this.patientId,
+        diagnosisDiseaseIds: this.diagnosisDiseaseIds
+      })
+      let res2 = saveExistSymptoms({
+        ...this.form,
+        patientId: this.patientId
+      })
+      Promise.all([res1, res2]).then(data => {
+        console.log(data)
       })
     },
     onCellChange (key, dataIndex, value) {

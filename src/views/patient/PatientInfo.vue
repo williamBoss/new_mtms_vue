@@ -47,11 +47,12 @@
                 </a-auto-complete>
               </a-form-model-item>
               <a-form-model-item label="年龄"
-                                 ref="age"
-                                 prop="age">
-                <a-input-number v-model="form.age"
-                                placeholder="请输入"
-                                style="width: 100%;" />
+                                 ref="birthday"
+                                 prop="birthday">
+                <a-date-picker v-model="form.birthday"
+                               format="'YYYY/MM/DD'"
+                               :valueFormat="'YYYY/MM/DD'"
+                               @change="onChange" />
               </a-form-model-item>
               <a-form-model-item label="性别"
                                  ref="gender"
@@ -340,7 +341,7 @@ export default {
       assessmentRecording: [],
       form: {
         patientName: '',
-        age: '',
+        birthday: '',
         gender: '',
         phone: undefined,
         patientSelfId: '',
@@ -367,8 +368,8 @@ export default {
         patientName: [
           { required: true, message: '请填写患者姓名', trigger: 'blur' }
         ],
-        age: [
-          { required: true, message: '请填写患者年龄！', trigger: 'blur' }
+        birthday: [
+          { required: true, message: '请填写患者生日！', trigger: 'blur' }
         ],
         gender: [
           { required: true, message: '请选择患者性别', trigger: 'change' }
