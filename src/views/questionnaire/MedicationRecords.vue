@@ -138,7 +138,7 @@ import {
   getPatientInfoById,
   // getPatientInfoByPhone,
   getMedicationSideEffectList,
-  // getUseMedRecordList,
+  getUseMedRecordList,
   saveUseMedRecord,
   getAllMed
 } from '@/api/mtms'
@@ -165,6 +165,7 @@ export default {
     this.getMedList()
     if (this.patientId) {
       this.getBaseInfo()
+      this.getUseMedRecordList()
       this.getMedicationSideEffectList()
     }
   },
@@ -205,9 +206,15 @@ export default {
       })
     },
     // 用药记录
-    // getUseMedRecordList () {
-    //   getUseMedRecordList()
-    // },
+    getUseMedRecordList () {
+      getUseMedRecordList({ patientId: this.patientId }).then(res => {
+        console.log('用药记录：', res);
+        let { row } = res
+        if (row) {
+
+        }
+      })
+    },
     pushData () {
       this.data.unshift({
         useStartTime: '',
@@ -243,8 +250,11 @@ export default {
   },
   watch: {
     patientId: (v) => {
-      this.getBaseInfo()
-      this.getMedicationSideEffectList()
+      if (v) {
+        this.getBaseInfo()
+        this.getUseMedRecordList()
+        this.getMedicationSideEffectList()
+      }
     },
     data: {
       handler (v) {

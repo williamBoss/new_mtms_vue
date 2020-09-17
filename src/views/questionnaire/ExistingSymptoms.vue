@@ -689,6 +689,11 @@ export default {
       })
       Promise.all([res1, res2]).then(data => {
         console.log(data)
+        if (data[0].code === 200 && data[1].code === 200) {
+          this.$message.success('保存成功')
+        } else {
+          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+        }
       })
     },
     onCellChange (key, dataIndex, value) {

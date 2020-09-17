@@ -6,7 +6,8 @@ const api = {
   disease: baseUrl + '/disease',
   assessment: baseUrl + '/assessment',
   patient: baseUrl + '/patient',
-  med: baseUrl + '/med'
+  med: baseUrl + '/med',
+  detect: baseUrl + '/detect'
 }
 export default api
 // disease
@@ -177,7 +178,48 @@ export function savePastHistoryMedicalHistory (data) {
     data
   })
 }
-
+export function savePastSurgicalHistories (data) {
+  return axios({
+    url: api.assessment + '/save_past_surgical_histories',
+    method: 'post',
+    data
+  })
+}
+export function saveAllergyHistory (data) {
+  return axios({
+    url: api.assessment + '/save_allergy_history',
+    method: 'post',
+    data
+  })
+}
+export function saveLiverDamage (data) {
+  return axios({
+    url: api.assessment + '/save_liver_damage',
+    methods: 'post',
+    data
+  })
+}
+export function allSurgicalHistory (paarams) {
+  return axios({
+    url: api.assessment + '/all_surgical_history',
+    methods: 'get',
+    paarams
+  })
+}
+export function getFamilyMedicalHistory (params) {
+  return axios({
+    url: api.assessment + '/get_family_medical_history',
+    methods: 'get',
+    params
+  })
+}
+export function getPastMedicalHistory (params) {
+  return axios({
+    url: api.assessment + '/get_past_medical_history',
+    methods: 'get',
+    params
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({
@@ -190,5 +232,161 @@ export function getAllMed () {
   return axios({
     url: api.med + '/allMed',
     method: 'get'
+  })
+}
+// 检验检测
+export function saveDetectBloodPressure (data) {
+  return axios({
+    url: api.detect + '/saveDetectBloodPressure',
+    method: 'post',
+    data
+  })
+}
+export function getDetectBloodPressureList (params) {
+  return axios({
+    url: api.detect + '/getDetectBloodPressureList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectHeartRate (data) {
+  return axios({
+    url: api.detect + '/saveDetectHeartRate',
+    method: 'post',
+    data
+  })
+}
+export function getDetectHeartRateList (params) {
+  return axios({
+    url: api.detect + '/getDetectHeartRateList',
+    method: 'get',
+    params
+  })
+}
+export function getDetectBloodLipidsList (params) {
+  return axios({
+    url: api.detect + '/getDetectBloodLipidsList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectBloodLipids (data) {
+  return axios({
+    url: api.detect + '/saveDetectBloodLipids',
+    method: 'post',
+    data
+  })
+}
+export function getDetectBloodSugarList (params) {
+  return axios({
+    url: api.detect + '/getDetectBloodSugarList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectBloodSugar (data) {
+  return axios({
+    url: api.detect + '/saveDetectBloodSugar',
+    method: 'post',
+    data
+  })
+}
+export function saveDetectHomocysteine (data) {
+  return axios({
+    url: api.detect + '/saveDetectHomocysteine',
+    method: 'post',
+    data
+  })
+}
+export function getDetectHomocysteineList (params) {
+  return axios({
+    url: api.detect + '/getDetectHomocysteineList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectBloodUricAcid (data) {
+  return axios({
+    url: api.detect = '/saveDetectBloodUricAcid',
+    method: 'post',
+    data
+  })
+}
+export function getDetectBloodUricAcidList (params) {
+  return axios({
+    url: api.detect + '/getDetectBloodUricAcidList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectLiverFunction (data) {
+  return axios({
+    url: api.detect + '/saveDetectLiverFunction',
+    method: 'post',
+    data
+  })
+}
+export function getDetectLiverFunctionList (params) {
+  return axios({
+    url: api.detect + '/getDetectLiverFunctionList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectKidneyFunction (data) {
+  return axios({
+    url: api.detect + '/saveDetectKidneyFunction',
+    method: 'post',
+    data
+  })
+}
+export function getDetectKidneyFunctionList (params) {
+  return axios({
+    url: api.detect + '/getDetectKidneyFunctionList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectElectrolyte (data) {
+  return axios({
+    url: api.detect + '/saveDetectElectrolyte',
+    method: 'post',
+    data
+  })
+}
+export function getDetectElectrolyteList (params) {
+  return axios({
+    url: api.detect + '/getDetectElectrolyteList',
+    method: 'get',
+    params
+  })
+}
+export function saveDetectOther (data) {
+  return axios({
+    url: api.detect + '/saveDetectOther',
+    method: 'post',
+    data
+  })
+}
+export function getDetectOtherList (params) {
+  return axios({
+    url: api.detect + '/getDetectOtherList',
+    method: 'get',
+    params
+  })
+}
+//
+export function saveMedicationProblem (data) {
+  return axios({
+    url: baseUrl + '/medication_problem/',
+    method: 'post',
+    data
+  })
+}
+export function getMedicationProblem (params) {
+  return axios({
+    url: baseUrl + '/medication_problem/',
+    method: 'get',
+    params
   })
 }

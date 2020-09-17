@@ -46,7 +46,7 @@
                   </template>
                 </a-auto-complete>
               </a-form-model-item>
-              <a-form-model-item label="年龄"
+              <a-form-model-item label="生日"
                                  ref="birthday"
                                  prop="birthday">
                 <a-date-picker v-model="form.birthday"

@@ -41,9 +41,9 @@
         <a-tab-pane :key="'EvaluationReport'"
                     :tab="'评估报告'">
         </a-tab-pane>
-        <a-tab-pane :key="'FollowUp'"
+        <!-- <a-tab-pane :key="'FollowUp'"
                     :tab="'随访复诊'">
-        </a-tab-pane>
+        </a-tab-pane> -->
       </a-tabs>
       <!-- 页面 -->
       <div class="content-view">

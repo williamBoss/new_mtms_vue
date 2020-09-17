@@ -28,64 +28,15 @@
         <!-- 3 -->
         <a-collapse-panel key="3"
                           header="既往手术史">
-          <a-checkbox-group v-model="form.surgery">
-            <a-form-model-item label="心脏">
-              <a-checkbox value="血管成形术（球囊手术）或支架">
-                血管成形术（球囊手术）或支架
-              </a-checkbox>
-              <a-checkbox value="冠状动脉旁路移植术（搭桥）">
-                冠状动脉旁路移植术（搭桥）
-              </a-checkbox>
-              <a-checkbox value="心脏起搏器和除颤器">
-                心脏起搏器和除颤器
-              </a-checkbox>
-            </a-form-model-item>
-            <a-form-model-item label="支架">
-              <a-checkbox value="颈动脉">
-                颈动脉
-              </a-checkbox>
-              <a-checkbox value="肾动脉">
-                肾动脉
-              </a-checkbox>
-            </a-form-model-item>
-            <a-form-model-item label="移植手术">
-              <a-checkbox value="肾移植">
-                肾移植
-              </a-checkbox>
-              <a-checkbox value="肝移植">
-                肝移植
-              </a-checkbox>
-              <a-checkbox value="骨髓移植">
-                骨髓移植
-              </a-checkbox>
-            </a-form-model-item>
-            <a-form-model-item label="关节置换">
-              <a-checkbox value="髋关节">
-                髋关节
-              </a-checkbox>
-              <a-checkbox value="膝关节">
-                膝关节
-              </a-checkbox>
-            </a-form-model-item>
-            <a-form-model-item label="其他手术">
-              <a-checkbox value="阑尾切除术">
-                阑尾切除术
-              </a-checkbox>
-              <a-checkbox value="子宫切除术">
-                子宫切除术
-              </a-checkbox>
-              <a-checkbox value="生产手术">
-                生产手术
-              </a-checkbox>
-            </a-form-model-item>
+          <a-checkbox-group v-model="form.pastSurgicalHistoryId">
+            <a-checkbox :value="item.surgicalHistoryId"
+                        v-for="(item, index) in surgicalHistoryList"
+                        :key="index">
+              {{item.surgeryName}}
+            </a-checkbox>
           </a-checkbox-group>
-          <div class="other-div">
-            <div class=" input-div flex">
-              <div>其他</div>
-              <div class="input-item">
-                <a-input v-model="form.otherSurgery" />
-              </div>
-            </div>
+          <div class="btn-box">
+            <a-button @click="savePastSurgicalHistories">保存</a-button>
           </div>
         </a-collapse-panel>
         <!-- 4 -->
@@ -99,7 +50,7 @@
           </a-form-model-item>
           <a-form-model-item label="过敏源"
                              v-if="form.allergyHistory===1">
-            <a-input />
+            <a-input v-model="form.allergen" />
           </a-form-model-item>
           <a-form-model-item label="过敏症状"
                              v-if="form.allergyHistory===1">
@@ -110,6 +61,9 @@
             <a-date-picker v-model="form.allergyDatetime"
                            :format="'YYYY/MM/DD'" />
           </a-form-model-item>
+          <div class="btn-box">
+            <a-button @click="savePastSurgicalHistories">保存</a-button>
+          </div>
         </a-collapse-panel>
         <!-- 5 -->
         <a-collapse-panel key="5"
@@ -124,6 +78,9 @@
                              v-if="form.liverDamage===1">
             <a-input v-model="form.liverDamageDesc" />
           </a-form-model-item>
+          <div class="btn-box">
+            <a-button @click="saveLiverDamage">保存</a-button>
+          </div>
         </a-collapse-panel>
         <!-- 6 -->
         <a-collapse-panel key="6"
@@ -240,12 +197,17 @@ import {
   getDiseaseList,
   saveFamilyMedicalHistory,
   savePastHistoryMedicalHistory,
-  saveMedicationSideEffect
+  saveMedicationSideEffect,
+  savePastSurgicalHistories,
+  saveLiverDamage,
+  saveKidneyDamage,
+  allSurgicalHistory,
+  //
+  getFamilyMedicalHistory,
+  getPastMedicalHistory,
 } from '@/api/mtms'
 export default {
-  props: {
-    patientId: {}
-  },
+  props: ['patientId'],
   data () {
     return {
       visible: false,
@@ -284,8 +246,9 @@ export default {
       form: {
         history: '',
         otherHistory: '',
-        surgery: '',
+        pastSurgicalHistoryId: '',
         otherSurgery: '',
+        allergen: '',
         allergyHistory: 0,
         allergySymptoms: '',
         allergyDatetime: '',
@@ -317,18 +280,22 @@ export default {
       ],
       familyMedicalHistoryDisease: [],
       pastMedicalHistoryDisease: [],
-      choicedList: []
+      choicedList: [],
+      surgicalHistoryList: []
     }
   },
   mounted () {
     this.getMedList()
     this.getDiseaseList()
+    this.getAllSurgicalHistory()
   },
   methods: {
+    /**
+     * 保存操作
+     */
     // 药物列表
     getMedList () {
       getAllMed().then(res => {
-        console.log('药品列表：', res)
         let { data } = res
         if (data) {
           this.medicData = data
@@ -338,7 +305,6 @@ export default {
     // 所有疾病列表
     getDiseaseList () {
       getDiseaseList().then(res => {
-        console.log('所有病种：', res)
         let { rows } = res
         if (rows) {
           this.painList = rows
@@ -382,8 +348,8 @@ export default {
         occurrenceDatetime: this.medicHostoryList[index].occurrenceDatetime,
         patientId: this.patientId
       }).then(res => {
-        const { success } = res
-        if (success) {
+        const { code } = res
+        if (code === 200) {
           this.medicHostoryList[index].saved = true
           this.$message.success('新增成功')
         } else {
@@ -391,6 +357,7 @@ export default {
         }
       })
     },
+    // 保存家族史 既往病史
     handleOk () {
       const _arr = JSON.parse(JSON.stringify(this.choicedList))
       let ids = []
@@ -444,6 +411,88 @@ export default {
       })
       this.medicFilterData = _arr
     },
+    // 获取既往手术史
+    getAllSurgicalHistory () {
+      allSurgicalHistory().then(res => {
+        console.log(res);
+        const { data } = res;
+        data ? this.surgicalHistoryList = data : '';
+      })
+    },
+    // 保存既往手术史
+    savePastSurgicalHistories () {
+      savePastSurgicalHistories({
+        patientId: this.patientId,
+        pastSurgicalHistoryId: this.form.pastSurgicalHistoryId
+      }).then(res => {
+        if (res.code === 200) {
+          this.$message.success('保存成功')
+        } else {
+          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+        }
+      })
+    },
+    // 保存过敏史
+    saveAllergyHistory () {
+      saveAllergyHistory({
+        patientId: this.patientId,
+        allergyHistory: this.form.allergyHistory,
+        allergen: this.form.allergen,
+        allergySymptoms: this.form.allergySymptoms,
+        allergyDatetime: this.form.allergyDatetime
+      }).then(res => {
+        if (res.code === 200) {
+          this.$message.success('保存成功')
+        } else {
+          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+        }
+      })
+    },
+    // 保存肝损伤
+    saveLiverDamage () {
+      saveLiverDamage({
+        patientId: this.patientId,
+        liverDamageDesc: this.form.liverDamageDesc,
+        liverDamage: this.form.liverDamage
+      }).then(res => {
+        if (res.code === 200) {
+          this.$message.success('保存成功')
+        } else {
+          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+        }
+      })
+    },
+    // 保存肾损害
+    saveKidneyDamage () {
+      saveKidneyDamage({
+        patientId: this.patientId,
+        kidneyDamage: this.form.kidneyDamage,
+        kidneyDamageDesc: this.form.kidneyDamageDesc
+      }).then(res => {
+        if (res.code === 200) {
+          this.$message.success('保存成功')
+        } else {
+          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+        }
+      })
+    },
+    /**
+     * 获取历史数据
+     */
+    getAllHistoryList () {
+      this.getFamilyMedicalHistory()
+      this.getPastMedicalHistory()
+    },
+    getFamilyMedicalHistory () {
+      getFamilyMedicalHistory({ patientId: this.patientId }).then(res => {
+        console.log('家族史：', res)
+      })
+    },
+    getPastMedicalHistory () {
+      getPastMedicalHistory({ patientId: this.patientId }).then(res => {
+        console.log('病史：', res)
+      })
+    },
   },
   watch: {
     medicHostoryList: {
@@ -453,8 +502,15 @@ export default {
       deep: true,
       immediate: true
     },
-    patientId: function (d) {
-      console.log(d)
+    patientId: {
+      handler (d) {
+        if (d) {
+          console.log(d)
+          this.getAllHistoryList()
+        }
+      },
+      deep: true,
+      immediate: true
     }
   }
 }
