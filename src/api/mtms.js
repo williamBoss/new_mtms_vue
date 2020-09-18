@@ -390,3 +390,10 @@ export function getMedicationProblem (params) {
     params
   })
 }
+export function medicationProblemsDict (params) {
+  return axios({
+    url: baseUrl + '/medication_problem/medication_problems_dict',
+    method: 'get',
+    params
+  })
+}

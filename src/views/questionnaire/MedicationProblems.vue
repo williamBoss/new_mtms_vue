@@ -41,6 +41,13 @@
                         data-index="indications">
           <template slot-scope="text, record">
             <a-cascader :options="indicationsList"
+                        :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
                         v-model="record.indications" />
           </template>
         </a-table-column>
@@ -49,6 +56,13 @@
                         data-index="safety">
           <template slot-scope="text, record">
             <a-cascader :options="safetyList"
+                        :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
                         v-model="record.safety" />
           </template>
         </a-table-column>
@@ -57,6 +71,13 @@
                         data-index="effectiveness">
           <template slot-scope="text, record">
             <a-cascader :options="effectivenessList"
+                        :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
                         v-model="record.effectiveness" />
           </template>
         </a-table-column>
@@ -65,6 +86,13 @@
                         data-index="compliance">
           <template slot-scope="text, record">
             <a-cascader :options="complianceList"
+                        :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
                         v-model="record.compliance" />
           </template>
         </a-table-column>
@@ -159,6 +187,7 @@ import {
   getDiseaseList,
   saveMedicationProblem,
   getMedicationProblem,
+  medicationProblemsDict,
 } from '@/api/mtms'
 export default {
   name: 'MedicationProblems',
@@ -336,6 +365,7 @@ export default {
   mounted () {
     this.getMedList();
     this.getDiseaseList();
+    this.medicationProblemsDict();
   },
   methods: {
     // 获取记录
@@ -345,6 +375,31 @@ export default {
           console.log(res)
         })
       }
+    },
+    // 
+    medicationProblemsDict () {
+      // 问题类型 1.适应症 2.有效性 3.安全性 4.依从性
+      medicationProblemsDict({ problemType: 1 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.indicationsList = data
+      })
+      medicationProblemsDict({ problemType: 2 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.effectivenessList = data
+      })
+      medicationProblemsDict({ problemType: 3 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.safetyList = data
+      })
+      medicationProblemsDict({ problemType: 4 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.complianceList = data
+      })
+
     },
     // 药物列表
     getMedList () {
