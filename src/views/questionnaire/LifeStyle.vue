@@ -365,7 +365,8 @@ export default {
     patientId: {
       type: Number,
       default: null
-    }
+    },
+    assessmentId: {}
   },
   data () {
     return {
@@ -428,7 +429,7 @@ export default {
         const _arr = JSON.parse(JSON.stringify(this.form.usualSports)).split(',').push(this.otherAction)
         _usualSports = _arr.join(',')
       }
-      saveLifestyle({ ...this.form, usualSports: _usualSports, patientId: this.patientId }).then(res => {
+      saveLifestyle({ ...this.form, usualSports: _usualSports, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         const { success } = res
         if (success) {
           this.$message.success('生活方式保存成功')

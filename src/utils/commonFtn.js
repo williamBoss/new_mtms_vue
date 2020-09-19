@@ -1,8 +1,8 @@
 export function getAge (strAge) {
-  var birArr = strAge.split('-')
-  var birYear = birArr[0]
-  var birMonth = birArr[1]
-  var birDay = birArr[2]
+  var birArr = strAge.split('/')
+  var birYear = parseInt(birArr[0])
+  var birMonth = parseInt(birArr[1])
+  var birDay = parseInt(birArr[2])
 
   var d = new Date()
   var nowYear = d.getFullYear()

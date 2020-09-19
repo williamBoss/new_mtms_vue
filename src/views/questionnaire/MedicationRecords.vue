@@ -107,7 +107,7 @@
                 保存
               </a-button>
             </div>
-
+            <div v-else>已保存</div>
           </template>
         </a-table-column>
         <div slot="footer">
@@ -148,7 +148,8 @@ export default {
     patientId: {
       type: Number,
       default: null
-    }
+    },
+    assessmentId: {}
   },
   data () {
     return {
@@ -202,7 +203,7 @@ export default {
     // 家族史既往史
     getMedicationSideEffectList () {
       getMedicationSideEffectList({ patientId: this.patientId }).then(res => {
-        console.log(res)
+        console.log('家族史既往史:', res)
       })
     },
     // 用药记录
@@ -225,6 +226,7 @@ export default {
         dosageMonthly: '',
         remark: '',
         patientId: this.patientId,
+        assessmentId: this.assessmentId,
         saved: false
       })
     },

@@ -327,7 +327,7 @@ import {
   updatePatientInfo
 } from '@/api/mtms'
 import { getDistTree } from '@/api/system'
-
+import { getInfo } from '@/api/login'
 export default {
   name: 'PatientInfo',
   data () {
@@ -357,7 +357,8 @@ export default {
         homeAddress: '',
         company: '',
         emergencyInfusionNum: '',
-        hospitalizationNum: ''
+        hospitalizationNum: '',
+        pharmacist: ''
       },
       rules: {
         phone: [
@@ -384,6 +385,11 @@ export default {
       this.distOptionTrees = res.data.districtsTrees
     }).catch(() => {
       this.notification('error', '查询失败', '系统错误，地区数据获取失败，请稍后再试')
+    })
+  },
+  mounted () {
+    getInfo().then(res => {
+      this.form.pharmacist = res.loginName
     })
   },
   computed: {

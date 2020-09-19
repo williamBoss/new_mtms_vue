@@ -41,6 +41,7 @@
                         data-index="indications">
           <template slot-scope="text, record">
             <a-cascader :options="indicationsList"
+                        :placeholder="'适应性'"
                         :fieldNames="{
                         label: 'medicationProblems'
                         ,
@@ -56,6 +57,7 @@
                         data-index="safety">
           <template slot-scope="text, record">
             <a-cascader :options="safetyList"
+                        :placeholder="'安全性'"
                         :fieldNames="{
                         label: 'medicationProblems'
                         ,
@@ -71,6 +73,7 @@
                         data-index="effectiveness">
           <template slot-scope="text, record">
             <a-cascader :options="effectivenessList"
+                        :placeholder="'有效性'"
                         :fieldNames="{
                         label: 'medicationProblems'
                         ,
@@ -86,6 +89,7 @@
                         data-index="compliance">
           <template slot-scope="text, record">
             <a-cascader :options="complianceList"
+                        :placeholder="'依从性'"
                         :fieldNames="{
                         label: 'medicationProblems'
                         ,
@@ -363,6 +367,7 @@ export default {
     }
   },
   mounted () {
+    this.getDateList();
     this.getMedList();
     this.getDiseaseList();
     this.medicationProblemsDict();

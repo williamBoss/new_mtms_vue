@@ -595,7 +595,7 @@ export default {
   components: {
     MedicationSideEffectTemplate
   },
-  props: ['patientId'],
+  props: ['patientId', 'assessmentId'],
   data () {
     return {
       collapseActiveKey: ['MainConsult'],
@@ -681,11 +681,13 @@ export default {
       console.log('submit!', this.form)
       let res1 = await saveDiagnosis({
         patientId: this.patientId,
+        assessmentId: this.assessmentId,
         diagnosisDiseaseIds: this.diagnosisDiseaseIds
       })
       let res2 = saveExistSymptoms({
         ...this.form,
-        patientId: this.patientId
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
       })
       Promise.all([res1, res2]).then(data => {
         console.log(data)
