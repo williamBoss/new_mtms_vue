@@ -514,7 +514,7 @@ import {
 } from '@/api/mtms'
 export default {
   name: 'InspectionAndInspection',
-  props: ['patientId'],
+  props: ['patientId', 'assessmentId'],
   data () {
     return {
       bloodPressure: [],
@@ -583,7 +583,8 @@ export default {
         morningValue: this.bloodPressure[index].morningValue,
         noonValue: this.bloodPressure[index].noonValue,
         nightValue: this.bloodPressure[index].nightValue,
-        patientId: this.patientId
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
       }
       saveDetectBloodPressure({ ...data }).then(res => {
         if (res.code === 200) {
@@ -610,7 +611,8 @@ export default {
         morningValue: this.heartRate[index].morningValue,
         noonValue: this.heartRate[index].noonValue,
         nightValue: this.heartRate[index].nightValue,
-        patientId: this.patientId
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
       }
       saveDetectHeartRate({ ...data }).then(res => {
         if (res.code === 200) {
@@ -633,7 +635,7 @@ export default {
     savebloodLipids (index) {
       let _data = JSON.parse(JSON.stringify(THIS.bloodLipids[index]))
       delete _data.saved
-      saveDetectBloodLipids({ ..._data, patientId: this.patientId }).then(res => {
+      saveDetectBloodLipids({ ..._data, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.bloodLipids[index].saved = true
           this.$message.success('添加成功')
@@ -656,7 +658,7 @@ export default {
     saveBloodSugar (index) {
       let _dataBL = JSON.parse(JSON.stringify(this.bloodLipids[index]))
       delete _dataBL.saved
-      saveDetectBloodSugar({ ..._dataBL, patientId: this.patientId }).then(res => {
+      saveDetectBloodSugar({ ..._dataBL, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.bloodSugar[index].saved = true
           this.$message.success('添加成功')
@@ -685,7 +687,7 @@ export default {
     saveHomocysteine (index) {
       let _dataH = JSON.parse(JSON.stringify(this.homocysteine[index]))
       delete _dataH.saved
-      saveDetectHomocysteine({ ..._dataBL, patientId: this.patientId }).then(res => {
+      saveDetectHomocysteine({ ..._dataBL, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.homocysteine[index].saved = true
           this.$message.success('添加成功')
@@ -713,7 +715,7 @@ export default {
     saveBloodUricAcid (index) {
       let _dataBUA = JSON.parse(JSON.stringify(this.bloodUricAcid[index]))
       delete _dataBUA.saved
-      saveDetectBloodUricAcid({ ..._dataBUA, patientId: this.patientId }).then(res => {
+      saveDetectBloodUricAcid({ ..._dataBUA, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.bloodUricAcid[index].saved = true
           this.$message.success('添加成功')
@@ -742,7 +744,7 @@ export default {
     saveLiverFunction (index) {
       let _dataLF = JSON.parse(JSON.stringify(this.liverFunction[index]))
       delete _dataLF.saved
-      saveDetectLiverFunction({ ..._dataLF, patientId: this.patientId }).then(res => {
+      saveDetectLiverFunction({ ..._dataLF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.liverFunction[index].saved = true
           this.$message.success('添加成功')
@@ -774,7 +776,7 @@ export default {
     saveDetectKidneyFunction () {
       let _dataKF = JSON.parse(JSON.stringify(this.kidneyFunctionList[index]))
       delete _dataKF.saved
-      saveDetectLiverFunction({ ..._dataKF, patientId: this.patientId }).then(res => {
+      saveDetectLiverFunction({ ..._dataKF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.kidneyFunctionList[index].saved = true
           this.$message.success('添加成功')
@@ -803,7 +805,7 @@ export default {
     saveDetectElectrolyte (index) {
       let _dataE = JSON.parse(JSON.stringify(this.electrolyte[index]))
       delete _dataE.saved
-      saveDetectElectrolyte({ ..._dataE, patientId: this.patientId }).then(res => {
+      saveDetectElectrolyte({ ..._dataE, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.electrolyte[index].saved = true
           this.$message.success('添加成功')
@@ -844,7 +846,8 @@ export default {
         "detectName": this.detectOtherList[index].detectName,
         "detectUnit": this.detectOtherList[index].detectUnit,
         "detectValue": this.detectOtherList[index].detectValue,
-        patientId: this.patientId
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
       }
       saveDetectOther({ ...data }).then(res => {
         if (res.code === 200) {

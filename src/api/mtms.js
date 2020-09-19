@@ -397,3 +397,47 @@ export function medicationProblemsDict (params) {
     params
   })
 }
+
+// 
+export function saveMoriskyInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_morisky_info',
+    method: 'post',
+    data
+  })
+}
+export function saveEq5d3lInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_eq5d3l_info',
+    method: 'post',
+    data
+  })
+}
+export function saveEq5d5lInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_eq5d5l_info',
+    method: 'post',
+    data
+  })
+}
+export function saveSDSlInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_sds_info',
+    method: 'post',
+    data
+  })
+}
+export function saveSf36Info (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_sf36_info',
+    method: 'post',
+    data
+  })
+}
+export function saveParInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_par_info',
+    method: 'post',
+    data
+  })
+}

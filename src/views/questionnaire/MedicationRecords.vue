@@ -157,6 +157,7 @@ export default {
       patientName: '',
       age: '',
       gender: '',
+      phone: '',
       medicData: [],
       medicFilterData: [],
       data: []
@@ -192,10 +193,11 @@ export default {
         getPatientInfoById(this.patientId).then(res => {
           console.log(res.data)
           if (res.data) {
-            const { birthday, patientName, gender } = res.data
+            const { birthday, patientName, gender, phone } = res.data
             birthday ? this.age = getAge(birthday) : this.age = '-'
             gender === 1 ? this.gender = '男' : gender === 2 ? this.gender = '女' : this.gender = '未知'
             this.patientName = patientName
+            this.phone = phone
           }
         })
       }
@@ -204,16 +206,28 @@ export default {
     getMedicationSideEffectList () {
       getMedicationSideEffectList({ patientId: this.patientId }).then(res => {
         console.log('家族史既往史:', res)
+        let { data } = res
+        let _allergy = []
+        data && data.map(item => {
+          _allergy.push(item.medName)
+        })
+        this.allergy = _allergy.join(',')
       })
     },
     // 用药记录
     getUseMedRecordList () {
+      console.log('用药记录 running')
       getUseMedRecordList({ patientId: this.patientId }).then(res => {
-        console.log('用药记录：', res);
-        let { row } = res
-        if (row) {
-
+        let { rows } = res
+        console.log('用药记录：', rows);
+        if (rows) {
+          rows.map(item => {
+            item.saved = true
+            // this.data.push(item)
+          })
+          this.data = rows
         }
+        console.log(this.data)
       })
     },
     pushData () {
@@ -251,12 +265,16 @@ export default {
     }
   },
   watch: {
-    patientId: (v) => {
-      if (v) {
-        this.getBaseInfo()
-        this.getUseMedRecordList()
-        this.getMedicationSideEffectList()
-      }
+    patientId: {
+      handler (v) {
+        if (v) {
+          this.getBaseInfo()
+          this.getUseMedRecordList()
+          this.getMedicationSideEffectList()
+        }
+      },
+      immediate: true,
+      deep: true
     },
     data: {
       handler (v) {

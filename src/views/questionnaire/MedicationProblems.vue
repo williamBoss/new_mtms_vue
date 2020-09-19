@@ -36,9 +36,9 @@
                       @click="chioceMed(index)">{{record.medName||'选择药物'}}</a-button>
           </template>
         </a-table-column>
-        <a-table-column key="indications"
+        <a-table-column key="indicationses"
                         title="适应性"
-                        data-index="indications">
+                        data-index="indicationses">
           <template slot-scope="text, record">
             <a-cascader :options="indicationsList"
                         :placeholder="'适应性'"
@@ -49,12 +49,12 @@
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.indications" />
+                        v-model="record.indicationses" />
           </template>
         </a-table-column>
-        <a-table-column key="safety"
+        <a-table-column key="safeties"
                         title="安全性"
-                        data-index="safety">
+                        data-index="safeties">
           <template slot-scope="text, record">
             <a-cascader :options="safetyList"
                         :placeholder="'安全性'"
@@ -65,12 +65,12 @@
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.safety" />
+                        v-model="record.safeties" />
           </template>
         </a-table-column>
-        <a-table-column key="effectiveness"
+        <a-table-column key="effectivenessies"
                         title="有效性"
-                        data-index="effectiveness">
+                        data-index="effectivenessies">
           <template slot-scope="text, record">
             <a-cascader :options="effectivenessList"
                         :placeholder="'有效性'"
@@ -81,12 +81,12 @@
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.effectiveness" />
+                        v-model="record.effectivenessies" />
           </template>
         </a-table-column>
-        <a-table-column key="compliance"
+        <a-table-column key="compliances"
                         title="依从性"
-                        data-index="compliance">
+                        data-index="compliances">
           <template slot-scope="text, record">
             <a-cascader :options="complianceList"
                         :placeholder="'依从性'"
@@ -97,7 +97,7 @@
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.compliance" />
+                        v-model="record.compliances" />
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -146,6 +146,7 @@
                 保存
               </a-button>
             </div>
+            <div v-else>已保存</div>
           </template>
         </a-table-column>
       </a-table>
@@ -195,7 +196,7 @@ import {
 } from '@/api/mtms'
 export default {
   name: 'MedicationProblems',
-  props: ['patientId'],
+  props: ['patientId', 'assessmentId'],
   data () {
     return {
       visible: false,
@@ -377,7 +378,18 @@ export default {
     getDateList () {
       if (this.patientId) {
         getMedicationProblem({ patientId: this.patientId }).then(res => {
-          console.log(res)
+          let { data } = res
+
+          if (data) {
+            let { records } = data
+            if (records) {
+              console.log('获取记录:', records)
+              records.map(item => {
+                item.saved = true
+              })
+              this.data = records
+            }
+          }
         })
       }
     },
@@ -445,16 +457,17 @@ export default {
     //
     pushDataList () {
       this.data.push({
-        compliance: '',
-        effectiveness: '',
-        indications: '',
-        safety: '',
+        compliances: '',
+        effectivenessies: '',
+        indicationses: '',
+        safeties: '',
         diseaseId: '',
         diseaseName: '',
         medId: '',
         medName: '',
         problem: '',
         treatmentSuggestion: '',
+        improvementDetails: '',
         isResolved: '',
         saved: false
       })
@@ -463,10 +476,11 @@ export default {
     confirmData (index) {
       const _data = {
         patientId: this.patientId,
-        compliance: this.data[this.actionIndex].compliance,
-        effectiveness: this.data[this.actionIndex].effectiveness,
-        indications: this.data[this.actionIndex].indications,
-        safety: this.data[this.actionIndex].safety,
+        assessmentId: this.assessmentId,
+        compliances: this.data[this.actionIndex].compliances,
+        effectivenessies: this.data[this.actionIndex].effectivenessies,
+        indicationses: this.data[this.actionIndex].indicationses,
+        safeties: this.data[this.actionIndex].safeties,
         diseaseId: this.data[this.actionIndex].diseaseId,
         diseaseName: this.data[this.actionIndex].diseaseName,
         medId: this.data[this.actionIndex].medId,
@@ -474,6 +488,7 @@ export default {
         problem: this.data[this.actionIndex].problem,
         treatmentSuggestion: this.data[this.actionIndex].treatmentSuggestion,
         isResolved: this.data[this.actionIndex].isResolved,
+        improvementDetails: this.data[this.actionIndex].improvementDetails
       }
       saveMedicationProblem({ ..._data }).then(res => {
         if (res.code === 200) {
