@@ -17,13 +17,6 @@
                           :model="form"
                           :rules="rules"
                           :layout="'vertical'">
-
-              <a-form-model-item label="姓名"
-                                 ref="patientName"
-                                 prop="patientName">
-                <a-input v-model="form.patientName"
-                         placeholder="请输入" />
-              </a-form-model-item>
               <a-form-model-item ref="phone"
                                  prop="phone">
                 <span slot="label">
@@ -45,6 +38,12 @@
                     </a-select-option>
                   </template>
                 </a-auto-complete>
+              </a-form-model-item>
+              <a-form-model-item label="姓名"
+                                 ref="patientName"
+                                 prop="patientName">
+                <a-input v-model="form.patientName"
+                         placeholder="请输入" />
               </a-form-model-item>
               <a-form-model-item label="生日"
                                  ref="birthday"
@@ -218,9 +217,9 @@
                          style="margin:5px 0 10px 0;" />
               </a-form-model-item>
               <a-form-model-item label="接诊医师"
-                                 ref="doctor"
-                                 prop="doctor">
-                <a-input v-model="form.doctor"
+                                 ref="physician"
+                                 prop="physician">
+                <a-input v-model="form.physician"
                          placeholder="请输入接诊医师姓名"
                          style="width: 100%;" />
               </a-form-model-item>

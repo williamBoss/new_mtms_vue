@@ -35,6 +35,9 @@
         <a-tab-pane :key="'MedicationProblems'"
                     :tab="'药物治疗问题'">
         </a-tab-pane>
+        <a-tab-pane :key="'MoriskyQuestionnaire'"
+                    :tab="'用药依从性'">
+        </a-tab-pane>
         <a-tab-pane :key="'AssessmentScale'"
                     :tab="'评估量表'">
         </a-tab-pane>
@@ -82,6 +85,7 @@ import MedicationProblems from '@/views/questionnaire/MedicationProblems'
 import AssessmentScale from '@/views/questionnaire/AssessmentScale'
 import EvaluationReport from '@/views/questionnaire/EvaluationReport'
 import FollowUp from '@/views/questionnaire/FollowUp'
+import MoriskyQuestionnaire from '@/views/questionnaire/MoriskyQuestionnaire'
 
 export default {
   name: 'PatientAssessment',
@@ -95,7 +99,8 @@ export default {
     LifeStyle,
     PatientInfo,
     HistoryInfo,
-    ExistingSymptoms
+    ExistingSymptoms,
+    MoriskyQuestionnaire
   },
   data () {
     return {

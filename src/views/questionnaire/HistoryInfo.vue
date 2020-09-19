@@ -423,7 +423,7 @@ export default {
     savePastSurgicalHistories () {
       savePastSurgicalHistories({
         patientId: this.patientId,
-        pastSurgicalHistoryId: this.form.pastSurgicalHistoryId
+        surgicalIds: this.form.pastSurgicalHistoryId
       }).then(res => {
         if (res.code === 200) {
           this.$message.success('保存成功')
