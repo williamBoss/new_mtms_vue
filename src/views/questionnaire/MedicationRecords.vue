@@ -216,10 +216,8 @@ export default {
     },
     // 用药记录
     getUseMedRecordList () {
-      console.log('用药记录 running')
       getUseMedRecordList({ patientId: this.patientId }).then(res => {
         let { rows } = res
-        console.log('用药记录：', rows);
         if (rows) {
           rows.map(item => {
             item.saved = true
@@ -249,8 +247,7 @@ export default {
     },
     confirmData (record) {
       saveUseMedRecord({ ...record }).then(res => {
-        const { success } = res
-        if (success) {
+        if (res.code === 200) {
           this.data.map(item => {
             if (item.medName === record.medName) {
               item.saved = true
@@ -260,7 +257,6 @@ export default {
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
-        console.log(res)
       })
     }
   },

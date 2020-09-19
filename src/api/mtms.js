@@ -195,29 +195,50 @@ export function saveAllergyHistory (data) {
 export function saveLiverDamage (data) {
   return axios({
     url: api.assessment + '/save_liver_damage',
-    methods: 'post',
+    method: 'post',
     data
   })
 }
 export function allSurgicalHistory (paarams) {
   return axios({
     url: api.assessment + '/all_surgical_history',
-    methods: 'get',
+    method: 'get',
     paarams
   })
 }
 export function getFamilyMedicalHistory (params) {
   return axios({
     url: api.assessment + '/get_family_medical_history',
-    methods: 'get',
+    method: 'get',
     params
   })
 }
 export function getPastMedicalHistory (params) {
   return axios({
     url: api.assessment + '/get_past_medical_history',
-    methods: 'get',
+    method: 'get',
     params
+  })
+}
+export function getPastSurgicalHistories (params) {
+  return axios({
+    url: api.assessment + '/get_past_surgical_histories',
+    method: 'get',
+    params
+  })
+}
+export function saveLifestyleSummary (data) {
+  return axios({
+    url: api.assessment + '/save_lifestyle_summary',
+    method: 'put',
+    data
+  })
+}
+export function saveSequelae (data) {
+  return axios({
+    url: api.assessment + '/save_sequelae',
+    method: 'post',
+    data
   })
 }
 // med
@@ -406,6 +427,13 @@ export function saveMoriskyInfo (data) {
     data
   })
 }
+export function getMoriskyInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/morisky_info',
+    method: 'get',
+    params
+  })
+}
 export function saveEq5d3lInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_eq5d3l_info',
@@ -437,6 +465,13 @@ export function saveSf36Info (data) {
 export function saveParInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_par_info',
+    method: 'post',
+    data
+  })
+}
+export function saveEvaluationReportProblem (data) {
+  return axios({
+    url: baseUrl + '/save_evaluation_report_problem',
     method: 'post',
     data
   })

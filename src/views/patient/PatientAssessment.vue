@@ -128,7 +128,7 @@ export default {
       cardContentWidth: '100%',
       isShowGoBack: false,
       clientHeight: '',
-      patientId: 1,
+      patientId: '',
       assessmentId: 0,
       activeKey: 'HistoryInfo',
       tabs: [
@@ -145,6 +145,9 @@ export default {
     }
   },
   mounted () {
+    if (!this.patientId) {
+      this.$message.error('尚未获取患者信息！')
+    }
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
     this.clientHeight = `${document.documentElement.clientHeight}`
