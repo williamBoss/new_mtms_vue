@@ -946,10 +946,12 @@ export default {
     }
     .row {
       overflow: hidden;
+      padding: 0;
       > div {
         float: left;
         width: 150px;
         line-height: 50px;
+        overflow: hidden;
       }
       > div:not(:last-child) {
         border-right: 1px solid #eee;
