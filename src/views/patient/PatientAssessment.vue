@@ -64,6 +64,7 @@
       <div class="content-view">
         <keep-alive>
           <component :is="activeKey"
+                     :ref="activeKey"
                      :patientId="patientId"
                      :assessmentId="assessmentId"></component>
         </keep-alive>
@@ -138,9 +139,13 @@ export default {
         'MedicationRecords',
         'InspectionAndInspection',
         'MedicationProblems',
+        'MoriskyQuestionnaire',
+        'EQ5D3LQuestionnaire',
+        'EQ5D5LQuestionnaire',
+        'Sf36Questionnaire',
+        'SDSQuestionnaire',
         'AssessmentScale',
         'EvaluationReport',
-        'FollowUp'
       ]
     }
   },
@@ -172,14 +177,14 @@ export default {
     },
     tabChange (activeKey) {
       this.activeKey = activeKey
-      this.isShowGoBack = activeKey !== 'BasicInformation'
+      let _index = this.tabs.indexOf(this.activeKey)
+      this.isShowGoBack = _index
     },
     goBackTab () {
-      const keyIndex = this.tabs.findIndex((e) => {
-        return e === this.activeKey
-      })
-      this.activeKey = this.tabs[keyIndex - 1]
-      this.tabChange(this.activeKey)
+      let _index = this.tabs.indexOf(this.activeKey)
+      if (_index > 0) {
+        this.activeKey = this.tabs[_index - 1]
+      }
     },
     changeFixed (clientHeight) {
       // 动态修改样式
@@ -189,11 +194,32 @@ export default {
       if (this.activeKey === 'BasicInformation') {
         this.$refs.patientInfo.handleSubmit()
       }
-      this.$refs[this.activeKey].onSubmit()
+      if (this.$refs[this.activeKey]) {
+        let { onSubmit } = this.$refs[this.activeKey]
+        if (onSubmit) {
+          onSubmit()
+        }
+        // this.$refs[this.activeKey].onSubmit()
+        let _index = this.tabs.indexOf(this.activeKey)
+        if (_index < this.tabs.length - 1) {
+          this.activeKey = this.tabs[_index + 1]
+        }
+        console.log(_index)
+      }
     },
     getPatientId (id) {
       console.log(id)
       this.patientId = id
+    }
+  },
+  watch: {
+    activeKey: {
+      handler (v) {
+        if (v) {
+          let _index = this.tabs.indexOf(this.activeKey)
+          this.isShowGoBack = _index
+        }
+      }
     }
   }
 }

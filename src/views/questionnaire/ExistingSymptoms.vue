@@ -575,7 +575,7 @@
         </a-form-model>
         <div class="footer-btn-box">
           <a-button type="primary"
-                    @click="confirmData">
+                    @click="onSubmit">
             保存
           </a-button>
         </div>
@@ -677,7 +677,7 @@ export default {
     getCurrentDate () {
       return new Date().toLocaleDateString()
     },
-    async confirmData () {
+    async onSubmit () {
       console.log('submit!', this.form)
       let res1 = await saveDiagnosis({
         patientId: this.patientId,

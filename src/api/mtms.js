@@ -241,6 +241,13 @@ export function saveSequelae (data) {
     data
   })
 }
+export function saveKidneyDamage (data) {
+  return axios({
+    url: api.assessment + '/save_kidney_damage',
+    method: 'post',
+    data
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({
@@ -328,7 +335,7 @@ export function getDetectHomocysteineList (params) {
 }
 export function saveDetectBloodUricAcid (data) {
   return axios({
-    url: api.detect = '/saveDetectBloodUricAcid',
+    url: api.detect + '/saveDetectBloodUricAcid',
     method: 'post',
     data
   })

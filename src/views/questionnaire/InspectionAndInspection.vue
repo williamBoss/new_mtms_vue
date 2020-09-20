@@ -633,7 +633,7 @@ export default {
       })
     },
     savebloodLipids (index) {
-      let _data = JSON.parse(JSON.stringify(THIS.bloodLipids[index]))
+      let _data = JSON.parse(JSON.stringify(this.bloodLipids[index]))
       delete _data.saved
       saveDetectBloodLipids({ ..._data, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -687,7 +687,7 @@ export default {
     saveHomocysteine (index) {
       let _dataH = JSON.parse(JSON.stringify(this.homocysteine[index]))
       delete _dataH.saved
-      saveDetectHomocysteine({ ..._dataBL, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
+      saveDetectHomocysteine({ ..._dataH, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
           this.homocysteine[index].saved = true
           this.$message.success('添加成功')

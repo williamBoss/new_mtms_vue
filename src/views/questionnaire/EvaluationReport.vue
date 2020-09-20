@@ -14,7 +14,7 @@
         </div>
         <div class="row flex">
           <div>年龄</div>
-          <div>{{getAge(userInfo.birthday)}}</div>
+          <div>{{userInfo.birthday&&getAge(userInfo.birthday)}}</div>
           <div>电话</div>
           <div>{{userInfo.phone}}</div>
         </div>

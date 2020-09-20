@@ -211,7 +211,8 @@ import {
   //
   getFamilyMedicalHistory,
   getPastMedicalHistory,
-  getMedicationSideEffectList
+  getMedicationSideEffectList,
+  getPastSurgicalHistories
 } from '@/api/mtms'
 export default {
   props: ['patientId', 'assessmentId'],
@@ -265,14 +266,7 @@ export default {
         kidneyDamage: 0,
         kidneyDamageDesc: ''
       },
-      medicHostoryList: [{
-        otherSymptoms: '',
-        adverseReactionsSymptoms: '',
-        medId: '',
-        medicationSideEffectId: 0,
-        occurrenceDatetime: '',
-        saved: false
-      }],
+      medicHostoryList: [],
       medicData: [],
       medicFilterData: [],
       painList: [],
@@ -289,6 +283,7 @@ export default {
     this.getDiseaseList()
     this.getAllSurgicalHistory()
     this.getMedicationSideEffectList()
+    this.getPastSurgicalHistories()
   },
   methods: {
     /**
@@ -486,16 +481,19 @@ export default {
      * 获取历史数据
      */
     getAllHistoryList () {
+      if (!this.patientId) return
       this.getFamilyMedicalHistory()
       this.getPastMedicalHistory()
     },
     getFamilyMedicalHistory () {
+      if (!this.patientId) return
       getFamilyMedicalHistory({ patientId: this.patientId }).then(res => {
         let { data } = res
         this.familyMedicalHistoryDisease = data
       })
     },
     getPastMedicalHistory () {
+      if (!this.patientId) return
       getPastMedicalHistory({ patientId: this.patientId }).then(res => {
         let { data } = res
         this.pastMedicalHistoryDisease = data
@@ -503,10 +501,10 @@ export default {
     },
     async getMedicationSideEffectList () {
       await this.getMedList()
+      if (!this.patientId) return
       await getMedicationSideEffectList({
         patientId: this.patientId
       }).then(res => {
-        console.log(res)
         let { data } = res
         if (data && data.length > 0) {
           this.form.medicationSideEffect = 1
@@ -536,7 +534,20 @@ export default {
         })
         this.medicHostoryList = data
       })
-    }
+    },
+    getPastSurgicalHistories () {
+      getPastSurgicalHistories({ assessmentId: this.assessmentId, patientId: this.patientId }).then(res => {
+        console.log('手术：', res)
+        let { data } = res
+        if (data) {
+          let _arr = []
+          data.map(item => {
+            _arr.push(item.pastSurgicalHistoryId)
+          })
+          this.form.pastSurgicalHistoryId = _arr
+        }
+      })
+    },
   },
   watch: {
     medicHostoryList: {
