@@ -182,7 +182,7 @@ export default {
       }
     },
     linkBackUp () {
-      this.$router.push({ name: 'patientList' })
+      this.$router.push({ name: 'PatientList' })
     },
     tabChange (activeKey) {
       this.activeKey = activeKey
