@@ -248,6 +248,13 @@ export function saveKidneyDamage (data) {
     data
   })
 }
+export function saveAssessment (data) {
+  return axios({
+    url: api.assessment + '/saveAssessment',
+    method: 'post',
+    data
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({

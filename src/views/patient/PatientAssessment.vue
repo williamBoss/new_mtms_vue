@@ -104,6 +104,9 @@ import EQ5D3LQuestionnaire from '@/views/questionnaire/EQ5D3LQuestionnaire'
 import EQ5D5LQuestionnaire from '@/views/questionnaire/EQ5D5LQuestionnaire'
 import SDSQuestionnaire from '@/views/questionnaire/SDSQuestionnaire'
 import Sf36Questionnaire from '@/views/questionnaire/Sf36Questionnaire'
+import {
+  saveAssessment
+} from '@/api/mtms'
 
 export default {
   name: 'PatientAssessment',
@@ -150,9 +153,10 @@ export default {
     }
   },
   mounted () {
-    if (!this.patientId) {
-      this.$message.error('尚未获取患者信息！')
-    }
+    // if (!this.patientId) {
+    //   this.$message.error('尚未获取患者信息！')
+    // }
+    this.saveAssessment()
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
     this.clientHeight = `${document.documentElement.clientHeight}`
@@ -164,6 +168,11 @@ export default {
     }
   },
   methods: {
+    saveAssessment () {
+      saveAssessment().then(res => {
+        this.assessmentId = res.data.assessmentId
+      })
+    },
     onChangeCardContentWidth (visible) {
       const cardContentWidth = this.$refs.cardContent.$el.clientWidth
       if (visible) {

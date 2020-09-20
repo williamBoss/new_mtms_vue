@@ -226,7 +226,12 @@ export const defaultRouterMap = [
         'key': 'gnqc'
       }
     ]
-  }
+  },
+  // {
+  //   'title': '患者信息',
+  //   'key': 'PatientAssessment',
+  //   'component': PatientAssessment
+  // }
 ]
 
 /**
