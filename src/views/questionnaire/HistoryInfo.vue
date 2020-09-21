@@ -416,7 +416,7 @@ export default {
           this.medicHostoryList[ index ].saved = true
           this.$message.success('新增成功')
         } else {
-          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          this.$message.error('系统错误，保存药物不良反应信息失败，请稍后再试')
         }
       })
     },
@@ -438,7 +438,7 @@ export default {
             this.visible = false
             this.familyMedicalHistoryDisease = _arr
           } else {
-            this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+            this.$message.error('系统错误，保存家族史失败，请稍后再试')
           }
         })
       } else if (this.visibleType === 'history') {
@@ -451,7 +451,7 @@ export default {
             this.visible = false
             this.pastMedicalHistoryDisease = _arr
           } else {
-            this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+            this.$message.error('系统错误，既往病史信息失败，请稍后再试')
           }
         })
       }
@@ -491,7 +491,7 @@ export default {
         if (res.code === 200) {
           this.$message.success('保存成功')
         } else {
-          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          this.$message.error('系统错误，保存既往手术史信息失败，请稍后再试')
         }
       })
     },
@@ -527,7 +527,7 @@ export default {
         if (res.code === 200) {
           this.$message.success('保存成功')
         } else {
-          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          this.$message.error('系统错误，保存肝损伤信息失败，请稍后再试')
         }
       })
     },
@@ -542,7 +542,7 @@ export default {
         if (res.code === 200) {
           this.$message.success('保存成功')
         } else {
-          this.$message.error('系统错误，获取患者信息失败，请稍后再试')
+          this.$message.error('系统错误，保存肾损害信息失败，请稍后再试')
         }
       })
     },

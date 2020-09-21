@@ -126,7 +126,7 @@ export default {
         },
         {
           title: '年龄',
-          dataIndex: 'patientInfoVO.age'
+          dataIndex: 'patientInfoVO.birthday'
         },
         {
           title: '联系方式',

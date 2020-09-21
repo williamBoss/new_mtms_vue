@@ -559,7 +559,7 @@ export default {
       })
     },
     handleSelectPatient (value) {
-      if (value !== '') {
+      if (value) {
         getPatientInfoByPhone(value).then(res => {
           if (res.code === 200) {
             if (res.data !== null) {
