@@ -125,7 +125,7 @@ export default {
           scopedSlots: { customRender: 'gender' }
         },
         {
-          title: '年龄',
+          title: '生日',
           dataIndex: 'patientInfoVO.birthday'
         },
         {
