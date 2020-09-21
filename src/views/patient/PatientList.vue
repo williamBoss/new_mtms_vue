@@ -91,7 +91,7 @@
             slot-scope="text, record">
         <a @click="handleEdit(record)">编辑</a>
         <a-divider type="vertical" />
-        <a @click="delByIds([record.dictId])">删除</a>
+        <a @click="delByIds([record.assessmentId])">删除</a>
       </span>
     </s-table>
   </a-card>
@@ -186,7 +186,7 @@ export default {
       this.$router.push({ name: 'PatientAssessment' })
     },
     delByIds (ids) {
-      delDictType({ ids: ids.join(',') }).then(res => {
+      /*delDictType({ ids: ids.join(',') }).then(res => {
         if (res.code === 0) {
           this.$message.success(`删除成功`)
           this.handleOk()
@@ -194,7 +194,7 @@ export default {
           this.$message.error(res.msg)
         }
         this.selectedRowKeys = []
-      })
+      })*/
     }
   },
   watch: {}
