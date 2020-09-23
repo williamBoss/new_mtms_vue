@@ -116,7 +116,6 @@ export function saveLifestyle (parameter) {
     data: parameter
   })
 }
-
 export function getUseMedRecordList (data) {
   return axios({
     url: api.assessment + '/getUseMedRecordList',
@@ -124,7 +123,6 @@ export function getUseMedRecordList (data) {
     data
   })
 }
-
 export function saveMedicationSideEffect (data) {
   return axios({
     url: api.assessment + '/saveMedicationSideEffect',
@@ -132,7 +130,6 @@ export function saveMedicationSideEffect (data) {
     data
   })
 }
-
 export function saveExistSymptoms (data) {
   return axios({
     url: api.assessment + '/save_exist_symptoms',
@@ -147,7 +144,6 @@ export function saveDiagnosis (data) {
     data
   })
 }
-
 export function saveUseMedRecord (data) {
   return axios({
     url: api.assessment + '/saveUseMedRecord',
@@ -155,7 +151,6 @@ export function saveUseMedRecord (data) {
     data
   })
 }
-
 export function getMedicationSideEffectList (params) {
   return axios({
     url: api.assessment + '/getMedicationSideEffectList',
@@ -163,7 +158,6 @@ export function getMedicationSideEffectList (params) {
     params
   })
 }
-
 export function saveFamilyMedicalHistory (data) {
   return axios({
     url: api.assessment + '/save_family_medical_history',
@@ -231,14 +225,24 @@ export function saveLifestyleSummary (data) {
   return axios({
     url: api.assessment + '/save_lifestyle_summary',
     method: 'put',
-    data
+    params: data,
+    paramsSerializer: data => {
+      return qs.stringify(data, {
+        indices: false
+      })
+    }
   })
 }
 export function saveSequelae (data) {
   return axios({
     url: api.assessment + '/save_sequelae',
     method: 'post',
-    data
+    params: data,
+    paramsSerializer: data => {
+      return qs.stringify(data, {
+        indices: false
+      })
+    }
   })
 }
 export function saveKidneyDamage (data) {
@@ -432,8 +436,7 @@ export function medicationProblemsDict (params) {
     params
   })
 }
-
-// 
+//
 export function saveMoriskyInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_morisky_info',
