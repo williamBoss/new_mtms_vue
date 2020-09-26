@@ -280,6 +280,13 @@ export function getLifestyle (params) {
     params
   })
 }
+export function getExistingSymptoms (params) {
+  return axios({
+    url: api.assessment + '/get_existing_symptoms',
+    methos: 'get',
+    params
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({

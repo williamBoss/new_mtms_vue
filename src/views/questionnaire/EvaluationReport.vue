@@ -98,15 +98,15 @@
         <table>
           <tr>
             <td class="label-div">主诉</td>
-            <td></td>
+            <td>{{existingSymptoms.mainConsult}}</td>
           </tr>
           <tr>
             <td class="label-div">诊断</td>
-            <td></td>
+            <td>{{existingSymptoms.assessmentDiagnosisList.diseaseName}}</td>
           </tr>
           <tr>
             <td class="label-div">当前症状描述</td>
-            <td></td>
+            <td>{{}}</td>
           </tr>
         </table>
       </div>
@@ -430,6 +430,7 @@ import {
   getUseMedRecordList,
   getAssessmentInfo,
   getLifestyle,
+  getExistingSymptoms,
 } from '@/api/mtms'
 export default {
   name: 'EvaluationReport',
@@ -448,6 +449,7 @@ export default {
       lifeStyle: {}, // 生活方式
       medRecordList: [], // 用药记录,
       assessmentInfo: {},
+      existingSymptoms: {},
     }
   },
   mounted () {
@@ -543,6 +545,12 @@ export default {
         let { data } = res
         console.log(data)
         this.lifeStyle = data
+      })
+    },
+    getExistingSymptoms () {
+      getExistingSymptoms({ assessmentId: this.assessmentId }).then(res => {
+        let { data } = res
+        this.existingSymptoms = data
       })
     },
     saveLifestyleSummary () {

@@ -31,9 +31,13 @@
                         title="相关药物"
                         data-index="medicine">
           <template slot-scope="text, record, index">
-            <a-button type="link"
+            <!-- <a-button type="link"
                       class="innerDiv"
-                      @click="chioceMed(index)">{{record.medName||'选择药物'}}</a-button>
+                      @click="chioceMed(index)">{{record.medName||'选择药物'}}</a-button> -->
+            <a-auto-complete v-model="choicedListM"
+                             :data-source="medicFilterData"
+                             @change="changeMedicData"
+                             placeholder="药品名称" />
           </template>
         </a-table-column>
         <a-table-column key="indicationses"
@@ -158,7 +162,7 @@
       </div>
     </a-modal>
     <a-modal v-model="visibleM"
-             title="选择病种"
+             title="选择药品"
              class="paintDiolag"
              @ok="handleOkM">
       <div class="checkPainBoxList">
@@ -195,166 +199,16 @@ export default {
       painList: [],
       medicData: [],
       actionIndex: '',
+      medicFilterData: [],
       //
       choicedList: '',
       choicedListM: '',
       //
-      indicationsList: [{
-        value: '适应证',
-        label: '适应证',
-        children: [
-          {
-            value: '不必要的药物治疗',
-            label: '不必要的药物治疗',
-            children: [
-              {
-                value: '无适应证用药',
-                label: '无适应证用药',
-              },
-              {
-                value: '重复用药',
-                label: '重复用药',
-              },
-              {
-                value: '无须药物治疗',
-                label: '无须药物治疗',
-              },
-              {
-                value: '用于治疗另一种药物的不良反应',
-                label: '用于治疗另一种药物的不良反应',
-              }
-            ]
-          },
-          {
-            value: '需要额外的药物治疗',
-            label: '需要额外的药物治疗',
-            children: [
-              {
-                value: '因身体或疾病状况需要额外的药物治疗',
-                label: '因身体或疾病状况需要额外的药物治疗',
-              },
-              {
-                value: '预防用药',
-                label: '预防用药',
-              },
-              {
-                value: '通过增加药物产生协同作用',
-                label: '通过增加药物产生协同作用',
-              }
-            ]
-          }
-        ]
-      }],
+      indicationsList: [],
       //
-      safetyList: [{
-        value: '安全性',
-        label: '安全性',
-        children: [
-          {
-            value: '药物不良事件',
-            label: '药物不良事件',
-            children: [
-              {
-                value: '与药物剂量无关的不良反应',
-                label: '与药物剂量无关的不良反应',
-              },
-              {
-                value: '有更安全的药物',
-                label: '有更安全的药物',
-              },
-              {
-                value: '药物相互作用引起的与剂量无关的不良反应',
-                label: '药物相互作用引起的与剂量无关的不良反应',
-              },
-              {
-                value: '给药方案调整过快',
-                label: '给药方案调整过快',
-              },
-              {
-                value: '药物相关的过敏反应',
-                label: '药物相关的过敏反应',
-              },
-              {
-                value: '患者存在用药禁忌证',
-                label: '患者存在用药禁忌证',
-              },
-              {
-                value: '用法用量或剂型使用不当',
-                label: '用法用量或剂型使用不当',
-              }
-            ]
-          },
-          {
-            value: '药物剂量过高',
-            label: '药物剂量过高',
-            children: [
-              {
-                value: '剂量过高',
-                label: '剂量过高',
-              },
-              {
-                value: '用药间隔时间太短',
-                label: '用药间隔时间太短',
-              },
-              {
-                value: '用药持续时间太长',
-                label: '用药持续时间太长',
-              },
-              {
-                value: '药物相互作用引起的毒性反应',
-                label: '药物相互作用引起的毒性反应'
-              },
-              {
-                value: '药物剂量调整过快',
-                label: '药物剂量调整过快'
-              }
-            ]
-          }
-        ]
-      }],
-      effectivenessList: [{
-        value: '有效性',
-        label: '有效性',
-        children: [
-          {
-            value: '无效的药物',
-            label: '无效的药物',
-            children: [
-              { value: '患者对药物耐药', label: '患者对药物耐药' },
-              { value: '药物剂型不合适', label: '药物剂型不合适' },
-              { value: '对已确诊的疾病无有效作用', label: '对已确诊的疾病无有效作用' },
-            ]
-          },
-          {
-            value: '药物剂量过低',
-            label: '药物剂量过低',
-            children: [
-              { value: '药物剂量过低', label: '药物剂量过低' },
-              { value: '药物使用间隔过长', label: '药物使用间隔过长' },
-              { value: '药物相互作用导致药物活性降低', label: '药物相互作用导致药物活性降低' },
-              { value: '药物治疗时间过短', label: '药物治疗时间过短' },
-            ]
-          }
-        ]
-      }],
-      complianceList: [{
-        value: '依从性',
-        label: '依从性',
-        children: [
-          {
-            value: '用药依从性问题',
-            label: '用药依从性问题',
-            children: [
-              { value: '患者对药物信息了解不足', label: '患者对药物信息了解不足' },
-              { value: '患者更倾向于不吃药', label: '患者更倾向于不吃药' },
-              { value: '患者经常忘记服药', label: '患者经常忘记服药' },
-              { value: '患者无法负担药费', label: '患者无法负担药费' },
-              { value: '患者自行服用或管理药物', label: '患者自行服用或管理药物' },
-              { value: '患者无法购买到这种药物', label: '患者无法购买到这种药物' }
-            ]
-          }
-        ]
-      }]
+      safetyList: [],
+      effectivenessList: [],
+      complianceList: []
     }
   },
   mounted () {
@@ -382,6 +236,14 @@ export default {
           }
         })
       }
+    },
+    changeMedicData (searchText) {
+      const _data = this.medicData.filter(item => { return item.medName.includes(searchText) })
+      const _arr = []
+      _data.forEach(item => {
+        _arr.push(item.medName)
+      })
+      this.medicFilterData = _arr
     },
     // 
     medicationProblemsDict () {
