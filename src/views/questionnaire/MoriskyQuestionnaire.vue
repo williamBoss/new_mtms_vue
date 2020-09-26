@@ -112,7 +112,8 @@
 </template>
 <script>
 import {
-  saveMoriskyInfo
+  saveMoriskyInfo,
+  getMoriskyInfo,
 } from '@/api/mtms'
 
 export default {
@@ -137,7 +138,22 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getMoriskyInfo()
+  },
   methods: {
+    getMoriskyInfo () {
+      getMoriskyInfo({
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
+      }).then(res => {
+        console.log(res)
+        let { data } = res
+        if (data) {
+          this.moriskyForm = data
+        }
+      })
+    },
     confirmData () {
       saveMoriskyInfo({
         ...this.moriskyForm

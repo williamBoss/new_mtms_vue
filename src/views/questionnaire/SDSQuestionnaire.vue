@@ -355,7 +355,8 @@
 </template>
 <script>
 import {
-  saveSDSlInfo
+  saveSDSlInfo,
+  getSDSlInfo
 } from '@/api/mtms'
 export default {
   name: 'SDSQuestionnaire',
@@ -390,7 +391,18 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getSDSlInfo()
+  },
   methods: {
+    getSDSlInfo () {
+      getSDSlInfo({ patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
+        let { data } = res
+        if (data) {
+          this.sdsForm = data
+        }
+      })
+    },
     confirmData () {
       saveSDSlInfo({ ...this.sdsForm }).then(res => {
         if (res.code === 200) {

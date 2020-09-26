@@ -40,78 +40,68 @@
                         title="适应性"
                         data-index="indicationses">
           <template slot-scope="text, record">
-            <a-cascader :options="indicationsList"
-                        :placeholder="'适应性'"
-                        :fieldNames="{
+            <div>
+              <a-cascader :options="indicationsList"
+                          :placeholder="'适应性'"
+                          :fieldNames="{
                         label: 'medicationProblems'
                         ,
                         value: 'id'
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.indicationses" />
-          </template>
-        </a-table-column>
-        <a-table-column key="safeties"
-                        title="安全性"
-                        data-index="safeties">
-          <template slot-scope="text, record">
-            <a-cascader :options="safetyList"
-                        :placeholder="'安全性'"
-                        :fieldNames="{
+                          v-model="record.indicationses" />
+            </div>
+            <div>
+              <a-cascader :options="safetyList"
+                          :placeholder="'安全性'"
+                          :fieldNames="{
                         label: 'medicationProblems'
                         ,
                         value: 'id'
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.safeties" />
-          </template>
-        </a-table-column>
-        <a-table-column key="effectivenessies"
-                        title="有效性"
-                        data-index="effectivenessies">
-          <template slot-scope="text, record">
-            <a-cascader :options="effectivenessList"
-                        :placeholder="'有效性'"
-                        :fieldNames="{
+                          v-model="record.safeties" />
+            </div>
+            <div>
+              <a-cascader :options="effectivenessList"
+                          :placeholder="'有效性'"
+                          :fieldNames="{
                         label: 'medicationProblems'
                         ,
                         value: 'id'
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.effectivenessies" />
-          </template>
-        </a-table-column>
-        <a-table-column key="compliances"
-                        title="依从性"
-                        data-index="compliances">
-          <template slot-scope="text, record">
-            <a-cascader :options="complianceList"
-                        :placeholder="'依从性'"
-                        :fieldNames="{
+                          v-model="record.effectivenessies" />
+            </div>
+            <div>
+              <a-cascader :options="complianceList"
+                          :placeholder="'依从性'"
+                          :fieldNames="{
                         label: 'medicationProblems'
                         ,
                         value: 'id'
                         ,
                         children: 'childList'
                         }"
-                        v-model="record.compliances" />
+                          v-model="record.compliances" />
+            </div>
           </template>
         </a-table-column>
         <a-table-column key="detail"
                         title="具体问题"
                         data-index="detail">
           <template slot-scope="text, record">
-            <a-input v-model="record.problem" />
+            <a-textarea v-model="record.problem" />
           </template>
         </a-table-column>
         <a-table-column key="detail"
                         title="处理建议"
                         data-index="detail">
           <template slot-scope="text, record">
-            <a-input v-model="record.treatmentSuggestion" />
+            <a-textarea v-model="record.treatmentSuggestion" />
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -129,7 +119,7 @@
                         title="改善详情"
                         data-index="improve">
           <template slot-scope="text, record">
-            <a-input v-model="record.improvementDetails" />
+            <a-textarea v-model="record.improvementDetails" />
           </template>
         </a-table-column>
         <a-table-column key="action"

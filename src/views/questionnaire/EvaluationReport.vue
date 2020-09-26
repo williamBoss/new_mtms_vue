@@ -4,24 +4,24 @@
       <!-- 基本信息 -->
       <div class="userInfo-table table-box">
         <div class="table-header">
-          基本信息
+          （一）基本信息
         </div>
         <div class="row flex">
-          <div>就诊时间</div>
+          <div class="label-div">就诊时间</div>
           <div>{{userInfo.consultationDate}}</div>
-          <div>姓名</div>
+          <div class="label-div">姓名</div>
           <div>{{userInfo.patientName}}</div>
         </div>
         <div class="row flex">
-          <div>年龄</div>
+          <div class="label-div">年龄</div>
           <div>{{userInfo.birthday&&getAge(userInfo.birthday)}}</div>
-          <div>电话</div>
+          <div class="label-div">电话</div>
           <div>{{userInfo.phone}}</div>
         </div>
         <div class="row flex">
-          <div>ID号</div>
+          <div class="label-div">ID号</div>
           <div>{{userInfo.idCardNum}}</div>
-          <div>性别</div>
+          <div class="label-div">性别</div>
           <div>{{userInfo.gender}}</div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         </div>
         <table>
           <tr>
-            <td>既往病史</td>
+            <td class="label-div">既往病史</td>
             <td>
               <a-tag color="green"
                      v-for="(item, index) in historyMed"
@@ -40,7 +40,72 @@
             </td>
           </tr>
           <tr>
-            <td>既往手术史</td>
+            <td class="label-div">既往手术史</td>
+            <td>
+              <a-tag color="green"
+                     v-for="(item, index) in pastSurgicalList"
+                     :key="index">{{item.surgeryName}}</a-tag>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-div">过敏史</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="label-div">肝损害</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="label-div">肾损害</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <!-- 药物不良反应史 -->
+      <div class="table-box">
+        <div class="table-header">
+          药物不良反应史
+        </div>
+        <div class="table-div">
+          <table>
+            <tr>
+              <td class="label-div">序号</td>
+              <td class="label-div">药品名称</td>
+              <td class="label-div">不良反应症状</td>
+              <td class="label-div">发生时间</td>
+            </tr>
+            <tr :key="index"
+                v-for="(item, index) in medicHostoryList">
+              <td>
+                <div>{{ index + 1 }}</div>
+              </td>
+              <td> {{item.medName}}</td>
+              <td>
+                <a-tag color="green"
+                       v-for="(item, index) in historyMed"
+                       :key="index">{{item.diseaseName}}</a-tag>
+              </td>
+              <td><span>{{item.occurrenceDatetime}}</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- 现有症状 -->
+      <div class="table-box">
+        <div class="table-header">
+          现有症状
+        </div>
+        <table>
+          <tr>
+            <td class="label-div">主诉</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="label-div">诊断</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="label-div">当前症状描述</td>
             <td></td>
           </tr>
         </table>
@@ -50,7 +115,84 @@
         <div class="table-header">
           生活方式
         </div>
+        <div class="row flex row-one">
+          <div class="label-div">身高</div>
+          <div>{{userInfo.height}}</div>
+          <div class="label-div">体重</div>
+          <div>{{userInfo.weight}}</div>
+        </div>
+        <div class="row flex row-one">
+          <div class="label-div">BMI</div>
+          <div>{{userInfo.bmi}}</div>
+          <div class="label-div">过去一年体重变化</div>
+          <div>{{lifeStyle.weightChangeType === 1?'增加:':'减少:'}}{{lifeStyle.weightChangeValue}}kg</div>
+        </div>
+        <div class="row flex row-one">
+          <div class="label-div">每日主食量</div>
+          <div>{{lifeStyle.dailyBasicFoodAmount}}两</div>
+          <div class="label-div">摄盐量</div>
+          <div>{{getKeyValue(lifeStyle.dailySaltAmount)}}</div>
+        </div>
+        <div class="row flex row-one">
+          <div class="label-div">油脂</div>
+          <div>{{getKeyValue(lifeStyle.dailyFatAmount)}}</div>
+          <div class="label-div">蔬菜水果</div>
+          <div>{{getKeyValue(lifeStyle.dailyVegetableFruitAmount)}}</div>
+        </div>
         <div class="row flex">
+          <div class="label-div">吸烟</div>
+          <div class="sec-label">
+            <div class="label-div">吸烟量</div>
+            <div class="label-div">吸烟年限</div>
+            <div class="label-div">戒烟年限</div>
+          </div>
+          <div>
+            <div>{{lifeStyle.smokingNum}}支/天</div>
+            <div>{{lifeStyle.smokingYear}}年</div>
+            <div>{{lifeStyle.quitSmokingTime}}年</div>
+          </div>
+        </div>
+        <div class="row flex">
+          <div class="label-div">饮酒</div>
+          <div class="sec-label">
+            <div class="label-div">饮酒量</div>
+            <div class="label-div">饮酒年限</div>
+          </div>
+          <div>
+            <div>{{lifeStyle.drinkingNum}}两/天</div>
+            <div>{{lifeStyle.drinkingNum}}年</div>
+          </div>
+        </div>
+        <div class="row flex">
+          <div class="label-div">运动</div>
+          <div class="sec-label">
+            <div class="label-div">运动项目</div>
+            <div class="label-div">每周运动时间</div>
+          </div>
+          <div>
+            <div>{{lifeStyle.usualSports}}</div>
+            <div>{{lifeStyle.eachExerciseTime}}分钟</div>
+          </div>
+        </div>
+        <div class="row flex">
+          <div class="label-div">睡眠/跌倒</div>
+          <div class="sec-label">
+            <div class="label-div">睡眠障碍</div>
+            <div class="label-div">跌倒原因</div>
+          </div>
+          <div>
+            <div>{{lifeStyle.sleepDisorderAmount}}次/周</div>
+            <div>{{lifeStyle.fallReason}}</div>
+          </div>
+        </div>
+        <div class="row flex">
+          <div class="label-div">建议</div>
+          <div class="flex_one">
+          </div>
+        </div>
+      </div>
+      <!-- 总结 -->
+      <!-- <div class="row flex">
           <div>总结</div>
           <div class="flex_one">
             <a-input placeholder="输入建议..."
@@ -62,10 +204,130 @@
               保存
             </a-button>
           </div>
+        </div> -->
+      <!-- 费用 -->
+      <div class="pay-table table-box">
+        <div class="table-header">
+          费用
+        </div>
+        <div class="expense-table">
+          <div class="table-title row">
+            <div>就诊前</div>
+          </div>
+          <div class="row flex">
+            <div class="label-div">每月医疗总花费</div>
+            <div>
+              <span>{{lifeStyle.beforeTreatmentMonthlyTotal}}</span>
+            </div>
+            <div class="label-div">每月药费</div>
+            <div>
+              <span>{{lifeStyle.beforeTreatmentMonthlyMedicalExpenses}}</span>
+            </div>
+          </div>
+          <div class="table-title row">
+            <div>就诊3个月后</div>
+          </div>
+          <div class="flex row">
+            <div class="label-div">每月医疗总花费(元)</div>
+            <div>
+              <span>{{lifeStyle.afterThreeMonthsTreatmentMonthlyTotal}}</span>
+            </div>
+            <div class="label-div">每月药费(元)</div>
+            <div>
+              <span>{{lifeStyle.afterThreeMonthsTreatmentMonthlyMedicalExpenses}}</span>
+            </div>
+          </div>
+          <div class="table-title row">
+            <div>就诊6个月后</div>
+          </div>
+          <div class="flex row">
+            <div class="label-div">每月医疗总花费(元)</div>
+            <div>
+              <span>{{lifeStyle.afterSixMonthsTreatmentMonthlyTotal}}</span>
+            </div>
+            <div class="label-div">每月药费(元)</div>
+            <div>
+              <span>{{lifeStyle.afterSixMonthsTreatmentMonthlyMedicalExpenses}}</span>
+            </div>
+          </div>
+          <div class="table-title row">
+            <div>就诊12个月后</div>
+          </div>
+          <div class="flex row">
+            <div class="label-div">每月医疗总花费(元)</div>
+            <div>
+              {{lifeStyle.afterTwelveMonthsTreatmentMonthlyTotal}}
+            </div>
+            <div class="label-div">每月药费(元)</div>
+            <div>
+              <span>{{lifeStyle.afterTwelveMonthsTreatmentMonthlyMedicalExpenses}}</span>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- 用药记录 -->
+      <div class="table-box">
+        <div class="table-header">
+          用药记录
+        </div>
+        <a-table :data-source="medRecordList"
+                 class="mr_table"
+                 :pagination="false"
+                 bordered>
+          <a-table-column key="useStartTime"
+                          title="开始时间"
+                          data-index="useStartTime">
+            <template slot-scope="text, record">
+              <span>{{record.useStartTime}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="useEndTime"
+                          title="结束时间"
+                          data-index="useEndTime">
+            <template slot-scope="text, record">
+              <span>{{record.useEndTime}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="medName"
+                          title="药品名称"
+                          data-index="medName">
+            <template slot-scope="text, record">
+              <span>{{record.medName}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="indication"
+                          title="适应症"
+                          data-index="indication">
+            <template slot-scope="text, record">
+              <span>{{record.indication}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="usage"
+                          title="用法"
+                          data-index="usage">
+            <template slot-scope="text, record">
+              <span>{{record.usage}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="dosageMonthly"
+                          title="月用药量（盒）"
+                          data-index="dosageMonthly">
+            <template slot-scope="text, record">
+              <span>{{record.dosageMonthly}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="remark"
+                          title="备注（新增/停用）"
+                          data-index="remark">
+            <template slot-scope="text, record">
+              {{record.remark}}
+            </template>
+          </a-table-column>
+        </a-table>
+      </div>
+      <!--  -->
       <!-- 用药依从性 -->
-      <div class="medResult-table table-box">
+      <!-- <div class="medResult-table table-box">
         <div class="table-header">
           用药依从性
         </div>
@@ -75,11 +337,11 @@
             {{description}}
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- 问题计划 -->
       <div class="problemPlan-table table-box">
         <div class="table-header">
-          问题/计划
+          问题及干预
           <a-button type="link"
                     class="save-btn"
                     @click="pushData">
@@ -90,12 +352,12 @@
              v-for="(item,index) in proPlaData">
           <div>{{index+1}}</div>
           <div class="problem-td">
-            <a-input placeholder="发现问题"
-                     v-model="item.problemDesc" />
+            <a-textarea placeholder="发现问题"
+                        v-model="item.problemDesc" />
           </div>
           <div class="flex_one">
-            <a-input placeholder="干预计划"
-                     v-model="item.interventionPlan" />
+            <a-textarea placeholder="干预计划"
+                        v-model="item.interventionPlan" />
           </div>
           <div v-if="!item.saved"
                class="action-td">
@@ -117,12 +379,33 @@
         </div>
         <div class="row flex">
           <div class="flex_one">
-            <a-input placeholder="转归详情"
-                     v-model="sequelae" />
+            <a-textarea placeholder="转归详情"
+                        v-model="sequelae" />
           </div>
           <div>
             <a-button type="link"
                       @click="confirmDataBack">
+              保存
+            </a-button>
+          </div>
+        </div>
+      </div>
+      <!-- 随访复诊 -->
+      <div class="visit-table table-box">
+        <div class="table-header">
+          随访复诊
+        </div>
+        <div class="row flex">
+          <div class="label-div">下次随访时间</div>
+          <div class="flex_one">
+            <a-date-picker v-model="nextTime"
+                           :valueFormat="'YYYY/MM/DD'"
+                           :format="'YYYY/MM/DD'" />
+          </div>
+          <div v-if="!saved"
+               class="action-td">
+            <a-button type="link"
+                      @click="confirmNextTime(index)">
               保存
             </a-button>
           </div>
@@ -141,7 +424,10 @@ import {
   getPastSurgicalHistories,
   getMoriskyInfo,
   saveEvaluationReportProblem,
-  saveSequelae
+  saveSequelae,
+  getMedicationSideEffectList,
+  getDiagnosis,
+  getUseMedRecordList,
 } from '@/api/mtms'
 export default {
   name: 'EvaluationReport',
@@ -154,7 +440,11 @@ export default {
       proPlaData: [],
       morCountScore: '',
       description: '',
-      sequelae: ''
+      sequelae: '',
+      medicHostoryList: [], // 药物不良反应
+      pastSurgicalList: [], //手术
+      lifeStyle: [], // 生活方式
+      medRecordList: [], // 用药记录
     }
   },
   mounted () {
@@ -167,7 +457,19 @@ export default {
         this.getPastMedicalHistory()
         this.getPastSurgicalHistories()
         this.getMoriskyInfo()
+        this.getMedicationSideEffectList()
+        this.getDiagnosis()
+        this.getUseMedRecordList()
       }
+    },
+    getKeyValue (value) {
+      let _result = ''
+      switch (value) {
+        case 1: _result = '少'; break;
+        case 2: _result = '中'; break;
+        case 3: _result = '多'; break;
+      }
+      return _result
     },
     getAge (data) {
       return getAge(data)
@@ -185,6 +487,7 @@ export default {
     },
     getPastMedicalHistory () {
       getPastMedicalHistory({ patientId: this.patientId }).then(res => {
+        console.log('既往病史：', res)
         let { data } = res
         this.historyMed = data
       })
@@ -192,6 +495,34 @@ export default {
     getPastSurgicalHistories () {
       getPastSurgicalHistories({ assessmentId: this.assessmentId, patientId: this.patientId }).then(res => {
         console.log('手术：', res)
+        let { data } = res
+        if (data) {
+          this.pastSurgicalList = data
+        }
+      })
+    },
+    getMedicationSideEffectList () {
+      getMedicationSideEffectList({ patientId: this.patientId }).then(res => {
+        console.log('药物不良反应：', res)
+        let { data } = res
+        if (data) {
+          this.medicHostoryList = data
+        }
+      })
+    },
+    getDiagnosis () {
+      getDiagnosis({
+        assessmentId: this.assessmentId,
+        patientId: this.patientId
+      }).then(res => {
+        console.log('现有症状：', res)
+
+      })
+    },
+    getUseMedRecordList () {
+      getUseMedRecordList({ patientId: this.patientId }).then(res => {
+        let { rows } = res
+        this.medRecordList = rows
       })
     },
     saveLifestyleSummary () {
@@ -278,7 +609,7 @@ export default {
     .table-header {
       height: 50px;
       line-height: 50px;
-      background: #f5f5f5;
+      background: #ffd965;
       font-weight: bold;
       text-align: center;
       border: 1px solid #e4e3de;
@@ -312,18 +643,35 @@ export default {
       width: 200px;
       height: 50px;
       line-height: 50px;
-      background-color: #fcf8e3;
     }
   }
   //
-  .history-table td {
-    background-color: #f9cccc;
-  }
   //
+  .life-table {
+    .row-one {
+      > div {
+        flex: 1;
+      }
+    }
+  }
   .life-table .row {
     > div {
       padding: 10px;
-      background-color: #dff0d8;
+    }
+    .sec-label {
+      padding: 0;
+      .label-div {
+        border-bottom: 1px solid #e4e3de;
+      }
+    }
+    .sec-label + div {
+      flex: 1;
+      padding: 0;
+      div {
+        border-bottom: 1px solid #e4e3de;
+        min-height: 50px;
+        padding: 10px;
+      }
     }
     > div:first-child,
     > div:last-child {
@@ -370,6 +718,43 @@ export default {
       }
       > div:last-child {
         width: 100px;
+      }
+    }
+  }
+  //
+
+  .label-div {
+    width: 200px;
+    background: #d8d8d8;
+    font-weight: bold;
+    padding: 10px;
+    min-height: 50px;
+  }
+  .table-title > div {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+  .pay-table {
+    .row > div {
+      flex: 1;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 10px;
+    }
+  }
+  .ant-table-body {
+    table {
+      border-right: 1px solid #e4e3de;
+      .ant-table-row-cell-last {
+        border-right: none;
+      }
+    }
+  }
+  .visit-table {
+    .row {
+      div {
+        line-height: 50px;
       }
     }
   }

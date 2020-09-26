@@ -647,7 +647,8 @@
 </template>
 <script>
 import {
-  saveSf36Info
+  saveSf36Info,
+  getSf36Info
 } from '@/api/mtms'
 export default {
   name: 'Sf36Questionnaire',
@@ -697,7 +698,21 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getSf36Info()
+  },
   methods: {
+    getSf36Info () {
+      getSf36Info({
+        assessmentId: this.assessmentId,
+        patientId: this.patientId
+      }).then(res => {
+        let { data } = res
+        if (data) {
+          this.sf36Form = data
+        }
+      })
+    },
     confirmData () {
       console.log('保存！');
       saveSf36Info({ ...this.sf36Form }).then(res => {

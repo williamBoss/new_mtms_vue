@@ -127,7 +127,7 @@
           <div class="flex"
                v-if="form.isDrinking === 1">
             <div class="title">饮酒年限</div>
-            <a-input-number v-model="form.drinkingYear"
+            <a-input-number v-model="form.drinkingNum"
                             :min="0" />
             <span class="unit">年</span>
           </div>

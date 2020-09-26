@@ -115,7 +115,8 @@
 </template>
 <script>
 import {
-  saveEq5d5lInfo
+  saveEq5d5lInfo,
+  getEq5d5lInfo
 } from '@/api/mtms'
 export default {
   name: 'EQ5D5LQuestionnaire',
@@ -135,7 +136,21 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getEq5d5lInfo()
+  },
   methods: {
+    getEq5d5lInfo () {
+      getEq5d5lInfo({
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
+      }).then(res => {
+        let { data } = res
+        if (data) {
+          this.eq5d5lForm = data
+        }
+      })
+    },
     confirmData () {
       saveEq5d5lInfo({ ...this.eq5d5lForm }).then(res => {
         if (res.code === 200) {

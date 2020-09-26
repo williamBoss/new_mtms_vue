@@ -80,10 +80,17 @@
           上一步
         </a-button>
         <a-button type="primary"
+                  v-if="activeKey === 'EvaluationReport'"
+                  @click="linkBackUp">
+          完成
+        </a-button>
+        <a-button type="primary"
+                  v-else
                   @click="saveAssessmentInfo">
           下一步
           <a-icon type="right" />
         </a-button>
+
       </a-button-group>
     </a-card>
   </div>
@@ -160,12 +167,19 @@ export default {
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
     this.clientHeight = `${document.documentElement.clientHeight}`
+    console.log(this.$route)
+    if (this.$route.query.patientId && this.$route.query.type) {
+      if (this.$route.query.type === 'detail') {
+        this.activeKey = 'EvaluationReport'
+        this.patientId = this.$route.query.patientId
+      }
+    }
   },
   watch: {
     // 如果 `clientHeight` 发生改变，这个函数就会运行
     clientHeight: function () {
       this.changeFixed(this.clientHeight)
-    }
+    },
   },
   methods: {
     saveAssessment () {

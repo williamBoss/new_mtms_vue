@@ -25,114 +25,84 @@
       </div>
       <div class="btn-box">
         <div class="table-addbtn-box flex-bettween">
-          <a-button
-            type="primary"
-            class="addHistoryBtn"
-            @click="pushData()"
-          >
+          <a-button type="primary"
+                    class="addHistoryBtn"
+                    @click="pushData()">
             添加用药记录
           </a-button>
         </div>
       </div>
-      <a-table
-        :data-source="data"
-        class="mr_table"
-        :pagination="false"
-        bordered
-      >
-        <a-table-column
-          key="useStartTime"
-          title="开始时间"
-          data-index="useStartTime"
-        >
+      <a-table :data-source="data"
+               class="mr_table"
+               :pagination="false"
+               bordered>
+        <a-table-column key="useStartTime"
+                        title="开始时间"
+                        data-index="useStartTime">
           <template slot-scope="text, record">
-            <a-date-picker
-              v-model="record.useStartTime"
-              :valueFormat="'YYYY/MM/DD'"
-              :format="'YYYY/MM/DD'"
-            />
+            <a-date-picker v-model="record.useStartTime"
+                           :valueFormat="'YYYY/MM/DD'"
+                           :format="'YYYY/MM/DD'" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="useEndTime"
-          title="结束时间"
-          data-index="useEndTime"
-        >
+        <a-table-column key="useEndTime"
+                        title="结束时间"
+                        data-index="useEndTime">
           <template slot-scope="text, record">
-            <a-date-picker
-              v-model="record.useEndTime"
-              :valueFormat="'YYYY/MM/DD'"
-              :format="'YYYY/MM/DD'"
-            />
+            <a-date-picker v-model="record.useEndTime"
+                           :valueFormat="'YYYY/MM/DD'"
+                           :format="'YYYY/MM/DD'" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="medName"
-          title="药品名称"
-          data-index="medName"
-        >
+        <a-table-column key="medName"
+                        title="药品名称"
+                        data-index="medName">
           <template slot-scope="text, record">
-            <a-auto-complete
-              v-model="record.medName"
-              :data-source="medicFilterData"
-              @change="changeMedicData"
-              placeholder="药品名称"
-            />
+            <a-auto-complete v-model="record.medName"
+                             :data-source="medicFilterData"
+                             @change="changeMedicData"
+                             placeholder="药品名称" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="indication"
-          title="适应症"
-          data-index="indication"
-        >
+        <a-table-column key="indication"
+                        title="适应症"
+                        data-index="indication">
           <template slot-scope="text, record">
             <a-input v-model="record.indication" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="usage"
-          title="用法"
-          data-index="usage"
-        >
+        <a-table-column key="usage"
+                        title="用法"
+                        data-index="usage">
           <template slot-scope="text, record">
             <a-input v-model="record.usage" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="dosageMonthly"
-          title="月用药量（盒）"
-          data-index="dosageMonthly"
-        >
+        <a-table-column key="dosageMonthly"
+                        title="月用药量（盒）"
+                        data-index="dosageMonthly">
           <template slot-scope="text, record">
             <a-input v-model="record.dosageMonthly" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="remark"
-          title="备注（新增/停用）"
-          data-index="remark"
-        >
+        <a-table-column key="remark"
+                        title="备注（新增/停用）"
+                        data-index="remark">
           <template slot-scope="text, record">
             <a-input v-model="record.remark" />
           </template>
         </a-table-column>
-        <a-table-column
-          key="action"
-          title="操作"
-          data-index="action"
-        >
+        <a-table-column key="action"
+                        title="操作"
+                        data-index="action">
           <template slot-scope="text, record, index">
             <div v-if="!record.saved">
-              <a-button
-                type="link"
-                @click="deleteData(index)"
-              >
+              <a-button type="link"
+                        @click="deleteData(index)">
                 删除
               </a-button>
-              <a-button
-                type="link"
-                @click="confirmData(record)"
-              >
+              <a-button type="link"
+                        @click="confirmData(record)">
                 保存
               </a-button>
             </div>
@@ -255,6 +225,7 @@ export default {
           this.data = rows
         }
         console.log(this.data)
+
       })
     },
     pushData () {

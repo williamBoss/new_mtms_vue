@@ -89,7 +89,7 @@
       </template>
       <span slot="actions"
             slot-scope="text, record">
-        <a @click="handleEdit(record)">编辑</a>
+        <a @click="goDetail(record)">详情</a>
         <a-divider type="vertical" />
         <a @click="delByIds([record.assessmentId])">删除</a>
       </span>
@@ -195,6 +195,20 @@ export default {
         }
         this.selectedRowKeys = []
       })*/
+    },
+    goDetail (data) {
+      console.log(data)
+      let { patientInfoVO } = data
+      if (patientInfoVO) {
+        let { patientId } = patientInfoVO
+        this.$router.push({
+          name: 'PatientAssessment',
+          query: {
+            patientId: patientId,
+            type: 'detail'
+          }
+        })
+      }
     }
   },
   watch: {}

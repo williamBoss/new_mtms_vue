@@ -588,7 +588,8 @@ import MedicationSideEffectTemplate from './medicationSideEffectTemplate'
 import moment from 'moment'
 import {
   saveDiagnosis,
-  saveExistSymptoms
+  saveExistSymptoms,
+  getDiagnosis,
 } from '@/api/mtms'
 export default {
   name: 'BasicInformation',
@@ -672,6 +673,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getDiagnosis()
+  },
   methods: {
     moment,
     getCurrentDate () {
@@ -720,6 +724,15 @@ export default {
       }
       this.dataSource = [...dataSource, newData]
       this.count = count + 1
+    },
+    getDiagnosis () {
+      getDiagnosis({
+        assessmentId: this.assessmentId,
+        patientId: this.patientId
+      }).then(res => {
+        console.log('现有症状：', res)
+
+      })
     }
   }
 }

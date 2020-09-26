@@ -90,7 +90,8 @@
 
 <script>
 import {
-  saveParInfo
+  saveParInfo,
+  getParInfo
 } from '@/api/mtms'
 export default {
   name: 'AssessmentScale',
@@ -108,7 +109,21 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getParInfo()
+  },
   methods: {
+    getParInfo () {
+      getParInfo({
+        assessmentId: this.assessmentId,
+        patientId: this.patientId
+      }).then(res => {
+        let { data } = res
+        if (data) {
+          this.data = data
+        }
+      })
+    },
     confirmData () {
       saveParInfo({ ...this.data }).then(res => {
         if (res.code === 200) {

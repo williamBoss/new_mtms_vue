@@ -259,6 +259,13 @@ export function saveAssessment (data) {
     data
   })
 }
+export function getDiagnosis (data) {
+  return axios({
+    url: api.assessment + '/get_diagnosis',
+    method: 'post',
+    data
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({
@@ -458,11 +465,25 @@ export function saveEq5d3lInfo (data) {
     data
   })
 }
+export function getEq5d3lInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/eq5d3l_info',
+    method: 'get',
+    params
+  })
+}
 export function saveEq5d5lInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_eq5d5l_info',
     method: 'post',
     data
+  })
+}
+export function getEq5d5lInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/eq5d5l_info',
+    method: 'get',
+    params
   })
 }
 export function saveSDSlInfo (data) {
@@ -472,6 +493,13 @@ export function saveSDSlInfo (data) {
     data
   })
 }
+export function getSDSlInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/sds_info',
+    method: 'get',
+    params
+  })
+}
 export function saveSf36Info (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_sf36_info',
@@ -479,11 +507,25 @@ export function saveSf36Info (data) {
     data
   })
 }
+export function getSf36Info (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/sf36_info',
+    method: 'post',
+    params
+  })
+}
 export function saveParInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_par_info',
     method: 'post',
     data
+  })
+}
+export function getParInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/par_info',
+    method: 'post',
+    params
   })
 }
 export function saveEvaluationReportProblem (data) {
