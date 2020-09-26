@@ -4,7 +4,7 @@
       <!-- 基本信息 -->
       <div class="userInfo-table table-box">
         <div class="table-header">
-          （一）基本信息
+          基本信息
         </div>
         <div class="row flex">
           <div class="label-div">就诊时间</div>
@@ -391,7 +391,7 @@
         </div>
       </div>
       <!-- 随访复诊 -->
-      <div class="visit-table table-box">
+      `<!--<div class="visit-table table-box">
         <div class="table-header">
           随访复诊
         </div>
@@ -410,7 +410,7 @@
             </a-button>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
