@@ -347,7 +347,6 @@ export default {
     this.getDiseaseList()
     this.getAllSurgicalHistory()
     this.getMedicationSideEffectList()
-    this.getPastSurgicalHistories()
   },
   methods: {
     /**
@@ -553,6 +552,7 @@ export default {
       if (!this.patientId) return
       this.getFamilyMedicalHistory()
       this.getPastMedicalHistory()
+      this.getPastSurgicalHistories()
     },
     getFamilyMedicalHistory () {
       if (!this.patientId) return
@@ -605,13 +605,13 @@ export default {
       })
     },
     getPastSurgicalHistories () {
-      getPastSurgicalHistories({ assessmentId: this.assessmentId, patientId: this.patientId }).then(res => {
+      getPastSurgicalHistories({ patientId: this.patientId }).then(res => {
         console.log('手术：', res)
         let { data } = res
         if (data) {
           let _arr = []
           data.map(item => {
-            _arr.push(item.pastSurgicalHistoryId)
+            _arr.push(item.surgicalHistoryId)
           })
           this.form.pastSurgicalHistoryId = _arr
         }

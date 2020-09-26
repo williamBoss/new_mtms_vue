@@ -480,7 +480,7 @@ export default {
           { required: true, message: '请填写患者姓名', trigger: 'blur' }
         ],
         birthday: [
-          { required: true, message: '请填写患者生日！', trigger: 'blur' }
+          { required: true, message: '请填写患者生日！', trigger: [ 'blur', 'change' ] }
         ],
         gender: [
           { required: true, message: '请选择患者性别', trigger: 'change' }
