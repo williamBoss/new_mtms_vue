@@ -429,6 +429,7 @@ import {
   getDiagnosis,
   getUseMedRecordList,
   getAssessmentInfo,
+  getLifestyle,
 } from '@/api/mtms'
 export default {
   name: 'EvaluationReport',
@@ -444,7 +445,7 @@ export default {
       sequelae: '',
       medicHostoryList: [], // 药物不良反应
       pastSurgicalList: [], //手术
-      lifeStyle: [], // 生活方式
+      lifeStyle: {}, // 生活方式
       medRecordList: [], // 用药记录,
       assessmentInfo: {},
     }
@@ -463,6 +464,7 @@ export default {
         this.getDiagnosis()
         this.getUseMedRecordList()
         this.getAssessmentInfo()
+        this.getLifestyle()
       }
     },
     getKeyValue (value) {
@@ -533,6 +535,14 @@ export default {
         console.log('评估记录: ', res)
         let { data } = res
         this.assessmentInfo = data
+      })
+    },
+    getLifestyle () {
+      getLifestyle({ assessmentId: this.assessmentId }).then(res => {
+        console.log('生活方式：', res)
+        let { data } = res
+        console.log(data)
+        this.lifeStyle = data
       })
     },
     saveLifestyleSummary () {

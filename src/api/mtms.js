@@ -259,17 +259,24 @@ export function saveAssessment (data) {
     data
   })
 }
-export function getDiagnosis (data) {
+export function getDiagnosis (params) {
   return axios({
     url: api.assessment + '/get_diagnosis',
-    method: 'post',
-    data
+    method: 'get',
+    params
   })
 }
 export function getAssessmentInfo (params) {
   return axios({
     url: api.assessment + '/get_assessment_info',
-    method: 'post',
+    method: 'get',
+    params
+  })
+}
+export function getLifestyle (params) {
+  return axios({
+    url: api.assessment + '/get_lifestyle',
+    method: 'get',
     params
   })
 }
