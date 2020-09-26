@@ -49,15 +49,15 @@
           </tr>
           <tr>
             <td class="label-div">过敏史</td>
-            <td></td>
+            <td>{{assessmentInfo.allergyHistory?'是':'否'}}</td>
           </tr>
           <tr>
             <td class="label-div">肝损害</td>
-            <td></td>
+            <td>{{assessmentInfo.liverDamage?'是':'否'}}</td>
           </tr>
           <tr>
             <td class="label-div">肾损害</td>
-            <td></td>
+            <td>{{assessmentInfo.kidneyDamage?'是':'否'}}</td>
           </tr>
         </table>
       </div>
@@ -428,6 +428,7 @@ import {
   getMedicationSideEffectList,
   getDiagnosis,
   getUseMedRecordList,
+  getAssessmentInfo,
 } from '@/api/mtms'
 export default {
   name: 'EvaluationReport',
@@ -444,7 +445,8 @@ export default {
       medicHostoryList: [], // 药物不良反应
       pastSurgicalList: [], //手术
       lifeStyle: [], // 生活方式
-      medRecordList: [], // 用药记录
+      medRecordList: [], // 用药记录,
+      assessmentInfo: {},
     }
   },
   mounted () {
@@ -460,6 +462,7 @@ export default {
         this.getMedicationSideEffectList()
         this.getDiagnosis()
         this.getUseMedRecordList()
+        this.getAssessmentInfo()
       }
     },
     getKeyValue (value) {
@@ -523,6 +526,13 @@ export default {
       getUseMedRecordList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         this.medRecordList = rows
+      })
+    },
+    getAssessmentInfo () {
+      getAssessmentInfo({ patientId: this.patientId }).then(res => {
+        console.log('评估记录: ', res)
+        let { data } = res
+        this.assessmentInfo = data
       })
     },
     saveLifestyleSummary () {

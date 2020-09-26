@@ -266,6 +266,13 @@ export function getDiagnosis (data) {
     data
   })
 }
+export function getAssessmentInfo (params) {
+  return axios({
+    url: api.assessment + '/get_assessment_info',
+    method: 'post',
+    params
+  })
+}
 // med
 export function getMedByName (params) {
   return axios({
