@@ -1,7 +1,9 @@
 <template>
   <a-form-model ref="sdsForm"
                 :model="sdsForm"
-                :layout="layout">
+                layout="vertical"
+                :label-col="{ span: 14 }"
+                :wrapper-col="{ span: 14 }">
     <a-form-model-item label="1.我感到情绪沮丧，郁闷？"
                        prop="sdsQ8">
       <a-radio-group v-model="sdsForm.sdsQ8">

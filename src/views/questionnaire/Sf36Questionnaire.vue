@@ -1,7 +1,9 @@
 <template>
   <a-form-model ref="sf36Form"
                 :model="sf36Form"
-                :layout="layout">
+                layout="vertical"
+                :label-col="{ span: 14 }"
+                :wrapper-col="{ span: 14 }">
     <a-form-model-item label="1、总体来讲，您的健康状况是："
                        prop="sf361">
       <a-radio-group v-model="sf36Form.sf361">

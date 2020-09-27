@@ -1,7 +1,9 @@
 <template>
   <a-form-model ref="eq5d3lForm"
                 :model="eq5d3lForm"
-                :layout="layout">
+                layout="vertical"
+                :label-col="{ span: 14 }"
+                :wrapper-col="{ span: 14 }">
     <a-form-model-item label="1.行动能力"
                        prop="actionQ">
       <a-radio-group v-model="eq5d3lForm.actionQ">
