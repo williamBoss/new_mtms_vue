@@ -3,62 +3,94 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
-          <a-col :md="8"
-                 :sm="24">
+          <a-col
+            :md="8"
+            :sm="24"
+          >
             <a-form-item label="患者姓名">
-              <a-input v-model="queryParam.patientName"
-                       placeholder="请输入患者姓名" />
+              <a-input
+                v-model="queryParam.patientName"
+                placeholder="请输入患者姓名"
+              />
             </a-form-item>
           </a-col>
-          <a-col :md="8"
-                 :sm="24">
+          <a-col
+            :md="8"
+            :sm="24"
+          >
             <a-form-item label="患者联系方式">
-              <a-input v-model="queryParam.phone"
-                       placeholder="请输入患者手机号" />
+              <a-input
+                v-model="queryParam.phone"
+                placeholder="请输入患者手机号"
+              />
             </a-form-item>
           </a-col>
-          <a-col :md="8"
-                 :sm="24">
+          <a-col
+            :md="8"
+            :sm="24"
+          >
             <a-form-item label="患者身份证号">
-              <a-input v-model="queryParam.idCardNum"
-                       placeholder="请输入患者手机号" />
+              <a-input
+                v-model="queryParam.idCardNum"
+                placeholder="请输入患者手机号"
+              />
             </a-form-item>
           </a-col>
           <template v-if="advanced">
-            <a-col :md="8"
-                   :sm="24">
+            <a-col
+              :md="8"
+              :sm="24"
+            >
               <a-form-item label="评估时间">
-                <a-range-picker v-model="searchDate"
-                                @change="queryFillDate"
-                                allow-clear="true" />
+                <a-range-picker
+                  v-model="searchDate"
+                  @change="queryFillDate"
+                  allow-clear="true"
+                />
               </a-form-item>
             </a-col>
-            <a-col :md="8"
-                   :sm="24">
+            <a-col
+              :md="8"
+              :sm="24"
+            >
               <a-form-item label="诊断病种">
-                <a-select mode="multiple"
-                          :default-value="[]"
-                          placeholder="请选择病种"
-                          v-model="queryParam.diseaseIds"
-                          allowClear="true">
-                  <a-select-option v-for="d in diseases"
-                                   :key="d.diseaseId">
+                <a-select
+                  mode="multiple"
+                  :default-value="[]"
+                  placeholder="请选择病种"
+                  v-model="queryParam.diseaseIds"
+                  allowClear="true"
+                >
+                  <a-select-option
+                    v-for="d in diseases"
+                    :key="d.diseaseId"
+                  >
                     {{ d.diseaseName }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
           </template>
-          <a-col :md="8"
-                 :sm="24">
-            <span class="table-page-search-submitButtons"
-                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-              <a-button type="primary"
-                        @click="$refs.table.refresh(true)">查询</a-button>
-              <a-button style="margin-left: 8px"
-                        @click="clearSearchContent">重置</a-button>
-              <a @click="toggleAdvanced"
-                 style="margin-left: 8px">
+          <a-col
+            :md="8"
+            :sm="24"
+          >
+            <span
+              class="table-page-search-submitButtons"
+              :style="advanced && { float: 'right', overflow: 'hidden' } || {} "
+            >
+              <a-button
+                type="primary"
+                @click="$refs.table.refresh(true)"
+              >查询</a-button>
+              <a-button
+                style="margin-left: 8px"
+                @click="clearSearchContent"
+              >重置</a-button>
+              <a
+                @click="toggleAdvanced"
+                style="margin-left: 8px"
+              >
                 {{ advanced ? '收起' : '展开' }}
                 <a-icon :type="advanced ? 'up' : 'down'" />
               </a>
@@ -68,30 +100,52 @@
       </a-form>
     </div>
     <div class="table-operator">
-      <a-button type="primary"
-                icon="plus"
-                @click="linkPatientAssessment">新建</a-button>
+      <a-button
+        type="primary"
+        icon="plus"
+        @click="linkPatientAssessment"
+      >新建
+      </a-button>
     </div>
-    <s-table size="default"
-             ref="table"
-             rowKey="assessmentId"
-             :columns="columns"
-             :data="loadData">
-      <template slot="gender"
-                slot-scope="gender">
+    <s-table
+      size="default"
+      ref="table"
+      rowKey="assessmentId"
+      :columns="columns"
+      :data="loadData"
+    >
+      <template
+        slot="gender"
+        slot-scope="gender"
+      >
         {{ gender === 1 ? '男' : gender === 2 ? '女' : '/' }}
       </template>
-      <template slot="diseases"
-                slot-scope="disease">
-        <a-tag v-for="d in disease"
-               :key="d"
-               color="blue">{{ d.diseaseName }}</a-tag>
+      <template
+        slot="diseases"
+        slot-scope="disease"
+      >
+        <a-tag
+          v-for="d in disease"
+          :key="d"
+          color="blue"
+        >{{ d.diseaseName }}
+        </a-tag>
       </template>
-      <span slot="actions"
-            slot-scope="text, record">
-        <a @click="goDetail(record)">详情</a>
+      <span
+        slot="actions"
+        slot-scope="text, record"
+      >
+        <a @click="goDetail(record)">
+          <a-tooltip title="详情">
+            <a-icon type="eye" />
+          </a-tooltip>
+        </a>
         <a-divider type="vertical" />
-        <a @click="delByIds([record.assessmentId])">删除</a>
+        <a @click="delByIds([record.assessmentId])">
+          <a-tooltip title="删除">
+            <a-icon type="delete" />
+          </a-tooltip>
+        </a>
       </span>
     </s-table>
   </a-card>
@@ -125,8 +179,8 @@ export default {
           scopedSlots: { customRender: 'gender' }
         },
         {
-          title: '生日',
-          dataIndex: 'patientInfoVO.birthday'
+          title: '年龄',
+          dataIndex: 'patientInfoVO.age'
         },
         {
           title: '联系方式',
@@ -135,7 +189,8 @@ export default {
         {
           title: '诊断结果',
           dataIndex: 'diseaseVOS',
-          scopedSlots: { customRender: 'diseases' }
+          scopedSlots: { customRender: 'diseases' },
+          width: '25%'
         },
         {
           title: '记录医师',
@@ -175,8 +230,8 @@ export default {
     },
     queryFillDate (date, dateString) {
       this.searchDate = date
-      this.queryParam.fillDateStart = dateString[0]
-      this.queryParam.fillDateEnd = dateString[1]
+      this.queryParam.fillDateStart = dateString[ 0 ]
+      this.queryParam.fillDateEnd = dateString[ 1 ]
     },
     clearSearchContent () {
       this.queryParam = {}
@@ -198,12 +253,13 @@ export default {
     },
     goDetail (data) {
       console.log(data)
-      let { patientInfoVO } = data
+      let { assessmentId, patientInfoVO } = data
       if (patientInfoVO) {
         let { patientId } = patientInfoVO
         this.$router.push({
           name: 'PatientAssessment',
           query: {
+            assessmentId: assessmentId,
             patientId: patientId,
             type: 'detail'
           }

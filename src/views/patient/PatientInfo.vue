@@ -382,9 +382,14 @@
             tab="药物不良反应记录"
             force-render
           >
-            <a-timeline>
+            <a-timeline v-if="medicHistoryList.length === 0">
               <a-timeline-item>
-                2017-09-01
+                该患者暂无药物不良反应记录
+              </a-timeline-item>
+            </a-timeline>
+            <a-timeline v-else>
+              <a-timeline-item v-for="(item) in medicHistoryList" :key="item.medicationSideEffectId">
+                {{ item.occurrenceDatetime }}
                 <a-tag
                   color="#2db7f5"
                   style="float: right;"
@@ -392,11 +397,11 @@
                   患者评估
                 </a-tag>
                 <a-card :bordered="false">
-                  <h4>药师：李医师</h4>
-                  <p>咳嗽、咳痰伴发热3天，患者于3天前因下地干农活受凉后出现咳嗽、咳痰，无恶心、呕吐，无胸闷、气短，无腹胀、腹痛及腹泻，近日上述症状加重，今日故日前来我院就诊。</p>
+                  <h4>药品名称：{{ item.medName }}</h4>
+                  <p>不良反应症状：{{ item.adverseReactionsSymptoms }}</p>
                 </a-card>
               </a-timeline-item>
-              <a-timeline-item>
+              <!--<a-timeline-item>
                 2015-09-01
                 药师：李医师
                 <a-tag
@@ -405,7 +410,7 @@
                 >
                   药学门诊
                 </a-tag>
-              </a-timeline-item>
+              </a-timeline-item>-->
             </a-timeline>
           </a-tab-pane>
         </a-tabs>
@@ -430,7 +435,7 @@
 <script>
 import moment from 'moment'
 import {
-  getAssessmentListByPatientId,
+  getAssessmentListByPatientId, getMedicationSideEffectList,
   getPatientInfoByPhone,
   getPatientListByPhone,
   savePatientInfo,
@@ -449,6 +454,7 @@ export default {
       patientId: 0,
       patientInfo: [],
       assessmentRecording: [],
+      medicHistoryList: [],
       form: {
         patientName: '',
         birthday: '',
@@ -572,6 +578,7 @@ export default {
                 })
               }
               this.getAssessmentListByPatientId(res.data.patientId)
+              this.getMedicationSideEffectList(res.data.patientId)
             }
           } else {
             this.notification('error', '查询失败', '系统错误，获取患者信息失败，请稍后再试')
@@ -637,6 +644,15 @@ export default {
         }
       }).catch(() => {
         this.notification('error', '查询失败', '系统错误，获取评估记录失败，请稍后再试')
+      })
+    },
+    getMedicationSideEffectList (patientId) {
+      getMedicationSideEffectList({ patientId: patientId }).then(res => {
+        console.log('药物不良反应：', res)
+        let { data } = res
+        if (data) {
+          this.medicHistoryList = data
+        }
       })
     }
   }
