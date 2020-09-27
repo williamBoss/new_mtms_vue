@@ -278,7 +278,6 @@ export default {
         let { data } = res
         this.complianceList = data
       })
-
     },
     // 药物列表
     getMedList () {

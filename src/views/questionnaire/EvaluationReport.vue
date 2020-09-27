@@ -49,15 +49,15 @@
           </tr>
           <tr>
             <td class="label-div">过敏史</td>
-            <td>{{assessmentInfo.allergyHistory?'是':'否'}}</td>
+            <td>{{assessmentInfo?assessmentInfo.allergyHistory?'是':'否':''}}</td>
           </tr>
           <tr>
             <td class="label-div">肝损害</td>
-            <td>{{assessmentInfo.liverDamage?'是':'否'}}</td>
+            <td>{{assessmentInfo?assessmentInfo.liverDamage?'是':'否':''}}</td>
           </tr>
           <tr>
             <td class="label-div">肾损害</td>
-            <td>{{assessmentInfo.kidneyDamage?'是':'否'}}</td>
+            <td>{{assessmentInfo?assessmentInfo.kidneyDamage?'是':'否':''}}</td>
           </tr>
         </table>
       </div>
@@ -123,19 +123,19 @@
           <div class="label-div">BMI</div>
           <div>{{userInfo.bmi}}</div>
           <div class="label-div">过去一年体重变化</div>
-          <div>{{lifeStyle.weightChangeType === 1?'增加:':'减少:'}}{{lifeStyle.weightChangeValue}}kg</div>
+          <div>{{lifeStyle?lifeStyle.weightChangeType === 1?'增加:':'减少:':''}}{{lifeStyle?lifeStyle.weightChangeValue:''}}kg</div>
         </div>
         <div class="row flex row-one">
           <div class="label-div">每日主食量</div>
-          <div>{{lifeStyle.dailyBasicFoodAmount}}两</div>
+          <div>{{lifeStyle?lifeStyle.dailyBasicFoodAmount:''}}两</div>
           <div class="label-div">摄盐量</div>
-          <div>{{getKeyValue(lifeStyle.dailySaltAmount)}}</div>
+          <div>{{getKeyValue(lifeStyle?lifeStyle.dailySaltAmount:'')}}</div>
         </div>
         <div class="row flex row-one">
           <div class="label-div">油脂</div>
-          <div>{{getKeyValue(lifeStyle.dailyFatAmount)}}</div>
+          <div>{{getKeyValue(lifeStyle?lifeStyle.dailyFatAmount:'')}}</div>
           <div class="label-div">蔬菜水果</div>
-          <div>{{getKeyValue(lifeStyle.dailyVegetableFruitAmount)}}</div>
+          <div>{{getKeyValue(lifeStyle?lifeStyle.dailyVegetableFruitAmount:'')}}</div>
         </div>
         <div class="row flex">
           <div class="label-div">吸烟</div>
@@ -145,9 +145,9 @@
             <div class="label-div">戒烟年限</div>
           </div>
           <div>
-            <div>{{lifeStyle.smokingNum}}支/天</div>
-            <div>{{lifeStyle.smokingYear}}年</div>
-            <div>{{lifeStyle.quitSmokingTime}}年</div>
+            <div>{{lifeStyle?lifeStyle.smokingNum:''}}支/天</div>
+            <div>{{lifeStyle?lifeStyle.smokingYear:''}}年</div>
+            <div>{{lifeStyle?lifeStyle.quitSmokingTime:''}}年</div>
           </div>
         </div>
         <div class="row flex">
@@ -157,8 +157,8 @@
             <div class="label-div">饮酒年限</div>
           </div>
           <div>
-            <div>{{lifeStyle.drinkingNum}}两/天</div>
-            <div>{{lifeStyle.drinkingNum}}年</div>
+            <div>{{lifeStyle?lifeStyle.drinkingNum:''}}两/天</div>
+            <div>{{lifeStyle?lifeStyle.drinkingNum:''}}年</div>
           </div>
         </div>
         <div class="row flex">
@@ -168,8 +168,8 @@
             <div class="label-div">每周运动时间</div>
           </div>
           <div>
-            <div>{{lifeStyle.usualSports}}</div>
-            <div>{{lifeStyle.eachExerciseTime}}分钟</div>
+            <div>{{lifeStyle?lifeStyle.usualSports:''}}</div>
+            <div>{{lifeStyle?lifeStyle.eachExerciseTime:''}}分钟</div>
           </div>
         </div>
         <div class="row flex">
@@ -179,8 +179,8 @@
             <div class="label-div">跌倒原因</div>
           </div>
           <div>
-            <div>{{lifeStyle.sleepDisorderAmount}}次/周</div>
-            <div>{{lifeStyle.fallReason}}</div>
+            <div>{{lifeStyle?lifeStyle.sleepDisorderAmount:''}}次/周</div>
+            <div>{{lifeStyle?lifeStyle.fallReason:''}}</div>
           </div>
         </div>
         <div class="row flex">
@@ -215,11 +215,11 @@
           <div class="row flex">
             <div class="label-div">每月医疗总花费</div>
             <div>
-              <span>{{lifeStyle.beforeTreatmentMonthlyTotal}}</span>
+              <span>{{lifeStyle?lifeStyle.beforeTreatmentMonthlyTotal:''}}</span>
             </div>
             <div class="label-div">每月药费</div>
             <div>
-              <span>{{lifeStyle.beforeTreatmentMonthlyMedicalExpenses}}</span>
+              <span>{{lifeStyle?lifeStyle.beforeTreatmentMonthlyMedicalExpenses:''}}</span>
             </div>
           </div>
           <div class="table-title row">
@@ -228,11 +228,11 @@
           <div class="flex row">
             <div class="label-div">每月医疗总花费(元)</div>
             <div>
-              <span>{{lifeStyle.afterThreeMonthsTreatmentMonthlyTotal}}</span>
+              <span>{{lifeStyle?lifeStyle.afterThreeMonthsTreatmentMonthlyTotal:''}}</span>
             </div>
             <div class="label-div">每月药费(元)</div>
             <div>
-              <span>{{lifeStyle.afterThreeMonthsTreatmentMonthlyMedicalExpenses}}</span>
+              <span>{{lifeStyle?lifeStyle.afterThreeMonthsTreatmentMonthlyMedicalExpenses:''}}</span>
             </div>
           </div>
           <div class="table-title row">
@@ -241,11 +241,11 @@
           <div class="flex row">
             <div class="label-div">每月医疗总花费(元)</div>
             <div>
-              <span>{{lifeStyle.afterSixMonthsTreatmentMonthlyTotal}}</span>
+              <span>{{lifeStyle?lifeStyle.afterSixMonthsTreatmentMonthlyTotal:''}}</span>
             </div>
             <div class="label-div">每月药费(元)</div>
             <div>
-              <span>{{lifeStyle.afterSixMonthsTreatmentMonthlyMedicalExpenses}}</span>
+              <span>{{lifeStyle?lifeStyle.afterSixMonthsTreatmentMonthlyMedicalExpenses:''}}</span>
             </div>
           </div>
           <div class="table-title row">
@@ -254,21 +254,21 @@
           <div class="flex row">
             <div class="label-div">每月医疗总花费(元)</div>
             <div>
-              {{lifeStyle.afterTwelveMonthsTreatmentMonthlyTotal}}
+              {{lifeStyle?lifeStyle.afterTwelveMonthsTreatmentMonthlyTotal:''}}
             </div>
             <div class="label-div">每月药费(元)</div>
             <div>
-              <span>{{lifeStyle.afterTwelveMonthsTreatmentMonthlyMedicalExpenses}}</span>
+              <span>{{lifeStyle?lifeStyle.afterTwelveMonthsTreatmentMonthlyMedicalExpenses:''}}</span>
             </div>
           </div>
         </div>
       </div>
-      <!-- 用药记录 -->
+      <!-- 药物治疗相关问题处理建议 -->
       <div class="table-box">
         <div class="table-header">
-          用药记录
+          药物治疗相关问题处理建议
         </div>
-        <a-table :data-source="medRecordList"
+        <!-- <a-table :data-source="medRecordList"
                  class="mr_table"
                  :pagination="false"
                  bordered>
@@ -319,6 +319,111 @@
                           data-index="remark">
             <template slot-scope="text, record">
               {{record.remark}}
+            </template>
+          </a-table-column>
+        </a-table> -->
+        <a-table :data-source="mpData"
+                 class="mr_table"
+                 :pagination="false"
+                 :scroll="{ x: 800 }"
+                 bordered>
+          <a-table-column key="index"
+                          title="序号"
+                          :width="100"
+                          data-index="index">
+            <template slot-scope="text, record, index">{{index+1}}</template>
+          </a-table-column>
+          <a-table-column key="diseaseName"
+                          title="相关疾病"
+                          :width="200"
+                          data-index="diseaseName">
+
+          </a-table-column>
+          <a-table-column key="medName"
+                          title="相关药物"
+                          :width="200"
+                          data-index="medName">
+            <template slot-scope="text, record, index">
+              <span>{{record.medName}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="indicationses"
+                          title="适应性"
+                          :width="400"
+                          data-index="indicationses">
+            <template slot-scope="text, record">
+              <div>
+                <a-cascader :options="indicationsList"
+                            :placeholder="'适应性'"
+                            :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
+                            v-model="record.indicationses" />
+              </div>
+              <div>
+                <a-cascader :options="safetyList"
+                            :placeholder="'安全性'"
+                            :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
+                            v-model="record.safeties" />
+              </div>
+              <div>
+                <a-cascader :options="effectivenessList"
+                            :placeholder="'有效性'"
+                            :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
+                            v-model="record.effectivenessies" />
+              </div>
+              <div>
+                <a-cascader :options="complianceList"
+                            :placeholder="'依从性'"
+                            :fieldNames="{
+                        label: 'medicationProblems'
+                        ,
+                        value: 'id'
+                        ,
+                        children: 'childList'
+                        }"
+                            v-model="record.compliances" />
+              </div>
+            </template>
+          </a-table-column>
+          <a-table-column key="detail"
+                          title="具体问题"
+                          :width="400"
+                          data-index="detail">
+            <template slot-scope="text, record">
+              <span>{{record.problem}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="detail"
+                          title="处理建议"
+                          :width="400"
+                          data-index="detail">
+            <template slot-scope="text, record">
+              <span>{{record.treatmentSuggestion}}</span>
+            </template>
+          </a-table-column>
+          <a-table-column key="improve"
+                          title="改善详情"
+                          :width="400"
+                          data-index="improve">
+            <template slot-scope="text, record">
+              <span>{{record.improvementDetails}}</span>
             </template>
           </a-table-column>
         </a-table>
@@ -416,6 +521,7 @@
 
 <script>
 import { getAge } from '@/utils/commonFtn.js'
+import problemList from './problemConfig.js'
 import {
   getPatientInfoById,
   getPastMedicalHistory,
@@ -430,6 +536,11 @@ import {
   getAssessmentInfo,
   getLifestyle,
   getExistingSymptoms,
+  medicationProblemsDict,
+  getMedicationProblem,
+  getDiseaseList,
+  getMedList,
+  getAllMed,
 } from '@/api/mtms'
 export default {
   name: 'EvaluationReport',
@@ -449,6 +560,15 @@ export default {
       medRecordList: [], // 用药记录,
       assessmentInfo: {},
       existingSymptoms: {},
+      //
+      indicationsList: [],
+      effectivenessList: [],
+      safetyList: [],
+      complianceList: [],
+      mpData: [],
+      painList: [],
+      medicData: [],
+      problemList
     }
   },
   mounted () {
@@ -466,6 +586,11 @@ export default {
         this.getUseMedRecordList()
         this.getAssessmentInfo()
         this.getLifestyle()
+        this.medicationProblemsDict()
+        this.getMedicationProblem()
+        this.getDiseaseList()
+        this.getMedList()
+        this.getExistingSymptoms()
       }
     },
     getKeyValue (value) {
@@ -548,10 +673,67 @@ export default {
       })
     },
     getExistingSymptoms () {
-      getExistingSymptoms({ assessmentId: this.assessmentId }).then(res => {
+      getExistingSymptoms({ patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         let { data } = res
         console.log('现有症状1：', res)
         this.existingSymptoms = data
+      })
+    },
+    medicationProblemsDict () {
+      // 问题类型 1.适应症 2.有效性 3.安全性 4.依从性
+      medicationProblemsDict({ problemType: 1 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.indicationsList = data
+      })
+      medicationProblemsDict({ problemType: 2 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.effectivenessList = data
+      })
+      medicationProblemsDict({ problemType: 3 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.safetyList = data
+      })
+      medicationProblemsDict({ problemType: 4 }).then(res => {
+        console.log(res)
+        let { data } = res
+        this.complianceList = data
+      })
+    },
+    getMedicationProblem () {
+      if (this.patientId) {
+        getMedicationProblem({ patientId: this.patientId }).then(res => {
+          let { data } = res
+          if (data) {
+            let { records } = data
+            if (records) {
+              this.mpData = records.filter(item => { return item.isResolved === 1 })
+              console.log('获取药物问题记录:', this.mpData)
+            }
+          }
+        })
+      }
+    },
+    // 所有疾病列表
+    getDiseaseList () {
+      getDiseaseList().then(res => {
+        console.log('所有病种：', res)
+        let { rows } = res
+        if (rows) {
+          this.painList = rows
+        }
+      })
+    },
+    // 药物列表
+    getMedList () {
+      getAllMed().then(res => {
+        console.log('药品列表：', res)
+        let { data } = res
+        if (data) {
+          this.medicData = data
+        }
       })
     },
     saveLifestyleSummary () {
@@ -566,7 +748,10 @@ export default {
     getMoriskyInfo () {
       getMoriskyInfo({ assessmentId: this.assessmentId, patientId: this.patientId }).then(res => {
         console.log('getMoriskyInfo: ', res)
-        this.morCountScore = res.data.morCountScore
+        let { data } = res
+        if (data) {
+          this.morCountScore = data.morCountScore
+        }
         if (this.morCountScore) {
           if (this.morCountScore < 6) {
             this.description = '依从性差'
@@ -617,7 +802,7 @@ export default {
     },
     getDesc () {
       if (this.existingSymptoms) {
-
+        console.log('existingSymptoms: ', this.existingSymptoms)
       }
     }
   },
