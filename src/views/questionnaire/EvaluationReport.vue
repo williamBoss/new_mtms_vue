@@ -20,7 +20,7 @@
         </div>
         <div class="row flex">
           <div class="label-div">ID号</div>
-          <div>{{userInfo.idCardNum}}</div>
+          <div>{{userInfo.patientId}}</div>
           <div class="label-div">性别</div>
           <div>{{userInfo.gender}}</div>
         </div>
@@ -81,9 +81,7 @@
               </td>
               <td> {{item.medName}}</td>
               <td>
-                <a-tag color="green"
-                       v-for="(item, index) in historyMed"
-                       :key="index">{{item.diseaseName}}</a-tag>
+                <span>{{item.adverseReactionsSymptoms}}</span>
               </td>
               <td><span>{{item.occurrenceDatetime}}</span></td>
             </tr>
@@ -102,7 +100,7 @@
           </tr>
           <tr>
             <td class="label-div">诊断</td>
-            <td>{{existingSymptoms.assessmentDiagnosisList.diseaseName}}</td>
+            <td>{{existingSymptoms.assessmentDiagnosisList?existingSymptoms.assessmentDiagnosisList.diseaseName:''}}</td>
           </tr>
           <tr>
             <td class="label-div">当前症状描述</td>
@@ -391,7 +389,8 @@
         </div>
       </div>
       <!-- 随访复诊 -->
-      `<!--<div class="visit-table table-box">
+      `
+      <!--<div class="visit-table table-box">
         <div class="table-header">
           随访复诊
         </div>
@@ -463,7 +462,7 @@ export default {
         this.getPastSurgicalHistories()
         this.getMoriskyInfo()
         this.getMedicationSideEffectList()
-        this.getDiagnosis()
+        // this.getDiagnosis()
         this.getUseMedRecordList()
         this.getAssessmentInfo()
         this.getLifestyle()
@@ -517,15 +516,16 @@ export default {
         }
       })
     },
-    getDiagnosis () {
-      getDiagnosis({
-        assessmentId: this.assessmentId,
-        patientId: this.patientId
-      }).then(res => {
-        console.log('现有症状：', res)
-
-      })
-    },
+    // getDiagnosis () {
+    //   getDiagnosis({
+    //     assessmentId: this.assessmentId,
+    //     patientId: this.patientId
+    //   }).then(res => {
+    //     console.log('现有症状2：', res)
+    //     let { data } = res
+    //     this.existingSymptoms = data
+    //   })
+    // },
     getUseMedRecordList () {
       getUseMedRecordList({ patientId: this.patientId }).then(res => {
         let { rows } = res
@@ -533,7 +533,7 @@ export default {
       })
     },
     getAssessmentInfo () {
-      getAssessmentInfo({ patientId: this.patientId }).then(res => {
+      getAssessmentInfo({ patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         console.log('评估记录: ', res)
         let { data } = res
         this.assessmentInfo = data
@@ -550,6 +550,7 @@ export default {
     getExistingSymptoms () {
       getExistingSymptoms({ assessmentId: this.assessmentId }).then(res => {
         let { data } = res
+        console.log('现有症状1：', res)
         this.existingSymptoms = data
       })
     },
