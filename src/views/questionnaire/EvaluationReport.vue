@@ -551,7 +551,11 @@ export default {
       userInfo: {},
       historyMed: [],
       lifestyleSummary: '',
-      proPlaData: [],
+      proPlaData: [{
+        interventionPlan: '',
+        problemDesc: '',
+        saved: false
+      }],
       morCountScore: '',
       description: '',
       sequelae: '',

@@ -345,9 +345,16 @@ export default {
       }
       const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.concat(_otherSymptoms)
         .join(',')
+      let medId = ''
+      this.medicData.forEach(item => {
+        if (item.medName === this.medicHostoryList[index].medName) {
+          medId = item.medId
+        }
+      })
       saveMedicationSideEffect({
         adverseReactionsSymptoms: adverseReactionsSymptoms,
         medName: this.medicHostoryList[index].medName,
+        medId: medId,
         occurrenceDatetime: this.medicHostoryList[index].occurrenceDatetime,
         patientId: this.patientId,
         assessmentId: this.assessmentId
@@ -664,7 +671,13 @@ export default {
     margin-bottom: 15px;
   }
 
-  .checkPainBoxList {
+  .table-body {
+    .ant-checkbox-group {
+      width: 100%;
+      .ant-checkbox-wrapper {
+        width: 45%;
+      }
+    }
   }
 }
 </style>
