@@ -16,7 +16,7 @@
             <div class="number">
               1
             </div>
-            <div class="flex flex_one">
+            <div class="flex flex_one" style="line-height: 50px;">
               <div>10年发病风险</div>
             </div>
             <div class="action_div">
@@ -31,7 +31,7 @@
             <div class="number">
               2
             </div>
-            <div class="flex flex_one">
+            <div class="flex flex_one" style="line-height: 50px;">
               <div>理想危险因素状态下，您的心脑血管病10年发病风险应小于</div>
             </div>
             <div class="action_div">
@@ -55,7 +55,7 @@
             <div class="number">
               1
             </div>
-            <div class="flex flex_one">
+            <div class="flex flex_one" style="line-height: 50px;">
               <div>终生发病风险</div>
             </div>
             <div class="action_div">
@@ -70,7 +70,7 @@
             <div class="number">
               2
             </div>
-            <div class="flex flex_one">
+            <div class="flex flex_one" style="line-height: 50px;">
               <div>理想危险因素状态下，您的心脑血管病终生发病风险应小于</div>
             </div>
             <div class="action_div">
