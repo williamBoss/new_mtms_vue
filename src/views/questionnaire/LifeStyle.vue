@@ -289,12 +289,12 @@
           <div class="expense-table">
             <div class="table-title">就诊前</div>
             <div class="flex">
-              <div>每月医疗总花费</div>
+              <div>每月医疗总花费(元)</div>
               <div>
                 <a-input-number v-model="form.beforeTreatmentMonthlyTotal"
                                 :min="0" />
               </div>
-              <div>每月药费</div>
+              <div>每月药费(元)</div>
               <div>
                 <a-input-number v-model="form.beforeTreatmentMonthlyMedicalExpenses"
                                 :min="0" />
@@ -340,6 +340,11 @@
               </div>
             </div>
           </div>
+        </a-collapse-panel>
+        <!-- 6 -->
+        <a-collapse-panel key="6"
+                          header="总结">
+          <a-textarea v-model="form.lifestyleSummary"></a-textarea>
         </a-collapse-panel>
       </a-collapse>
       <div class="footer-btn-box">
@@ -402,7 +407,8 @@ export default {
         afterSixMonthsTreatmentMonthlyTotal: '',
         afterSixMonthsTreatmentMonthlyMedicalExpenses: '',
         afterTwelveMonthsTreatmentMonthlyTotal: '',
-        afterTwelveMonthsTreatmentMonthlyMedicalExpenses: ''
+        afterTwelveMonthsTreatmentMonthlyMedicalExpenses: '',
+        lifestyleSummary: ''
       }
     }
   },

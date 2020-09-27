@@ -100,11 +100,11 @@
           </tr>
           <tr>
             <td class="label-div">诊断</td>
-            <td>{{existingSymptoms.assessmentDiagnosisList?existingSymptoms.assessmentDiagnosisList.diseaseName:''}}</td>
+            <td>{{getDiseaseName(existingSymptoms.assessmentDiagnosisList?existingSymptoms.assessmentDiagnosisList:[])}}</td>
           </tr>
           <tr>
             <td class="label-div">当前症状描述</td>
-            <td>{{getDesc()}}</td>
+            <td>{{getDesc}}</td>
           </tr>
         </table>
       </div>
@@ -115,9 +115,9 @@
         </div>
         <div class="row flex row-one">
           <div class="label-div">身高</div>
-          <div>{{userInfo.height}}</div>
+          <div>{{userInfo.height}}cm</div>
           <div class="label-div">体重</div>
-          <div>{{userInfo.weight}}</div>
+          <div>{{userInfo.weight}}kg</div>
         </div>
         <div class="row flex row-one">
           <div class="label-div">BMI</div>
@@ -186,6 +186,7 @@
         <div class="row flex">
           <div class="label-div">建议</div>
           <div class="flex_one">
+            {{lifeStyle?lifeStyle.lifestyleSummary:''}}
           </div>
         </div>
       </div>
@@ -213,11 +214,11 @@
             <div>就诊前</div>
           </div>
           <div class="row flex">
-            <div class="label-div">每月医疗总花费</div>
+            <div class="label-div">每月医疗总花费(元)</div>
             <div>
               <span>{{lifeStyle?lifeStyle.beforeTreatmentMonthlyTotal:''}}</span>
             </div>
-            <div class="label-div">每月药费</div>
+            <div class="label-div">每月药费(元)</div>
             <div>
               <span>{{lifeStyle?lifeStyle.beforeTreatmentMonthlyMedicalExpenses:''}}</span>
             </div>
@@ -624,7 +625,7 @@ export default {
       })
     },
     getPastSurgicalHistories () {
-      getPastSurgicalHistories({ assessmentId: this.assessmentId, patientId: this.patientId }).then(res => {
+      getPastSurgicalHistories({ patientId: this.patientId }).then(res => {
         console.log('手术：', res)
         let { data } = res
         if (data) {
@@ -665,7 +666,7 @@ export default {
       })
     },
     getLifestyle () {
-      getLifestyle({ assessmentId: this.assessmentId }).then(res => {
+      getLifestyle({ patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         console.log('生活方式：', res)
         let { data } = res
         console.log(data)
@@ -800,9 +801,36 @@ export default {
         }
       })
     },
+    getDiseaseName (arr) {
+      if (arr.length > 0) {
+        let _arr = []
+        arr.forEach(item => {
+          _arr.push(item.diseaseName)
+        })
+        return _arr.join(' ')
+      } else {
+        return ''
+      }
+    },
+  },
+  computed: {
     getDesc () {
       if (this.existingSymptoms) {
-        console.log('existingSymptoms: ', this.existingSymptoms)
+        // console.log('existingSymptoms: ', this.existingSymptoms)
+        let _arr = []
+        let keys = Object.keys(this.problemList)
+        // console.log(keys)
+        keys.forEach(key => {
+          // console.log(key, this.existingSymptoms[key])
+          if (this.existingSymptoms[key]) {
+            this.existingSymptoms[key].forEach(num => {
+              _arr.push(this.problemList[key][num])
+            })
+          }
+        })
+        return _arr.join(' ')
+      } else {
+        return ''
       }
     }
   },
@@ -953,6 +981,8 @@ export default {
     height: 50px;
     line-height: 50px;
     text-align: center;
+    font-weight: bold;
+    color: #333;
   }
   .pay-table {
     .row > div {
@@ -976,6 +1006,23 @@ export default {
         line-height: 50px;
       }
     }
+  }
+  .ant-table-row-cell-break-word {
+  }
+  /deep/ .ant-cascader-picker {
+    width: 100% !important;
+    .ant-input.ant-cascader-input {
+      width: 100%;
+    }
+    // input {
+    //   width: 100%;
+    // }
+  }
+  /deep/ .ant-cascader-picker {
+    width: 100%;
+  }
+  .ant-cascader-picker {
+    width: 100%;
   }
 }
 </style>

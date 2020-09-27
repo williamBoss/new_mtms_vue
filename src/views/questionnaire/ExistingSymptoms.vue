@@ -737,7 +737,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .ExistingSymptoms-page {
   .ant-collapse-header {
     background-color: #fafafa;
