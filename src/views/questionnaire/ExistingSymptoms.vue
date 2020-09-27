@@ -737,10 +737,22 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .ExistingSymptoms-page {
   .ant-collapse-header {
     background-color: #fafafa;
+  }
+  .ant-form-item-label {
+    width: 150px;
+  }
+  .ant-form-item-control,
+  .ant-form-item-children,
+  .ant-checkbox-group {
+    width: 100% !important;
+    .ant-checkbox-wrapper {
+      width: 25%;
+      display: inline-block;
+    }
   }
   .ant-form-item label {
     display: block;
@@ -751,6 +763,9 @@ export default {
   }
   .flex {
     margin-bottom: 10px;
+    .title + div {
+      flex: 1;
+    }
   }
   input {
     margin-left: 10px;

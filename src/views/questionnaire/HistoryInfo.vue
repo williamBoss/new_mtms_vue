@@ -3,54 +3,38 @@
     <div class="historyInfo-page">
       <a-collapse>
         <!-- 1 -->
-        <a-collapse-panel
-          key="1"
-          header="家族史"
-        >
+        <a-collapse-panel key="1"
+                          header="家族史">
           <a-form-model-item label="家族史">
-            <a-tag
-              color="green"
-              v-for="(item, index) in familyMedicalHistoryDisease"
-              :key="index"
-            >{{ item.diseaseName }}
+            <a-tag color="green"
+                   v-for="(item, index) in familyMedicalHistoryDisease"
+                   :key="index">{{ item.diseaseName }}
             </a-tag>
-            <a-button
-              type="primary"
-              @click="addPaint('family')"
-            >添加病种
+            <a-button type="primary"
+                      @click="addPaint('family')">添加病种
             </a-button>
           </a-form-model-item>
         </a-collapse-panel>
         <!-- 2 -->
-        <a-collapse-panel
-          key="2"
-          header="既往病史"
-        >
+        <a-collapse-panel key="2"
+                          header="既往病史">
           <a-form-model-item label="既往病史">
-            <a-tag
-              color="green"
-              v-for="(item, index) in pastMedicalHistoryDisease"
-              :key="index"
-            >{{ item.diseaseName }}
+            <a-tag color="green"
+                   v-for="(item, index) in pastMedicalHistoryDisease"
+                   :key="index">{{ item.diseaseName }}
             </a-tag>
-            <a-button
-              type="primary"
-              @click="addPaint('history')"
-            >添加病种
+            <a-button type="primary"
+                      @click="addPaint('history')">添加病种
             </a-button>
           </a-form-model-item>
         </a-collapse-panel>
         <!-- 3 -->
-        <a-collapse-panel
-          key="3"
-          header="既往手术史"
-        >
+        <a-collapse-panel key="3"
+                          header="既往手术史">
           <a-checkbox-group v-model="form.pastSurgicalHistoryId">
-            <a-checkbox
-              :value="item.surgicalHistoryId"
-              v-for="(item, index) in surgicalHistoryList"
-              :key="index"
-            >
+            <a-checkbox :value="item.surgicalHistoryId"
+                        v-for="(item, index) in surgicalHistoryList"
+                        :key="index">
               {{ item.surgeryName }}
             </a-checkbox>
           </a-checkbox-group>
@@ -59,57 +43,43 @@
           </div>
         </a-collapse-panel>
         <!-- 4 -->
-        <a-collapse-panel
-          key="4"
-          header="过敏史"
-        >
+        <a-collapse-panel key="4"
+                          header="过敏史">
           <a-form-model-item label="过敏史">
             <a-radio-group v-model="form.allergyHistory">
               <a-radio :value="0"> 无</a-radio>
               <a-radio :value="1"> 有</a-radio>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item
-            label="过敏源"
-            v-if="form.allergyHistory===1"
-          >
+          <a-form-model-item label="过敏源"
+                             v-if="form.allergyHistory===1">
             <a-input v-model="form.allergen" />
           </a-form-model-item>
-          <a-form-model-item
-            label="过敏症状"
-            v-if="form.allergyHistory===1"
-          >
+          <a-form-model-item label="过敏症状"
+                             v-if="form.allergyHistory===1">
             <a-input v-model="form.allergySymptoms" />
           </a-form-model-item>
-          <a-form-model-item
-            label="过敏发生时间"
-            v-if="form.allergyHistory===1"
-          >
-            <a-date-picker
-              v-model="form.allergyDatetime"
-              format="'YYYY/MM/DD'"
-              :valueFormat="'YYYY/MM/DD'"
-            />
+          <a-form-model-item label="过敏发生时间"
+                             v-if="form.allergyHistory===1">
+            <a-date-picker v-model="form.allergyDatetime"
+                           format="'YYYY/MM/DD'"
+                           :valueFormat="'YYYY/MM/DD'" />
           </a-form-model-item>
           <div class="btn-box">
             <a-button @click="saveAllergyHistory">保存</a-button>
           </div>
         </a-collapse-panel>
         <!-- 5 -->
-        <a-collapse-panel
-          key="5"
-          header="肝损害"
-        >
+        <a-collapse-panel key="5"
+                          header="肝损害">
           <a-form-model-item label="肝损害">
             <a-radio-group v-model="form.liverDamage">
               <a-radio :value="0"> 否</a-radio>
               <a-radio :value="1"> 是</a-radio>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item
-            label="详情描述"
-            v-if="form.liverDamage===1"
-          >
+          <a-form-model-item label="详情描述"
+                             v-if="form.liverDamage===1">
             <a-input v-model="form.liverDamageDesc" />
           </a-form-model-item>
           <div class="btn-box">
@@ -117,20 +87,16 @@
           </div>
         </a-collapse-panel>
         <!-- 6 -->
-        <a-collapse-panel
-          key="6"
-          header="肾损害"
-        >
+        <a-collapse-panel key="6"
+                          header="肾损害">
           <a-form-model-item label="肾损害">
             <a-radio-group v-model="form.kidneyDamage">
               <a-radio :value="0"> 否</a-radio>
               <a-radio :value="1"> 是</a-radio>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item
-            label="详情描述"
-            v-if="form.kidneyDamage===1"
-          >
+          <a-form-model-item label="详情描述"
+                             v-if="form.kidneyDamage===1">
             <a-input v-model="form.kidneyDamageDesc" />
           </a-form-model-item>
           <div class="btn-box">
@@ -138,32 +104,24 @@
           </div>
         </a-collapse-panel>
         <!-- 7 -->
-        <a-collapse-panel
-          key="7"
-          header="药物不良反应史"
-        >
+        <a-collapse-panel key="7"
+                          header="药物不良反应史">
           <a-form-model-item label="药物不良反应史">
             <a-radio-group v-model="form.medicationSideEffect">
               <a-radio :value="0"> 否</a-radio>
               <a-radio :value="1"> 是</a-radio>
             </a-radio-group>
           </a-form-model-item>
-          <div
-            class="table-addbtn-box flex-bettween"
-            v-if="form.medicationSideEffect===1"
-          >
-            <a-button
-              type="primary"
-              class="addHistoryBtn"
-              @click="pushSymptoms()"
-            >
+          <div class="table-addbtn-box flex-bettween"
+               v-if="form.medicationSideEffect===1">
+            <a-button type="primary"
+                      class="addHistoryBtn"
+                      @click="pushSymptoms()">
               添加不良反应史
             </a-button>
           </div>
-          <div
-            class="table-div"
-            v-if="form.medicationSideEffect===1"
-          >
+          <div class="table-div"
+               v-if="form.medicationSideEffect===1">
             <div class="table-title flex">
               <div>序号</div>
               <div>药品名称</div>
@@ -172,29 +130,23 @@
               <div>操作</div>
             </div>
             <div class="table-body">
-              <div
-                class="row flex"
-                :key="index"
-                v-for="(item, index) in medicHostoryList"
-              >
+              <div class="row flex"
+                   :key="index"
+                   v-for="(item, index) in medicHostoryList">
                 <div>{{ index + 1 }}</div>
                 <!-- medId -->
                 <div>
-                  <a-auto-complete
-                    v-model="item.medName"
-                    :data-source="medicFilterData"
-                    @change="changeMedicData"
-                    placeholder="药品名称"
-                  />
+                  <a-auto-complete v-model="item.medName"
+                                   :data-source="medicFilterData"
+                                   @change="changeMedicData"
+                                   placeholder="药品名称" />
                 </div>
                 <!-- adverseReactionsSymptoms -->
                 <div>
                   <a-checkbox-group v-model="item.adverseReactionsSymptoms">
-                    <a-checkbox
-                      :value="sitem"
-                      v-for="(sitem, sindex) in symptomslist"
-                      :key="sindex"
-                    >
+                    <a-checkbox :value="sitem"
+                                v-for="(sitem, sindex) in symptomslist"
+                                :key="sindex">
                       {{ sitem }}
                     </a-checkbox>
                   </a-checkbox-group>
@@ -204,26 +156,20 @@
                 </div>
                 <!-- occurrenceDatetime -->
                 <div>
-                  <a-date-picker
-                    v-model="item.occurrenceDatetime"
-                    :valueFormat="'YYYY/MM/DD'"
-                    :format="'YYYY/MM/DD'"
-                  />
+                  <a-date-picker v-model="item.occurrenceDatetime"
+                                 :valueFormat="'YYYY/MM/DD'"
+                                 :format="'YYYY/MM/DD'" />
                 </div>
                 <div>
                   <div v-if="!item.saved">
-                    <a-button
-                      type="link"
-                      class="addHistoryBtn"
-                      @click="deleteSymptoms(index)"
-                    >
+                    <a-button type="link"
+                              class="addHistoryBtn"
+                              @click="deleteSymptoms(index)">
                       删除
                     </a-button>
-                    <a-button
-                      type="link"
-                      class="addHistoryBtn"
-                      @click="saveSymptoms(index)"
-                    >
+                    <a-button type="link"
+                              class="addHistoryBtn"
+                              @click="saveSymptoms(index)">
                       保存
                     </a-button>
                   </div>
@@ -237,19 +183,15 @@
         </a-collapse-panel>
       </a-collapse>
     </div>
-    <a-modal
-      v-model="visible"
-      title="选择病种"
-      class="paintDiolag"
-      @ok="handleOk"
-    >
+    <a-modal v-model="visible"
+             title="选择病种"
+             class="paintDiolag"
+             @ok="handleOk">
       <div class="checkPainBoxList">
         <a-checkbox-group v-model="choicedList">
-          <div
-            class="item"
-            v-for="(sitem, sindex) in painList"
-            :key="sindex"
-          >
+          <div class="item"
+               v-for="(sitem, sindex) in painList"
+               :key="sindex">
             <a-checkbox :value="sitem">
               {{ sitem.diseaseName }}
             </a-checkbox>
@@ -278,7 +220,7 @@ import {
 } from '@/api/mtms'
 
 export default {
-  props: [ 'patientId', 'assessmentId' ],
+  props: ['patientId', 'assessmentId'],
   data () {
     return {
       visible: false,
@@ -388,31 +330,31 @@ export default {
     // 校验不良反应史数据
     checkSymptomsData (index) {
       if (!this.patientId) { return false }
-      if (!this.medicHostoryList[ index ].medName) { return false }
-      if (!this.medicHostoryList[ index ].occurrenceDatetime) { return false }
-      if (this.medicHostoryList[ index ].adverseReactionsSymptoms.length < 1 &&
-        !this.medicHostoryList[ index ].otherSymptoms) { return false }
+      if (!this.medicHostoryList[index].medName) { return false }
+      if (!this.medicHostoryList[index].occurrenceDatetime) { return false }
+      if (this.medicHostoryList[index].adverseReactionsSymptoms.length < 1 &&
+        !this.medicHostoryList[index].otherSymptoms) { return false }
       return true
     },
     // 保存药物不良反应记录
     saveSymptoms (index) {
       if (!this.checkSymptomsData(index)) return
       let _otherSymptoms = []
-      if (this.medicHostoryList[ index ].otherSymptoms) {
-        _otherSymptoms = this.medicHostoryList[ index ].otherSymptoms.splice(',')
+      if (this.medicHostoryList[index].otherSymptoms) {
+        _otherSymptoms = this.medicHostoryList[index].otherSymptoms.splice(',')
       }
-      const adverseReactionsSymptoms = this.medicHostoryList[ index ].adverseReactionsSymptoms.concat(_otherSymptoms)
+      const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.concat(_otherSymptoms)
         .join(',')
       saveMedicationSideEffect({
         adverseReactionsSymptoms: adverseReactionsSymptoms,
-        medName: this.medicHostoryList[ index ].medName,
-        occurrenceDatetime: this.medicHostoryList[ index ].occurrenceDatetime,
+        medName: this.medicHostoryList[index].medName,
+        occurrenceDatetime: this.medicHostoryList[index].occurrenceDatetime,
         patientId: this.patientId,
         assessmentId: this.assessmentId
       }).then(res => {
         const { code } = res
         if (code === 200) {
-          this.medicHostoryList[ index ].saved = true
+          this.medicHostoryList[index].saved = true
           this.$message.success('新增成功')
         } else {
           this.$message.error('系统错误，保存药物不良反应信息失败，请稍后再试')
@@ -644,7 +586,13 @@ export default {
   div.ant-collapse-content-box .ant-form-item .ant-form-item-control {
     width: auto;
   }
-
+  .ant-checkbox-group {
+    width: 56.666%;
+    .ant-checkbox-wrapper {
+      width: 30.333%;
+      display: inline-block;
+    }
+  }
   .ant-checkbox-wrapper {
     display: block;
     margin-left: 8px;
