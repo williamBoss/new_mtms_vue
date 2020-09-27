@@ -742,5 +742,18 @@ export default {
   .ant-collapse-header {
     background-color: #fafafa;
   }
+  .ant-form-item label {
+    display: block;
+    margin-left: 0;
+  }
+  .title {
+    width: 90px;
+  }
+  .flex {
+    margin-bottom: 10px;
+  }
+  input {
+    margin-left: 10px;
+  }
 }
 </style>

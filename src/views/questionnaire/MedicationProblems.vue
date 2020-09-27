@@ -11,15 +11,18 @@
       <a-table :data-source="data"
                class="mr_table"
                :pagination="false"
+               :scroll="{ x: 800 }"
                bordered>
 
         <a-table-column key="index"
                         title="序号"
+                        :width="100"
                         data-index="index">
           <template slot-scope="text, record, index">{{index+1}}</template>
         </a-table-column>
         <a-table-column key="sick"
                         title="相关疾病"
+                        :width="200"
                         data-index="sick">
           <template slot-scope="text, record, index">
             <a-button type="link"
@@ -29,6 +32,7 @@
         </a-table-column>
         <a-table-column key="medicine"
                         title="相关药物"
+                        :width="200"
                         data-index="medicine">
           <template slot-scope="text, record, index">
             <!-- <a-button type="link"
@@ -42,6 +46,7 @@
         </a-table-column>
         <a-table-column key="indicationses"
                         title="适应性"
+                        :width="400"
                         data-index="indicationses">
           <template slot-scope="text, record">
             <div>
@@ -96,6 +101,7 @@
         </a-table-column>
         <a-table-column key="detail"
                         title="具体问题"
+                        :width="400"
                         data-index="detail">
           <template slot-scope="text, record">
             <a-textarea v-model="record.problem" />
@@ -103,6 +109,7 @@
         </a-table-column>
         <a-table-column key="detail"
                         title="处理建议"
+                        :width="400"
                         data-index="detail">
           <template slot-scope="text, record">
             <a-textarea v-model="record.treatmentSuggestion" />
@@ -110,6 +117,7 @@
         </a-table-column>
         <a-table-column key="detail"
                         title="是否解决"
+                        :width="200"
                         data-index="detail">
           <template slot-scope="text, record">
             <a-radio-group v-model="record.isResolved">
@@ -121,6 +129,7 @@
         </a-table-column>
         <a-table-column key="improve"
                         title="改善详情"
+                        :width="400"
                         data-index="improve">
           <template slot-scope="text, record">
             <a-textarea v-model="record.improvementDetails" />
@@ -128,6 +137,7 @@
         </a-table-column>
         <a-table-column key="action"
                         title="操作"
+                        :width="200"
                         data-index="action">
           <template slot-scope="text, record, index">
             <div v-if="!record.saved">
@@ -375,5 +385,13 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="less">
+.medPro-pag {
+  textarea {
+    min-width: 300px;
+  }
+  .ant-cascader-picker {
+    width: 100%;
+  }
+}
 </style>

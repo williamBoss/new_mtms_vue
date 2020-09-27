@@ -104,7 +104,7 @@
           </tr>
           <tr>
             <td class="label-div">当前症状描述</td>
-            <td>{{}}</td>
+            <td>{{getDesc()}}</td>
           </tr>
         </table>
       </div>
@@ -614,6 +614,11 @@ export default {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
+    },
+    getDesc () {
+      if (this.existingSymptoms) {
+
+      }
     }
   },
   watch: {

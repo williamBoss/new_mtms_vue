@@ -89,7 +89,15 @@
                         title="备注（新增/停用）"
                         data-index="remark">
           <template slot-scope="text, record">
-            <a-input v-model="record.remark" />
+            <!-- <a-input v-model="record.remark" /> -->
+            <a-radio-group v-model="record.remark">
+              <a-radio :value="'新增'">
+                新增
+              </a-radio>
+              <a-radio :value="'停用'">
+                停用
+              </a-radio>
+            </a-radio-group>
           </template>
         </a-table-column>
         <a-table-column key="action"

@@ -35,7 +35,8 @@
               <div>理想危险因素状态下，您的心脑血管病10年发病风险应小于</div>
             </div>
             <div class="action_div">
-              <a-input v-model="data.estimatedRiskTenYear" />
+              <a-input v-model="data.estimatedRiskTenYear"
+                       suffix="%" />
             </div>
           </div>
           <div class="row_div footer_div">
@@ -73,7 +74,8 @@
               <div>理想危险因素状态下，您的心脑血管病终生发病风险应小于</div>
             </div>
             <div class="action_div">
-              <a-input v-model="data.estimatedRiskLifetime" />
+              <a-input v-model="data.estimatedRiskLifetime"
+                       suffix="%" />
             </div>
           </div>
         </a-collapse-panel>
