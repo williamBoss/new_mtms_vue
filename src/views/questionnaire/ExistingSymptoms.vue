@@ -37,9 +37,9 @@
                   <a-checkbox value="6"
                               name="diseaseIds">PCI术后</a-checkbox>
                   <a-checkbox value="7"
-                              name="diseaseIds">糖尿病1型</a-checkbox>
+                              name="diseaseIds">1型糖尿病</a-checkbox>
                   <a-checkbox value="8"
-                              name="diseaseIds">糖尿病2型</a-checkbox>
+                              name="diseaseIds">2型糖尿病</a-checkbox>
                   <a-checkbox value="9"
                               name="diseaseIds">脑梗死</a-checkbox>
                   <a-checkbox value="10"

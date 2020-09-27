@@ -26,8 +26,10 @@
                         data-index="sick">
           <template slot-scope="text, record, index">
             <a-button type="link"
+                      v-if="!record.saved"
                       class="innerDiv"
                       @click="chiocePain(index)">{{record.diseaseName||'选择疾病'}}</a-button>
+            <span v-else>{{record.diseaseName||'-'}}</span>
           </template>
         </a-table-column>
         <a-table-column key="medicine"
@@ -41,7 +43,9 @@
             <a-auto-complete v-model="choicedListM"
                              :data-source="medicFilterData"
                              @change="changeMedicData"
+                             v-if="!record.saved"
                              placeholder="药品名称" />
+            <span v-else>{{record.medName||'-'}}</span>
           </template>
         </a-table-column>
         <a-table-column key="indicationses"
@@ -104,7 +108,9 @@
                         :width="400"
                         data-index="detail">
           <template slot-scope="text, record">
-            <a-textarea v-model="record.problem" />
+            <a-textarea v-if="!record.saved"
+                        v-model="record.problem" />
+            <span v-else>{{record.problem}}</span>
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -112,7 +118,9 @@
                         :width="400"
                         data-index="detail">
           <template slot-scope="text, record">
-            <a-textarea v-model="record.treatmentSuggestion" />
+            <a-textarea v-if="!record.saved"
+                        v-model="record.treatmentSuggestion" />
+            <span v-else>{{record.treatmentSuggestion}}</span>
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -132,7 +140,9 @@
                         :width="400"
                         data-index="improve">
           <template slot-scope="text, record">
-            <a-textarea v-model="record.improvementDetails" />
+            <a-textarea v-if="!record.saved"
+                        v-model="record.improvementDetails" />
+            <span>{{record.improvementDetails}}</span>
           </template>
         </a-table-column>
         <a-table-column key="action"
@@ -344,13 +354,18 @@ export default {
         safeties: this.data[this.actionIndex].safeties,
         diseaseId: this.data[this.actionIndex].diseaseId,
         diseaseName: this.data[this.actionIndex].diseaseName,
-        medId: this.data[this.actionIndex].medId,
+        medId: '',
         medName: this.data[this.actionIndex].medName,
         problem: this.data[this.actionIndex].problem,
         treatmentSuggestion: this.data[this.actionIndex].treatmentSuggestion,
         isResolved: this.data[this.actionIndex].isResolved,
         improvementDetails: this.data[this.actionIndex].improvementDetails
       }
+      this.medicData.forEach(item => {
+        if (item.medName === _data.medName) {
+          _data.medId = item.medId
+        }
+      })
       saveMedicationProblem({ ..._data }).then(res => {
         if (res.code === 200) {
           this.data[this.actionIndex].saved = true

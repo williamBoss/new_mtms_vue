@@ -1,96 +1,60 @@
 <template>
-  <div
-    class="patientAss"
-    style="margin-top: -25px;"
-  >
-    <patient-info
-      @onChangeCardContentWidth="onChangeCardContentWidth"
-      ref="patientInfo"
-      @patient-id="getPatientId"
-    />
-    <a-button
-      type="link"
-      @click="linkBackUp"
-      style="margin-bottom: 20px;"
-    >
+  <div class="patientAss"
+       style="margin-top: -25px;">
+    <patient-info @onChangeCardContentWidth="onChangeCardContentWidth"
+                  ref="patientInfo"
+                  @patient-id="getPatientId" />
+    <a-button type="link"
+              @click="linkBackUp"
+              style="margin-bottom: 20px;">
       <a-icon type="rollback" />
       患者信息
     </a-button>
-    <a-card
-      :bordered="false"
-      :style="{ width: cardContentWidth }"
-      ref="cardContent"
-    >
-      <a-tabs
-        :defaultActiveKey="'HistoryInfo'"
-        :active-key="activeKey"
-        @change="tabChange"
-      >
-        <a-tab-pane
-          :key="'HistoryInfo'"
-          :tab="'家族史和既往史'"
-        >
+    <a-card :bordered="false"
+            :style="{ width: cardContentWidth }"
+            ref="cardContent">
+      <a-tabs :defaultActiveKey="'HistoryInfo'"
+              :active-key="activeKey"
+              @change="tabChange">
+        <a-tab-pane :key="'HistoryInfo'"
+                    :tab="'家族史和既往史'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'ExistingSymptoms'"
-          :tab="'现有症状'"
-        >
+        <a-tab-pane :key="'ExistingSymptoms'"
+                    :tab="'现有症状'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'LifeStyle'"
-          :tab="'生活方式'"
-        >
+        <a-tab-pane :key="'LifeStyle'"
+                    :tab="'生活方式'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'MedicationRecords'"
-          :tab="'用药记录'"
-          :patientId="patientId"
-        >
+        <a-tab-pane :key="'MedicationRecords'"
+                    :tab="'用药记录'"
+                    :patientId="patientId">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'InspectionAndInspection'"
-          :tab="'检验检查'"
-        >
+        <a-tab-pane :key="'InspectionAndInspection'"
+                    :tab="'检验检查'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'MedicationProblems'"
-          :tab="'药物治疗问题'"
-        >
+        <a-tab-pane :key="'MedicationProblems'"
+                    :tab="'药物治疗问题'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'MoriskyQuestionnaire'"
-          :tab="'用药依从性'"
-        >
+        <a-tab-pane :key="'MoriskyQuestionnaire'"
+                    :tab="'用药依从性'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'EQ5D3LQuestionnaire'"
-          :tab="'EQ-5D-3L'"
-        >
+        <a-tab-pane :key="'EQ5D3LQuestionnaire'"
+                    :tab="'EQ-5D-3L'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'EQ5D5LQuestionnaire'"
-          :tab="'EQ-5D-5L'"
-        >
+        <a-tab-pane :key="'EQ5D5LQuestionnaire'"
+                    :tab="'EQ-5D-5L'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'Sf36Questionnaire'"
-          :tab="'SF-36'"
-        >
+        <a-tab-pane :key="'Sf36Questionnaire'"
+                    :tab="'SF-36'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'SDSQuestionnaire'"
-          :tab="'SDS焦虑抑郁量表'"
-        >
+        <a-tab-pane :key="'SDSQuestionnaire'"
+                    :tab="'SDS焦虑抑郁量表'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'AssessmentScale'"
-          :tab="'心脑血管病风险评估（China-PAR）'"
-        >
+        <a-tab-pane :key="'AssessmentScale'"
+                    :tab="'心脑血管病风险评估（China-PAR）'">
         </a-tab-pane>
-        <a-tab-pane
-          :key="'EvaluationReport'"
-          :tab="'评估报告'"
-        >
+        <a-tab-pane :key="'EvaluationReport'"
+                    :tab="'药物重整评估记录'">
         </a-tab-pane>
         <!-- <a-tab-pane :key="'FollowUp'"
                     :tab="'随访复诊'">
@@ -99,40 +63,30 @@
       <!-- 页面 -->
       <div class="content-view">
         <keep-alive>
-          <component
-            :is="activeKey"
-            :ref="activeKey"
-            :patientId="patientId"
-            :assessmentId="assessmentId"
-          ></component>
+          <component :is="activeKey"
+                     :ref="activeKey"
+                     :patientId="patientId"
+                     :assessmentId="assessmentId"></component>
         </keep-alive>
       </div>
     </a-card>
-    <a-card
-      :bordered="false"
-      :style="{width: cardContentWidth,background:'#f0f2f5'}"
-    >
+    <a-card :bordered="false"
+            :style="{width: cardContentWidth,background:'#f0f2f5'}">
       <a-button-group :style="{ marginTop: '10px',float: 'right',marginRight:'-24px' }">
-        <a-button
-          v-if="isShowGoBack"
-          type="primary"
-          @click="goBackTab"
-        >
+        <a-button v-if="isShowGoBack"
+                  type="primary"
+                  @click="goBackTab">
           <a-icon type="left" />
           上一步
         </a-button>
-        <a-button
-          type="primary"
-          v-if="activeKey === 'EvaluationReport'"
-          @click="linkBackUp"
-        >
+        <a-button type="primary"
+                  v-if="activeKey === 'EvaluationReport'"
+                  @click="linkBackUp">
           完成
         </a-button>
-        <a-button
-          type="primary"
-          v-else
-          @click="saveAssessmentInfo"
-        >
+        <a-button type="primary"
+                  v-else
+                  @click="saveAssessmentInfo">
           下一步
           <a-icon type="right" />
         </a-button>
@@ -211,7 +165,7 @@ export default {
     this.saveAssessment()
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
-    this.clientHeight = `${ document.documentElement.clientHeight }`
+    this.clientHeight = `${document.documentElement.clientHeight}`
     console.log(this.$route)
     if (this.$route.query.patientId && this.$route.query.type) {
       if (this.$route.query.type === 'detail') {
@@ -252,7 +206,7 @@ export default {
     goBackTab () {
       let _index = this.tabs.indexOf(this.activeKey)
       if (_index > 0) {
-        this.activeKey = this.tabs[ _index - 1 ]
+        this.activeKey = this.tabs[_index - 1]
       }
     },
     changeFixed (clientHeight) {
@@ -263,15 +217,15 @@ export default {
       if (this.activeKey === 'BasicInformation') {
         this.$refs.patientInfo.handleSubmit()
       }
-      if (this.$refs[ this.activeKey ]) {
-        let { onSubmit } = this.$refs[ this.activeKey ]
+      if (this.$refs[this.activeKey]) {
+        let { onSubmit } = this.$refs[this.activeKey]
         if (onSubmit) {
           onSubmit()
         }
         // this.$refs[this.activeKey].onSubmit()
         let _index = this.tabs.indexOf(this.activeKey)
         if (_index < this.tabs.length - 1) {
-          this.activeKey = this.tabs[ _index + 1 ]
+          this.activeKey = this.tabs[_index + 1]
         }
         console.log(_index)
       }

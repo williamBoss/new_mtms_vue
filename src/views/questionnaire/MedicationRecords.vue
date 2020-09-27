@@ -241,6 +241,7 @@ export default {
         useStartTime: '',
         useEndTime: '',
         medName: '',
+        medId: '',
         indication: '',
         usage: '',
         dosageMonthly: '',
@@ -254,6 +255,11 @@ export default {
       this.data.splice(index, 1)
     },
     confirmData (record) {
+      this.medicData.forEach(item => {
+        if (item.medName === record.medName) {
+          record.medId = item.medId
+        }
+      })
       saveUseMedRecord({ ...record }).then(res => {
         if (res.code === 200) {
           this.data.map(item => {
