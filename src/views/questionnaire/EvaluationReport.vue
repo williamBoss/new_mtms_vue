@@ -20,7 +20,7 @@
         </div>
         <div class="row flex">
           <div class="label-div">ID号</div>
-          <div>{{userInfo.patientId}}</div>
+          <div>{{userInfo.patientSelfId}}</div>
           <div class="label-div">性别</div>
           <div>{{userInfo.gender}}</div>
         </div>

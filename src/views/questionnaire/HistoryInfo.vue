@@ -31,7 +31,7 @@
         <!-- 3 -->
         <a-collapse-panel key="3"
                           header="既往手术史">
-          <a-checkbox-group v-model="form.pastSurgicalHistoryId">
+          <a-checkbox-group id="pastSurgicalHistory" v-model="form.pastSurgicalHistoryId">
             <a-checkbox :value="item.surgicalHistoryId"
                         v-for="(item, index) in surgicalHistoryList"
                         :key="index">
@@ -586,8 +586,8 @@ export default {
   div.ant-collapse-content-box .ant-form-item .ant-form-item-control {
     width: auto;
   }
-  .ant-checkbox-group {
-    width: 56.666%;
+  #pastSurgicalHistory.ant-checkbox-group {
+    width: 80.666%;
     .ant-checkbox-wrapper {
       width: 30.333%;
       display: inline-block;
