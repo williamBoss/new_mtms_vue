@@ -152,8 +152,7 @@
 </template>
 <script>
 import { STable } from '@/components'
-import { delDictType } from '@/api/system'
-import { getAllDiseaseList, getAssessmentList } from '@/api/mtms'
+import { getAllDiseaseList, getAssessmentList, delAssessment } from '@/api/mtms'
 
 export default {
   name: 'TableList',
@@ -193,11 +192,11 @@ export default {
           width: '25%'
         },
         {
-          title: '记录医师',
+          title: '记录人',
           dataIndex: 'userName'
         },
         {
-          title: '评估记录时间',
+          title: '评估时间',
           dataIndex: 'fillDate'
         },
         {
@@ -225,6 +224,9 @@ export default {
     })
   },
   methods: {
+    handleOk () {
+      this.$refs.table.refresh(true)
+    },
     toggleAdvanced () {
       this.advanced = !this.advanced
     },
@@ -241,15 +243,14 @@ export default {
       this.$router.push({ name: 'PatientAssessment' })
     },
     delByIds (ids) {
-      /*delDictType({ ids: ids.join(',') }).then(res => {
-        if (res.code === 0) {
+      delAssessment(ids).then(res => {
+        if (res.code === 200) {
           this.$message.success(`删除成功`)
           this.handleOk()
         } else {
           this.$message.error(res.msg)
         }
-        this.selectedRowKeys = []
-      })*/
+      })
     },
     goDetail (data) {
       console.log(data)
