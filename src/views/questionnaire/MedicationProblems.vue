@@ -45,7 +45,7 @@
           </template>
         </a-table-column>
         <a-table-column key="indicationses"
-                        title="适应性"
+                        title="问题类型"
                         :width="400"
                         data-index="indicationses">
           <template slot-scope="text, record">
@@ -255,7 +255,7 @@ export default {
       })
       this.medicFilterData = _arr
     },
-    // 
+    //
     medicationProblemsDict () {
       // 问题类型 1.适应症 2.有效性 3.安全性 4.依从性
       medicationProblemsDict({ problemType: 1 }).then(res => {

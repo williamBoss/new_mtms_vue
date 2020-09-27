@@ -101,6 +101,12 @@ export function getAssessmentList (parameter) {
     }
   })
 }
+export function delAssessment (parameter) {
+  return axios({
+    url: api.assessment + '/del_assessment/' + parameter,
+    method: 'DELETE'
+  })
+}
 export function getAssessmentListByPatientId (parameter) {
   return axios({
     url: api.assessment + '/patientId',
