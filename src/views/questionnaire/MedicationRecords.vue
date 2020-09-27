@@ -35,9 +35,11 @@
       <a-table :data-source="data"
                class="mr_table"
                :pagination="false"
+               :scroll="{ x: 800 }"
                bordered>
         <a-table-column key="useStartTime"
                         title="开始时间"
+                        :width="200"
                         data-index="useStartTime">
           <template slot-scope="text, record">
             <a-date-picker v-model="record.useStartTime"
@@ -47,6 +49,7 @@
         </a-table-column>
         <a-table-column key="useEndTime"
                         title="结束时间"
+                        :width="200"
                         data-index="useEndTime">
           <template slot-scope="text, record">
             <a-date-picker v-model="record.useEndTime"
@@ -56,6 +59,7 @@
         </a-table-column>
         <a-table-column key="medName"
                         title="药品名称"
+                        :width="200"
                         data-index="medName">
           <template slot-scope="text, record">
             <a-auto-complete v-model="record.medName"
@@ -66,6 +70,7 @@
         </a-table-column>
         <a-table-column key="indication"
                         title="适应症"
+                        :width="400"
                         data-index="indication">
           <template slot-scope="text, record">
             <a-input v-model="record.indication" />
@@ -73,6 +78,7 @@
         </a-table-column>
         <a-table-column key="usage"
                         title="用法"
+                        :width="400"
                         data-index="usage">
           <template slot-scope="text, record">
             <a-input v-model="record.usage" />
@@ -80,6 +86,7 @@
         </a-table-column>
         <a-table-column key="dosageMonthly"
                         title="月用药量（盒）"
+                        :width="100"
                         data-index="dosageMonthly">
           <template slot-scope="text, record">
             <a-input v-model="record.dosageMonthly" />
@@ -87,6 +94,7 @@
         </a-table-column>
         <a-table-column key="remark"
                         title="备注（新增/停用）"
+                        :width="100"
                         data-index="remark">
           <template slot-scope="text, record">
             <!-- <a-input v-model="record.remark" /> -->
@@ -102,6 +110,7 @@
         </a-table-column>
         <a-table-column key="action"
                         title="操作"
+                        :width="150"
                         data-index="action">
           <template slot-scope="text, record, index">
             <div v-if="!record.saved">
