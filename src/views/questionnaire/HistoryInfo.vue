@@ -341,11 +341,17 @@ export default {
     saveSymptoms (index) {
       if (!this.checkSymptomsData(index)) return
       let _otherSymptoms = []
-      if (this.medicHostoryList[index].otherSymptoms) {
-        _otherSymptoms = this.medicHostoryList[index].otherSymptoms.split(',')
+      // if (this.medicHostoryList[index].otherSymptoms) {
+      //   _otherSymptoms = this.medicHostoryList[index].otherSymptoms.split(',')
+      // }
+      // console.log(this.medicHostoryList[index].adverseReactionsSymptoms)
+      // const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.contact(_otherSymptoms)
+      //   .join(',')
+      let str = ''
+      if (this.medicHostoryList[index].adverseReactionsSymptoms) {
+        str = this.medicHostoryList[index].adverseReactionsSymptoms.join(',')
       }
-      const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.concat(_otherSymptoms)
-        .join(',')
+      let adverseReactionsSymptoms = [str, this.medicHostoryList[index].otherSymptoms].join(',')
       let medId = ''
       this.medicData.forEach(item => {
         if (item.medName === this.medicHostoryList[index].medName) {

@@ -431,9 +431,12 @@ export default {
     },
     async confirmData () {
       let _usualSports = ''
-      if (this.otherAction) {
-        const _arr = JSON.parse(JSON.stringify(this.form.usualSports)).split(',').push(this.otherAction)
-        _usualSports = _arr.join(',')
+      if (this.form.otherAction) {
+        // const _arr = JSON.parse(JSON.stringify(this.form.usualSports)).split(',').push(this.otherAction)
+        _usualSports = [this.form.usualSports.join(','), this.form.otherAction].join(',')
+        // _usualSports = _arr.join(',')
+      } else {
+        _usualSports = this.form.usualSports.join(',')
       }
       saveLifestyle({ ...this.form, usualSports: _usualSports, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         const { success } = res

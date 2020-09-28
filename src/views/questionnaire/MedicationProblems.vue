@@ -40,7 +40,7 @@
             <!-- <a-button type="link"
                       class="innerDiv"
                       @click="chioceMed(index)">{{record.medName||'选择药物'}}</a-button> -->
-            <a-auto-complete v-model="choicedListM"
+            <a-auto-complete v-model="record.medName"
                              :data-source="medicFilterData"
                              @change="changeMedicData"
                              v-if="!record.saved"
@@ -345,6 +345,8 @@ export default {
     },
     //
     confirmData (index) {
+      console.log(index)
+      console.log(this.data[index])
       const _data = {
         patientId: this.patientId,
         assessmentId: this.assessmentId,
