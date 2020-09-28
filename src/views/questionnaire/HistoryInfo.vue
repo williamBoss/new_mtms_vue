@@ -31,7 +31,8 @@
         <!-- 3 -->
         <a-collapse-panel key="3"
                           header="既往手术史">
-          <a-checkbox-group id="pastSurgicalHistory" v-model="form.pastSurgicalHistoryId">
+          <a-checkbox-group id="pastSurgicalHistory"
+                            v-model="form.pastSurgicalHistoryId">
             <a-checkbox :value="item.surgicalHistoryId"
                         v-for="(item, index) in surgicalHistoryList"
                         :key="index">
@@ -341,7 +342,7 @@ export default {
       if (!this.checkSymptomsData(index)) return
       let _otherSymptoms = []
       if (this.medicHostoryList[index].otherSymptoms) {
-        _otherSymptoms = this.medicHostoryList[index].otherSymptoms.splice(',')
+        _otherSymptoms = this.medicHostoryList[index].otherSymptoms.split(',')
       }
       const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.concat(_otherSymptoms)
         .join(',')
