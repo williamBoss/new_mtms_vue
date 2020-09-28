@@ -328,10 +328,10 @@ export default {
     //
     pushDataList () {
       this.data.push({
-        compliances: '',
-        effectivenessies: '',
-        indicationses: '',
-        safeties: '',
+        compliances: [],
+        effectivenessies: [],
+        indicationses: [],
+        safeties: [],
         diseaseId: '',
         diseaseName: '',
         medId: '',

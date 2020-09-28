@@ -8,7 +8,7 @@
         </div>
         <div class="row flex">
           <div class="label-div">就诊时间</div>
-          <div>{{userInfo.consultationDate}}</div>
+          <div>{{assessmentInfo.fillDate}}</div>
           <div class="label-div">姓名</div>
           <div>{{userInfo.patientName}}</div>
         </div>
@@ -860,7 +860,8 @@ export default {
     .table-header {
       height: 50px;
       line-height: 50px;
-      background: #ffd965;
+      background: #1890ff;
+      color: #ffffff;
       font-weight: bold;
       text-align: center;
       border: 1px solid #e4e3de;

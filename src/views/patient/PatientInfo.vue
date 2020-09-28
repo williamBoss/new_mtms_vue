@@ -405,6 +405,8 @@ export default {
     })
     if (this.$route.query.patientId) {
       this.getPatientInfoById()
+      this.getAssessmentListByPatientId(this.$route.query.patientId)
+      this.getMedicationSideEffectList(this.$route.query.patientId)
     }
   },
   computed: {
@@ -426,8 +428,12 @@ export default {
     getPatientInfoById () {
       getPatientInfoById(this.$route.query.patientId).then(res => {
         console.log(res)
-        let { data } = res
-        this.form = data
+        Object.assign(this.form, res.data)
+        if (res.data.downtownAddress != null) {
+          res.data.downtownAddress.split(',').forEach(v => {
+            this.form.downtownAddressArr.push(Number(v))
+          })
+        }
       })
     },
     showDrawer () {
