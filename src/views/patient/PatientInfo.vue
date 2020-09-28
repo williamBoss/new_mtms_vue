@@ -1,87 +1,63 @@
 <template>
   <div>
     <div>
-      <a-drawer
-        :width="400"
-        placement="right"
-        :visible="visible"
-        :closable="false"
-        :mask="false"
-        :keyboard="false"
-        :body-style="{ paddingBottom: '80px' }"
-        @close="onClose"
-        style="padding: 0"
-      >
+      <a-drawer :width="400"
+                placement="right"
+                :visible="visible"
+                :closable="false"
+                :mask="false"
+                :keyboard="false"
+                :body-style="{ paddingBottom: '80px' }"
+                @close="onClose"
+                style="padding: 0">
         <a-tabs default-active-key="1">
-          <a-tab-pane
-            key="1"
-            tab="患者信息"
-          >
-            <a-form-model
-              ref="patientBasicInfoForm"
-              :model="form"
-              :rules="rules"
-              :layout="'vertical'"
-            >
-              <a-form-model-item
-                ref="phone"
-                prop="phone"
-              >
+          <a-tab-pane key="1"
+                      tab="患者信息">
+            <a-form-model ref="patientBasicInfoForm"
+                          :model="form"
+                          :rules="rules"
+                          :layout="'vertical'">
+              <a-form-model-item ref="phone"
+                                 prop="phone">
                 <span slot="label">
                   电话&nbsp;
                   <a-tooltip title="建议填写患者手机号">
                     <a-icon type="question-circle-o" />
                   </a-tooltip>
                 </span>
-                <a-auto-complete
-                  class="global-search"
-                  placeholder="请输入"
-                  option-label-prop="title"
-                  @blur="handleSelectPatient"
-                  v-model="form.phone"
-                >
+                <a-auto-complete class="global-search"
+                                 placeholder="请输入"
+                                 option-label-prop="title"
+                                 @blur="handleSelectPatient"
+                                 v-model="form.phone">
                   <template slot="dataSource">
-                    <a-select-option
-                      v-for="p in patientInfo"
-                      :key="p.phone"
-                      :title="p.phone"
-                    >
+                    <a-select-option v-for="p in patientInfo"
+                                     :key="p.phone"
+                                     :title="p.phone">
                       {{ p.phone }}-{{ p.patientName }}
                     </a-select-option>
                   </template>
                 </a-auto-complete>
               </a-form-model-item>
-              <a-form-model-item
-                label="姓名"
-                ref="patientName"
-                prop="patientName"
-              >
-                <a-input
-                  v-model="form.patientName"
-                  placeholder="请输入"
-                />
+              <a-form-model-item label="姓名"
+                                 ref="patientName"
+                                 prop="patientName">
+                <a-input v-model="form.patientName"
+                         placeholder="请输入" />
               </a-form-model-item>
-              <a-form-model-item
-                label="生日"
-                ref="birthday"
-                prop="birthday"
-              >
-                <a-date-picker
-                  v-model="form.birthday"
-                  format="'YYYY/MM/DD'"
-                  :valueFormat="'YYYY/MM/DD'"
-                  @change="onChange"
-                />
+              <a-form-model-item label="生日"
+                                 ref="birthday"
+                                 prop="birthday">
+                <a-date-picker v-model="form.birthday"
+                               format="'YYYY/MM/DD'"
+                               :valueFormat="'YYYY/MM/DD'"
+                               @change="onChange" />
               </a-form-model-item>
-              <a-form-model-item
-                label="性别"
-                ref="gender"
-                prop="gender"
-              >
-                <a-radio-group
-                  v-model="form.gender"
-                  button-style="solid"
-                >
+              <a-form-model-item label="性别"
+                                 ref="gender"
+                                 prop="gender">
+                <a-radio-group v-model="form.gender"
+                               button-style="solid">
                   <a-radio-button :value="1">
                     男
                   </a-radio-button>
@@ -93,79 +69,55 @@
                   </a-radio-button>
                 </a-radio-group>
               </a-form-model-item>
-              <a-form-model-item
-                label="患者ID"
-                ref="patientSelfId"
-                prop="patientSelfId"
-              >
-                <a-input
-                  v-model="form.patientSelfId"
-                  placeholder="请输入"
-                />
+              <a-form-model-item label="患者ID"
+                                 ref="patientSelfId"
+                                 prop="patientSelfId">
+                <a-input v-model="form.patientSelfId"
+                         placeholder="请输入" />
               </a-form-model-item>
-              <a-form-model-item
-                label="身高(CM)"
-                ref="height"
-                prop="height"
-              >
-                <a-input-number
-                  v-model="form.height"
-                  :min="0"
-                  :max="1000"
-                  :step="0.1"
-                  placeholder="请输入"
-                  style="width: 100%;"
-                />
+              <a-form-model-item label="身高(CM)"
+                                 ref="height"
+                                 prop="height">
+                <a-input-number v-model="form.height"
+                                :min="0"
+                                :max="1000"
+                                :step="0.1"
+                                placeholder="请输入"
+                                style="width: 100%;" />
               </a-form-model-item>
-              <a-form-model-item
-                label="体重(KG)"
-                ref="weight"
-                prop="weight"
-              >
-                <a-input-number
-                  v-model="form.weight"
-                  :min="0"
-                  :max="1000"
-                  :step="0.1"
-                  placeholder="请输入"
-                  style="width: 100%;"
-                />
+              <a-form-model-item label="体重(KG)"
+                                 ref="weight"
+                                 prop="weight">
+                <a-input-number v-model="form.weight"
+                                :min="0"
+                                :max="1000"
+                                :step="0.1"
+                                placeholder="请输入"
+                                style="width: 100%;" />
               </a-form-model-item>
-              <a-form-model-item
-                ref="bmi"
-                prop="BMI"
-              >
+              <a-form-model-item ref="bmi"
+                                 prop="BMI">
                 <span slot="label">
                   bmi&nbsp;
                   <a-tooltip title="计算公式：体质指数(bmi)=体重(kg)/身高^2(m)">
                     <a-icon type="question-circle-o" />
                   </a-tooltip>
                 </span>
-                <a-input-number
-                  v-model="form.bmi"
-                  style="width: 100%;"
-                  disabled="true"
-                />
+                <a-input-number v-model="form.bmi"
+                                style="width: 100%;"
+                                disabled="true" />
               </a-form-model-item>
-              <a-form-model-item
-                label="身份证号"
-                ref="idCardNum"
-                prop="idCardNum"
-              >
-                <a-input
-                  v-model="form.idCardNum"
-                  placeholder="请输入"
-                />
+              <a-form-model-item label="身份证号"
+                                 ref="idCardNum"
+                                 prop="idCardNum">
+                <a-input v-model="form.idCardNum"
+                         placeholder="请输入" />
               </a-form-model-item>
-              <a-form-model-item
-                label="医保类型"
-                ref="medicareType"
-                prop="medicareType"
-              >
-                <a-radio-group
-                  v-model="form.medicareType"
-                  button-style="solid"
-                >
+              <a-form-model-item label="医保类型"
+                                 ref="medicareType"
+                                 prop="medicareType">
+                <a-radio-group v-model="form.medicareType"
+                               button-style="solid">
                   <a-radio-button :value="1">
                     医保（北京）
                   </a-radio-button>
@@ -183,30 +135,22 @@
                   </a-radio-button>
                 </a-radio-group>
               </a-form-model-item>
-              <a-form-model-item
-                ref="otherMedicareType"
-                prop="otherMedicareType"
-              >
+              <a-form-model-item ref="otherMedicareType"
+                                 prop="otherMedicareType">
                 <span slot="label">
                   其他医保类型&nbsp;
                   <a-tooltip title="选择其他医保类型，请输入具体的医保类型">
                     <a-icon type="question-circle-o" />
                   </a-tooltip>
                 </span>
-                <a-input
-                  v-model="form.otherMedicareType"
-                  placeholder="请输入"
-                />
+                <a-input v-model="form.otherMedicareType"
+                         placeholder="请输入" />
               </a-form-model-item>
-              <a-form-model-item
-                label="受教育程度"
-                ref="educationLevel"
-                prop="educationLevel"
-              >
-                <a-radio-group
-                  v-model="form.educationLevel"
-                  button-style="solid"
-                >
+              <a-form-model-item label="受教育程度"
+                                 ref="educationLevel"
+                                 prop="educationLevel">
+                <a-radio-group v-model="form.educationLevel"
+                               button-style="solid">
                   <a-radio-button :value="1">
                     小学及以下
                   </a-radio-button>
@@ -221,15 +165,11 @@
                   </a-radio-button>
                 </a-radio-group>
               </a-form-model-item>
-              <a-form-model-item
-                label="婚姻状况"
-                ref="maritalStatus"
-                prop="maritalStatus"
-              >
-                <a-radio-group
-                  v-model="form.maritalStatus"
-                  button-style="solid"
-                >
+              <a-form-model-item label="婚姻状况"
+                                 ref="maritalStatus"
+                                 prop="maritalStatus">
+                <a-radio-group v-model="form.maritalStatus"
+                               button-style="solid">
                   <a-radio-button :value="1">
                     已婚
                   </a-radio-button>
@@ -244,123 +184,85 @@
                   </a-radio-button>
                 </a-radio-group>
               </a-form-model-item>
-              <a-form-model-item
-                label="家庭住址"
-                ref="downtownAddressArr"
-                prop="downtownAddressArr"
-              >
+              <a-form-model-item label="家庭住址"
+                                 ref="downtownAddressArr"
+                                 prop="downtownAddressArr">
                 <span>所在地区</span>
-                <a-cascader
-                  v-model="form.downtownAddressArr"
-                  :options="distOptionTrees"
-                  expand-trigger="hover"
-                  placeholder="请选择家庭住址的省市区"
-                  style="width: 100%;margin:5px 0 10px 0;"
-                />
+                <a-cascader v-model="form.downtownAddressArr"
+                            :options="distOptionTrees"
+                            expand-trigger="hover"
+                            placeholder="请选择家庭住址的省市区"
+                            style="width: 100%;margin:5px 0 10px 0;" />
                 <span>详细地址</span>
-                <a-input
-                  v-model="form.homeAddress"
-                  placeholder="请输入详细家庭住址"
-                  style="margin:5px 0 10px 0;"
-                />
+                <a-input v-model="form.homeAddress"
+                         placeholder="请输入详细家庭住址"
+                         style="margin:5px 0 10px 0;" />
               </a-form-model-item>
-              <a-form-model-item
-                label="工作单位"
-                ref="company"
-                prop="company"
-              >
-                <a-input
-                  v-model="form.company"
-                  placeholder="请输入"
-                />
+              <a-form-model-item label="工作单位"
+                                 ref="company"
+                                 prop="company">
+                <a-input v-model="form.company"
+                         placeholder="请输入" />
               </a-form-model-item>
-              <a-form-model-item
-                label="就诊后一年"
-                ref="emergencyInfusionNum"
-                prop="emergencyInfusionNum"
-              >
+              <a-form-model-item label="就诊后一年"
+                                 ref="emergencyInfusionNum"
+                                 prop="emergencyInfusionNum">
                 <span>急诊/输液次数</span>
-                <a-input
-                  v-model="form.emergencyInfusionNum"
-                  placeholder="请输入"
-                  style="margin:5px 0 10px 0;"
-                />
+                <a-input v-model="form.emergencyInfusionNum"
+                         placeholder="请输入"
+                         style="margin:5px 0 10px 0;" />
                 <span>住院次数</span>
-                <a-input
-                  v-model="form.hospitalizationNum"
-                  placeholder="请输入"
-                  style="margin:5px 0 10px 0;"
-                />
+                <a-input v-model="form.hospitalizationNum"
+                         placeholder="请输入"
+                         style="margin:5px 0 10px 0;" />
               </a-form-model-item>
-              <a-form-model-item
-                label="接诊医师"
-                ref="physician"
-                prop="physician"
-              >
-                <a-input
-                  v-model="form.physician"
-                  placeholder="请输入接诊医师姓名"
-                  style="width: 100%;"
-                />
+              <a-form-model-item label="接诊医师"
+                                 ref="physician"
+                                 prop="physician">
+                <a-input v-model="form.physician"
+                         placeholder="请输入接诊医师姓名"
+                         style="width: 100%;" />
               </a-form-model-item>
-              <a-form-model-item
-                label="科室"
-                ref="department"
-                prop="department"
-              >
-                <a-input
-                  v-model="form.department"
-                  placeholder="请输入科室"
-                  style="width: 100%;"
-                />
+              <a-form-model-item label="科室"
+                                 ref="department"
+                                 prop="department">
+                <a-input v-model="form.department"
+                         placeholder="请输入科室"
+                         style="width: 100%;" />
               </a-form-model-item>
-              <a-form-model-item
-                label="接诊药师"
-                ref="pharmacist"
-                prop="pharmacist"
-              >
-                <a-input
-                  v-model="form.pharmacist"
-                  style="width: 100%;"
-                />
+              <a-form-model-item label="接诊药师"
+                                 ref="pharmacist"
+                                 prop="pharmacist">
+                <a-input v-model="form.pharmacist"
+                         style="width: 100%;" />
               </a-form-model-item>
               <a-form-model-item>
-                <a-button
-                  type="primary"
-                  :loading="confirmLoading"
-                  @click="handleSubmit"
-                >
+                <a-button type="primary"
+                          :loading="confirmLoading"
+                          @click="handleSubmit">
                   保存信息
                 </a-button>
-                <a-button
-                  style="margin-left: 10px;"
-                  @click="resetForm"
-                >
+                <a-button style="margin-left: 10px;"
+                          @click="resetForm">
                   清空重置
                 </a-button>
               </a-form-model-item>
             </a-form-model>
           </a-tab-pane>
-          <a-tab-pane
-            key="2"
-            tab="评估记录"
-            force-render
-          >
+          <a-tab-pane key="2"
+                      tab="评估记录"
+                      force-render>
             <a-timeline v-if="assessmentRecording.length === 0">
               <a-timeline-item>
                 该患者暂无评估记录
               </a-timeline-item>
             </a-timeline>
             <a-timeline v-else>
-              <a-timeline-item
-                v-for="(r, index) in assessmentRecording"
-                :key="index"
-              >
+              <a-timeline-item v-for="(r, index) in assessmentRecording"
+                               :key="index">
                 {{ r.fillDate }}
-                <a-tag
-                  color="#2db7f5"
-                  style="float: right;"
-                >
+                <a-tag color="#2db7f5"
+                       style="float: right;">
                   患者评估
                 </a-tag>
                 <a-card :bordered="false">
@@ -377,23 +279,20 @@
               </a-timeline-item>-->
             </a-timeline>
           </a-tab-pane>
-          <a-tab-pane
-            key="3"
-            tab="药物不良反应记录"
-            force-render
-          >
+          <a-tab-pane key="3"
+                      tab="药物不良反应记录"
+                      force-render>
             <a-timeline v-if="medicHistoryList.length === 0">
               <a-timeline-item>
                 该患者暂无药物不良反应记录
               </a-timeline-item>
             </a-timeline>
             <a-timeline v-else>
-              <a-timeline-item v-for="(item) in medicHistoryList" :key="item.medicationSideEffectId">
+              <a-timeline-item v-for="(item) in medicHistoryList"
+                               :key="item.medicationSideEffectId">
                 {{ item.occurrenceDatetime }}
-                <a-tag
-                  color="#2db7f5"
-                  style="float: right;"
-                >
+                <a-tag color="#2db7f5"
+                       style="float: right;">
                   患者评估
                 </a-tag>
                 <a-card :bordered="false">
@@ -414,19 +313,13 @@
             </a-timeline>
           </a-tab-pane>
         </a-tabs>
-        <div
-          class="setting-drawer-index-handle"
-          @click="toggle"
-          slot="handle"
-        >
-          <a-icon
-            type="left"
-            v-if="!visible"
-          />
-          <a-icon
-            type="right"
-            v-else
-          />
+        <div class="setting-drawer-index-handle"
+             @click="toggle"
+             slot="handle">
+          <a-icon type="left"
+                  v-if="!visible" />
+          <a-icon type="right"
+                  v-else />
         </div>
       </a-drawer>
     </div>
@@ -439,7 +332,8 @@ import {
   getPatientInfoByPhone,
   getPatientListByPhone,
   savePatientInfo,
-  updatePatientInfo
+  updatePatientInfo,
+  getPatientInfoById
 } from '@/api/mtms'
 import { getDistTree } from '@/api/system'
 import { getInfo } from '@/api/login'
@@ -486,7 +380,7 @@ export default {
           { required: true, message: '请填写患者姓名', trigger: 'blur' }
         ],
         birthday: [
-          { required: true, message: '请填写患者生日！', trigger: [ 'blur', 'change' ] }
+          { required: true, message: '请填写患者生日！', trigger: ['blur', 'change'] }
         ],
         gender: [
           { required: true, message: '请选择患者性别', trigger: 'change' }
@@ -503,11 +397,15 @@ export default {
     }).catch(() => {
       this.notification('error', '查询失败', '系统错误，地区数据获取失败，请稍后再试')
     })
+
   },
   mounted () {
     getInfo().then(res => {
       this.form.pharmacist = res.loginName
     })
+    if (this.$route.query.patientId) {
+      this.getPatientInfoById()
+    }
   },
   computed: {
     BMI () {
@@ -525,6 +423,13 @@ export default {
   },
   methods: {
     moment,
+    getPatientInfoById () {
+      getPatientInfoById(this.$route.query.patientId).then(res => {
+        console.log(res)
+        let { data } = res
+        this.form = data
+      })
+    },
     showDrawer () {
       this.visible = true
     },
@@ -536,7 +441,7 @@ export default {
       this.$emit('onChangeCardContentWidth', this.visible)
     },
     resetForm () {
-      this.$refs[ 'patientBasicInfoForm' ].resetFields()
+      this.$refs['patientBasicInfoForm'].resetFields()
       this.form.hospitalizationNum = ''
     },
     calBMI (weight, height) {
@@ -590,49 +495,49 @@ export default {
     },
     handleSubmit () {
       console.log('click!!!')
-      this.$refs[ 'patientBasicInfoForm' ].validate((valid) => {
-          const values = this.form
-          if (valid) {
-            console.log('Received values of form: ', values)
-            this.confirmLoading = true
-            if (this.patientId === 0) {
-              savePatientInfo(values).then(res => {
-                if (res.code === 200) {
-                  this.patientId = res.data.patientId
-                  this.notification('success', '保存成功', '患者基本信息保存成功')
-                  this.$store.dispatch('SET_INFO',
-                    { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
-                } else {
-                  this.notification('error', '保存失败', res.msg)
-                }
-              }).catch(() => {
-                this.notification('error', '保存失败', '系统错误，请稍后再试')
-              }).finally(() => {
-                this.confirmLoading = false
-                this.$emit('patient-id', this.patientId)
-              })
-            } else {
-              updatePatientInfo(this.patientId, values).then(res => {
-                if (res.code === 200) {
-                  this.notification('success', '修改成功', '患者基本信息修改成功')
-                  this.$store.dispatch('SET_INFO',
-                    { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
-                } else {
-                  this.notification('error', '修改失败', res.msg)
-                }
-              }).catch(() => {
-                this.notification('error', '修改失败', '系统错误，请稍后再试')
-              }).finally(() => {
-                this.confirmLoading = false
-                this.$emit('patient-id', this.patientId)
-              })
-            }
+      this.$refs['patientBasicInfoForm'].validate((valid) => {
+        const values = this.form
+        if (valid) {
+          console.log('Received values of form: ', values)
+          this.confirmLoading = true
+          if (this.patientId === 0) {
+            savePatientInfo(values).then(res => {
+              if (res.code === 200) {
+                this.patientId = res.data.patientId
+                this.notification('success', '保存成功', '患者基本信息保存成功')
+                this.$store.dispatch('SET_INFO',
+                  { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
+              } else {
+                this.notification('error', '保存失败', res.msg)
+              }
+            }).catch(() => {
+              this.notification('error', '保存失败', '系统错误，请稍后再试')
+            }).finally(() => {
+              this.confirmLoading = false
+              this.$emit('patient-id', this.patientId)
+            })
+          } else {
+            updatePatientInfo(this.patientId, values).then(res => {
+              if (res.code === 200) {
+                this.notification('success', '修改成功', '患者基本信息修改成功')
+                this.$store.dispatch('SET_INFO',
+                  { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
+              } else {
+                this.notification('error', '修改失败', res.msg)
+              }
+            }).catch(() => {
+              this.notification('error', '修改失败', '系统错误，请稍后再试')
+            }).finally(() => {
+              this.confirmLoading = false
+              this.$emit('patient-id', this.patientId)
+            })
           }
         }
+      }
       )
     },
     notification (type, message, description) {
-      this.$notification[ type ]({
+      this.$notification[type]({
         message: message,
         description: description
       })

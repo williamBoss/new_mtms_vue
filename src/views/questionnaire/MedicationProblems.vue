@@ -142,7 +142,7 @@
           <template slot-scope="text, record">
             <a-textarea v-if="!record.saved"
                         v-model="record.improvementDetails" />
-            <span>{{record.improvementDetails}}</span>
+            <span v-else>{{record.improvementDetails}}</span>
           </template>
         </a-table-column>
         <a-table-column key="action"
