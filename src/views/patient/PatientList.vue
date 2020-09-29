@@ -141,11 +141,14 @@
           </a-tooltip>
         </a>
         <a-divider type="vertical" />
-        <a @click="delByIds([record.assessmentId])">
-          <a-tooltip title="删除">
-            <a-icon type="delete" />
-          </a-tooltip>
-        </a>
+        <a-popconfirm title="确认删除该条评估记录？" @confirm="delConfirm([record.assessmentId])">
+          <a-icon slot="icon" type="question-circle-o" style="color: red" />
+          <a>
+            <a-tooltip title="删除">
+              <a-icon type="delete" />
+            </a-tooltip>
+          </a>
+        </a-popconfirm>
       </span>
     </s-table>
   </a-card>
@@ -242,7 +245,7 @@ export default {
     linkPatientAssessment () {
       this.$router.push({ name: 'PatientAssessment' })
     },
-    delByIds (ids) {
+    delConfirm (ids) {
       delAssessment(ids).then(res => {
         if (res.code === 200) {
           this.$message.success(`删除成功`)
