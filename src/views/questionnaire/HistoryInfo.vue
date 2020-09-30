@@ -4,7 +4,7 @@
       <a-collapse>
         <!-- 1 -->
         <a-collapse-panel key="1"
-                          header="家族史">
+                          header="家族史" style="background-color: #1890ff;color: #ffffff">
           <a-form-model-item label="家族史">
             <a-tag color="green"
                    v-for="(item, index) in familyMedicalHistoryDisease"
@@ -597,6 +597,10 @@ export default {
 </script>
 <style lang="less">
 .historyInfo-page {
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    color: #ffffff;
+    background-color: #1890ff;
+  }
   div.ant-collapse-content-box .ant-form-item .ant-form-item-control {
     width: auto;
   }
