@@ -5,9 +5,9 @@
         <a-collapse-panel key="1"
                           header="生活方式">
           <div class="line-div flex">
-            <div><span>身高: </span><span>{{height}}</span></div>
-            <div><span>体重: </span><span>{{weight}}</span></div>
-            <div><span>BMI: </span><span>{{bmi}}</span></div>
+            <div><span>身高: </span><span>{{ height }}</span></div>
+            <div><span>体重: </span><span>{{ weight }}</span></div>
+            <div><span>BMI: </span><span>{{ bmi }}</span></div>
           </div>
           <a-form-model-item class="user-set">
             <div class="title">
@@ -24,7 +24,8 @@
                                     :disabled="form.weightChangeType===1"
                                     :min="0" />
                     <div class="unit"
-                         v-if="form.weightChangeType===2">kg</div>
+                         v-if="form.weightChangeType===2">kg
+                    </div>
                   </div>
                 </a-radio>
                 <a-radio :value="1">
@@ -148,9 +149,9 @@
           <div class="flex">
             <div class="title">蔬菜水果</div>
             <a-radio-group v-model="form.dailyVegetableFruitAmount">
-              <a-radio :value="1"> 少 </a-radio>
-              <a-radio :value="2"> 中 </a-radio>
-              <a-radio :value="3"> 多 </a-radio>
+              <a-radio :value="1"> 少</a-radio>
+              <a-radio :value="2"> 中</a-radio>
+              <a-radio :value="3"> 多</a-radio>
             </a-radio-group>
           </div>
         </a-collapse-panel>
@@ -265,8 +266,8 @@
             <div class="input-div flex">
               <div class="input-item">
                 <a-radio-group v-model="form.isFall">
-                  <a-radio :value="0"> 否 </a-radio>
-                  <a-radio :value="1"> 是 </a-radio>
+                  <a-radio :value="0"> 否</a-radio>
+                  <a-radio :value="1"> 是</a-radio>
                 </a-radio-group>
 
               </div>
@@ -339,6 +340,12 @@
                                 :min="0" />
               </div>
             </div>
+            <div class="flex" style="border-top: 1px solid #000000">
+              <div>备注</div>
+              <div style="width: 70%">
+                <a-input v-model="form.treatmentTotalRemark" />
+              </div>
+            </div>
           </div>
         </a-collapse-panel>
         <!-- 6 -->
@@ -364,6 +371,7 @@ import {
   saveLifestyle,
   getPatientInfoById
 } from '@/api/mtms'
+
 export default {
   name: 'LifeStyle',
   props: {
@@ -373,7 +381,7 @@ export default {
     },
     assessmentId: {}
   },
-  data () {
+  data() {
     return {
       height: '',
       weight: '',
@@ -412,12 +420,12 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     console.log('LifeStyle Page')
     this.getPatientInfoById()
   },
   methods: {
-    getPatientInfoById () {
+    getPatientInfoById() {
       if (!this.patientId) return
       getPatientInfoById(this.patientId).then(res => {
         console.log(res)
@@ -429,29 +437,32 @@ export default {
         }
       })
     },
-    async confirmData () {
+    async confirmData() {
       let _usualSports = ''
       if (this.form.otherAction) {
         // const _arr = JSON.parse(JSON.stringify(this.form.usualSports)).split(',').push(this.otherAction)
-        _usualSports = [this.form.usualSports.join(','), this.form.otherAction].join(',')
+        _usualSports = [ this.form.usualSports.join(','), this.form.otherAction ].join(',')
         // _usualSports = _arr.join(',')
-      } else {
+      } else if (this.form.usualSports) {
         _usualSports = this.form.usualSports.join(',')
       }
-      saveLifestyle({ ...this.form, usualSports: _usualSports, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
-        const { success } = res
-        if (success) {
-          this.$message.success('生活方式保存成功')
-        } else {
+      saveLifestyle(
+        { ...this.form, usualSports: _usualSports, patientId: this.patientId, assessmentId: this.assessmentId }).
+        then(res => {
+          const { success } = res
+          if (success) {
+            this.$message.success('生活方式保存成功')
+          } else {
+            this.$message.error('系统错误，请稍后再试')
+          }
+        }).
+        catch(() => {
           this.$message.error('系统错误，请稍后再试')
-        }
-      }).catch(() => {
-        this.$message.error('系统错误，请稍后再试')
-      })
+        })
     }
   },
   watch: {
-    patientId: function (v) {
+    patientId: function(v) {
       if (v) {
         this.getPatientInfoById()
       }
@@ -467,6 +478,7 @@ export default {
       margin-right: 10px;
     }
   }
+
   // .line-div {
   //   display: flex;
   //   .ant-form-item {
@@ -480,39 +492,50 @@ export default {
   .ant-radio-wrapper > span:last-child {
     display: inline-block;
   }
+
   .widget-input {
   }
+
   .sport-div {
     display: inline-block;
   }
+
   .expense-table {
     width: 600px;
     border: 1px solid #666;
+
     > div {
       height: 30px;
       line-height: 30px;
     }
+
     .table-title {
       text-align: center;
       color: #fff;
       background: #ccc;
     }
+
     .flex {
       > div {
         overflow: hidden;
       }
+
       > div:not(:last-child) {
         border-right: 1px solid #666;
       }
+
       > div:nth-child(2n) {
         width: 20%;
       }
+
       > div:nth-child(2n-1) {
         padding: 0 10px;
         width: 30%;
       }
+
       .ant-input-number {
         width: 100%;
+
         input {
           border: none;
         }

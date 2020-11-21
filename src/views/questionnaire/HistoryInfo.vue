@@ -221,8 +221,8 @@ import {
 } from '@/api/mtms'
 
 export default {
-  props: ['patientId', 'assessmentId'],
-  data () {
+  props: [ 'patientId', 'assessmentId' ],
+  data() {
     return {
       visible: false,
       visibleType: '',
@@ -277,7 +277,7 @@ export default {
       medicFilterData: [],
       painList: [],
       symptomslist: [
-        '恶心', '呕吐', '便秘', '腹泻', '腹痛', '失眠', '头晕', '肌痛', '肝功能异常'
+        '恶心', '呕吐', '便秘', '腹泻', '腹痛', '失眠', '头晕', '肌痛', '皮疹', '过敏', '肝功能异常'
       ],
       familyMedicalHistoryDisease: [],
       pastMedicalHistoryDisease: [],
@@ -285,7 +285,7 @@ export default {
       surgicalHistoryList: []
     }
   },
-  mounted () {
+  mounted() {
     // this.getMedList()
     this.getDiseaseList()
     this.getAllSurgicalHistory()
@@ -296,7 +296,7 @@ export default {
      * 保存操作
      */
     // 药物列表
-    getMedList () {
+    getMedList() {
       getAllMed().then(res => {
         let { data } = res
         if (data) {
@@ -305,7 +305,7 @@ export default {
       })
     },
     // 所有疾病列表
-    getDiseaseList () {
+    getDiseaseList() {
       getDiseaseList().then(res => {
         let { rows } = res
         if (rows) {
@@ -313,7 +313,7 @@ export default {
         }
       })
     },
-    pushSymptoms () {
+    pushSymptoms() {
       console.log('添加数据')
       this.medicHostoryList.unshift({
         otherSymptoms: '',
@@ -324,21 +324,21 @@ export default {
         saved: false
       })
     },
-    deleteSymptoms (index) {
+    deleteSymptoms(index) {
       console.log(index)
       this.medicHostoryList.splice(index, 1)
     },
     // 校验不良反应史数据
-    checkSymptomsData (index) {
+    checkSymptomsData(index) {
       if (!this.patientId) { return false }
-      if (!this.medicHostoryList[index].medName) { return false }
-      if (!this.medicHostoryList[index].occurrenceDatetime) { return false }
-      if (this.medicHostoryList[index].adverseReactionsSymptoms.length < 1 &&
-        !this.medicHostoryList[index].otherSymptoms) { return false }
+      if (!this.medicHostoryList[ index ].medName) { return false }
+      if (!this.medicHostoryList[ index ].occurrenceDatetime) { return false }
+      if (this.medicHostoryList[ index ].adverseReactionsSymptoms.length < 1 &&
+        !this.medicHostoryList[ index ].otherSymptoms) { return false }
       return true
     },
     // 保存药物不良反应记录
-    saveSymptoms (index) {
+    saveSymptoms(index) {
       if (!this.checkSymptomsData(index)) return
       let _otherSymptoms = []
       // if (this.medicHostoryList[index].otherSymptoms) {
@@ -348,27 +348,27 @@ export default {
       // const adverseReactionsSymptoms = this.medicHostoryList[index].adverseReactionsSymptoms.contact(_otherSymptoms)
       //   .join(',')
       let str = ''
-      if (this.medicHostoryList[index].adverseReactionsSymptoms) {
-        str = this.medicHostoryList[index].adverseReactionsSymptoms.join(',')
+      if (this.medicHostoryList[ index ].adverseReactionsSymptoms) {
+        str = this.medicHostoryList[ index ].adverseReactionsSymptoms.join(',')
       }
-      let adverseReactionsSymptoms = [str, this.medicHostoryList[index].otherSymptoms].join(',')
+      let adverseReactionsSymptoms = [ str, this.medicHostoryList[ index ].otherSymptoms ].join(',')
       let medId = ''
       this.medicData.forEach(item => {
-        if (item.medName === this.medicHostoryList[index].medName) {
+        if (item.medName === this.medicHostoryList[ index ].medName) {
           medId = item.medId
         }
       })
       saveMedicationSideEffect({
         adverseReactionsSymptoms: adverseReactionsSymptoms,
-        medName: this.medicHostoryList[index].medName,
+        medName: this.medicHostoryList[ index ].medName,
         medId: medId,
-        occurrenceDatetime: this.medicHostoryList[index].occurrenceDatetime,
+        occurrenceDatetime: this.medicHostoryList[ index ].occurrenceDatetime,
         patientId: this.patientId,
         assessmentId: this.assessmentId
       }).then(res => {
         const { code } = res
         if (code === 200) {
-          this.medicHostoryList[index].saved = true
+          this.medicHostoryList[ index ].saved = true
           this.$message.success('新增成功')
         } else {
           this.$message.error('系统错误，保存药物不良反应信息失败，请稍后再试')
@@ -376,7 +376,7 @@ export default {
       })
     },
     // 保存家族史 既往病史
-    handleOk () {
+    handleOk() {
       const _arr = JSON.parse(JSON.stringify(this.choicedList))
       let ids = []
       _arr.forEach(item => {
@@ -411,7 +411,7 @@ export default {
         })
       }
     },
-    addPaint (type) {
+    addPaint(type) {
       this.visibleType = type
       if (type === 'family') {
         this.choicedList = this.familyMedicalHistoryDisease
@@ -420,7 +420,7 @@ export default {
       }
       this.visible = true
     },
-    changeMedicData (searchText) {
+    changeMedicData(searchText) {
       const _data = this.medicData.filter(item => { return item.medName.includes(searchText) })
       const _arr = []
       _data.forEach(item => {
@@ -429,7 +429,7 @@ export default {
       this.medicFilterData = _arr
     },
     // 获取既往手术史
-    getAllSurgicalHistory () {
+    getAllSurgicalHistory() {
       allSurgicalHistory().then(res => {
         console.log(res)
         const { data } = res
@@ -437,7 +437,7 @@ export default {
       })
     },
     // 保存既往手术史
-    savePastSurgicalHistories () {
+    savePastSurgicalHistories() {
       savePastSurgicalHistories({
         patientId: this.patientId,
         surgicalIds: this.form.pastSurgicalHistoryId,
@@ -451,7 +451,7 @@ export default {
       })
     },
     // 保存过敏史
-    saveAllergyHistory () {
+    saveAllergyHistory() {
       saveAllergyHistory({
         patientId: this.patientId,
         allergyHistory: this.form.allergyHistory,
@@ -472,7 +472,7 @@ export default {
       })
     },
     // 保存肝损伤
-    saveLiverDamage () {
+    saveLiverDamage() {
       saveLiverDamage({
         patientId: this.patientId,
         liverDamageDesc: this.form.liverDamageDesc,
@@ -487,7 +487,7 @@ export default {
       })
     },
     // 保存肾损害
-    saveKidneyDamage () {
+    saveKidneyDamage() {
       saveKidneyDamage({
         patientId: this.patientId,
         kidneyDamage: this.form.kidneyDamage,
@@ -504,27 +504,27 @@ export default {
     /**
      * 获取历史数据
      */
-    getAllHistoryList () {
+    getAllHistoryList() {
       if (!this.patientId) return
       this.getFamilyMedicalHistory()
       this.getPastMedicalHistory()
       this.getPastSurgicalHistories()
     },
-    getFamilyMedicalHistory () {
+    getFamilyMedicalHistory() {
       if (!this.patientId) return
       getFamilyMedicalHistory({ patientId: this.patientId }).then(res => {
         let { data } = res
         this.familyMedicalHistoryDisease = data
       })
     },
-    getPastMedicalHistory () {
+    getPastMedicalHistory() {
       if (!this.patientId) return
       getPastMedicalHistory({ patientId: this.patientId }).then(res => {
         let { data } = res
         this.pastMedicalHistoryDisease = data
       })
     },
-    async getMedicationSideEffectList () {
+    async getMedicationSideEffectList() {
       await this.getMedList()
       if (!this.patientId) return
       await getMedicationSideEffectList({
@@ -560,7 +560,7 @@ export default {
         this.medicHostoryList = data
       })
     },
-    getPastSurgicalHistories () {
+    getPastSurgicalHistories() {
       getPastSurgicalHistories({ patientId: this.patientId }).then(res => {
         console.log('手术：', res)
         let { data } = res
@@ -576,14 +576,14 @@ export default {
   },
   watch: {
     medicHostoryList: {
-      handler (c) {
+      handler(c) {
         console.log('medicHostoryList: ', c)
       },
       deep: true,
       immediate: true
     },
     patientId: {
-      handler (d) {
+      handler(d) {
         if (d) {
           console.log(d)
           this.getAllHistoryList()
@@ -597,20 +597,24 @@ export default {
 </script>
 <style lang="less">
 .historyInfo-page {
-  .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     color: #ffffff;
     background-color: #1890ff;
   }
+
   div.ant-collapse-content-box .ant-form-item .ant-form-item-control {
     width: auto;
   }
+
   #pastSurgicalHistory.ant-checkbox-group {
     width: 80.666%;
+
     .ant-checkbox-wrapper {
       width: 30.333%;
       display: inline-block;
     }
   }
+
   .ant-checkbox-wrapper {
     display: block;
     margin-left: 8px;
@@ -685,6 +689,7 @@ export default {
   .table-body {
     .ant-checkbox-group {
       width: 100%;
+
       .ant-checkbox-wrapper {
         width: 45%;
       }

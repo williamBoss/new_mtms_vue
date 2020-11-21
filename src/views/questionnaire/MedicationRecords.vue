@@ -105,6 +105,9 @@
               <a-radio :value="'停用'">
                 停用
               </a-radio>
+              <a-radio :value="'在用'">
+                在用
+              </a-radio>
             </a-radio-group>
           </template>
         </a-table-column>

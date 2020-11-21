@@ -100,7 +100,7 @@
         </a-collapse-panel>
         <!-- 血脂记录 -->
         <a-collapse-panel key="3"
-                          header="血脂记录">
+                          header="血脂尿酸记录">
           <div class="table-addbtn-box flex">
             <a-button type="primary"
                       class="addHistoryBtn"
@@ -110,13 +110,14 @@
           </div>
           <div class="table flex">
             <div class="column middle">
-              <div class="title">血脂记录</div>
+              <div class="title">血脂尿酸</div>
               <div>总胆固醇TC(mmol/L)</div>
               <div>低密度脂蛋白LDL-C(mmol/L)</div>
+              <div>高密度脂蛋白HDL-C（mmol/L）</div>
               <div>甘油三酯TG(mmol/L)</div>
               <div>脂蛋白LP-A</div>
-              <div>高密度脂蛋白HDL-C（mmol/L）</div>
-              <div>低密度脂蛋白胆固醇</div>
+              <div>血尿酸</div>
+              <div>肌酸激酶CK</div>
             </div>
             <div class="column middle"
                  v-for="(item,index) in bloodLipids"
@@ -133,16 +134,19 @@
                 <a-input v-model="item.ldl" />
               </div>
               <div>
+                <a-input v-model="item.hdlC" />
+              </div>
+              <div>
                 <a-input v-model="item.tg" />
               </div>
               <div>
                 <a-input v-model="item.lpA" />
               </div>
               <div>
-                <a-input v-model="item.hdlC" />
+                <a-input v-model="item.bloodUricAcid" />
               </div>
               <div>
-                <a-input v-model="item.ldlC" />
+                <a-input v-model="item.creatineKinase" />
               </div>
               <div class="not-border"
                    v-if="!item.saved">
@@ -172,8 +176,10 @@
             <div class="column middle">
               <div class="title">血糖记录</div>
               <div>空腹血糖(mmol/L)</div>
-              <div>糖化血红蛋白(%)</div>
               <div>餐后2小时血糖（mmol/L）</div>
+              <div>随机血糖</div>
+              <div>糖化血红蛋白(%)</div>
+              <div>C肽</div>
               <div>尿微量白蛋白（mg/L）</div>
             </div>
             <div class="column middle"
@@ -188,10 +194,16 @@
                 <a-input v-model="item.fastingBloodGlucose" />
               </div>
               <div>
+                <a-input v-model="item.twoHoursPostprandial" />
+              </div>
+              <div>
+                <a-input v-model="item.randomBloodSugar" />
+              </div>
+              <div>
                 <a-input v-model="item.glycatedHemoglobin" />
               </div>
               <div>
-                <a-input v-model="item.twoHoursPostprandial" />
+                <a-input v-model="item.cpeptide" />
               </div>
               <div>
                 <a-input v-model="item.urineMicroalbumin" />
@@ -251,7 +263,7 @@
           </div>
         </a-collapse-panel>
         <!-- 血尿酸bloodUricAcid -->
-        <a-collapse-panel key="6"
+        <!--<a-collapse-panel key="6"
                           header="血尿酸">
           <div class="table-addbtn-box flex">
             <a-button type="primary"
@@ -289,7 +301,7 @@
               </div>
             </div>
           </div>
-        </a-collapse-panel>
+        </a-collapse-panel>-->
         <!-- 肝功能liverFunction -->
         <a-collapse-panel key="7"
                           header="肝功能">
@@ -305,6 +317,9 @@
               <div class="title">肝功能</div>
               <div>谷丙转氨酶 ALT（U/L）</div>
               <div>谷草转氨酶 AST（U/L）</div>
+              <div>总胆红素TBL</div>
+              <div>直接胆红素</div>
+              <div>间接胆红素</div>
             </div>
             <div class="column middle"
                  v-for="(item,index) in liverFunction"
@@ -319,6 +334,15 @@
               </div>
               <div>
                 <a-input v-model="item.ast" />
+              </div>
+              <div>
+                <a-input v-model="item.totalBilirubin" />
+              </div>
+              <div>
+                <a-input v-model="item.directBilirubin" />
+              </div>
+              <div>
+                <a-input v-model="item.indirectBilirubin" />
               </div>
               <div class="not-border"
                    v-if="!item.saved">
@@ -349,9 +373,8 @@
               <div class="title">肾功能</div>
               <div>血肌酐Cr（umol/L）</div>
               <div>24h尿蛋白（mg）</div>
-              <div>肾小球滤过率（GFR）</div>
-              <div>肌酐清除率（ml/min）</div>
-              <div>肌酸激酶CK</div>
+              <div>肾小球滤过率（GFR, ml/min）</div>
+              <div>肌酐清除率（CrCL, ml/min）</div>
             </div>
             <div class="column middle"
                  v-for="(item,index) in kidneyFunctionList"
@@ -372,9 +395,6 @@
               </div>
               <div>
                 <a-input v-model="item.creatinineClearanceRate" />
-              </div>
-              <div>
-                <a-input v-model="item.creatineKinase" />
               </div>
               <div class="not-border"
                    v-if="!item.saved">
@@ -510,12 +530,14 @@ import {
   getDetectKidneyFunctionList,
   saveDetectElectrolyte,
   getDetectElectrolyteList,
-  saveDetectOther
+  saveDetectOther,
+  getDetectOtherList
 } from '@/api/mtms'
+
 export default {
   name: 'InspectionAndInspection',
-  props: ['patientId', 'assessmentId'],
-  data () {
+  props: [ 'patientId', 'assessmentId' ],
+  data() {
     return {
       bloodPressure: [],
       heartRate: [],
@@ -530,7 +552,7 @@ export default {
     }
   },
   methods: {
-    getAllData () {
+    getAllData() {
       this.getBloodPressure()
       this.getDetectHeartRateList()
       this.getBloodLipids()
@@ -543,8 +565,8 @@ export default {
       this.getDetectElectrolyteList()
       this.getOtherList()
     },
-    pushData (type) {
-      this[type].push({
+    pushData(type) {
+      this[ type ].push({
         detectDate: '',
         morningValue: '',
         noonValue: '',
@@ -552,23 +574,24 @@ export default {
         saved: false
       })
     },
-    pushBloodLipidsData () {
+    pushBloodLipidsData() {
       this.bloodLipids.push({
         detectDate: '',
         tc: '',
         ldl: '',
+        hdlC: '',
         tg: '',
         lpA: '',
-        hdlC: '',
-        ldlC: '',
+        bloodUricAcid: '',
+        creatineKinase: '',
         saved: false
       })
     },
-    deleteData (index, type) {
-      this[type].splice(index, 1)
+    deleteData(index, type) {
+      this[ type ].splice(index, 1)
     },
     // 血压
-    getBloodPressure () {
+    getBloodPressure() {
       getDetectBloodPressureList({ patientId: this.patientId }).then(res => {
         console.log(res)
         let { rows } = res
@@ -577,18 +600,18 @@ export default {
         }
       })
     },
-    saveDetectBloodPressure (index) {
+    saveDetectBloodPressure(index) {
       let data = {
-        detectDate: this.bloodPressure[index].detectDate,
-        morningValue: this.bloodPressure[index].morningValue,
-        noonValue: this.bloodPressure[index].noonValue,
-        nightValue: this.bloodPressure[index].nightValue,
+        detectDate: this.bloodPressure[ index ].detectDate,
+        morningValue: this.bloodPressure[ index ].morningValue,
+        noonValue: this.bloodPressure[ index ].noonValue,
+        nightValue: this.bloodPressure[ index ].nightValue,
         patientId: this.patientId,
         assessmentId: this.assessmentId
       }
       saveDetectBloodPressure({ ...data }).then(res => {
         if (res.code === 200) {
-          this.bloodPressure[index].saved = true
+          this.bloodPressure[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -596,7 +619,7 @@ export default {
       })
     },
     // 心率
-    getDetectHeartRateList () {
+    getDetectHeartRateList() {
       getDetectHeartRateList({ patientId: this.patientId }).then(res => {
         console.log(res)
         let { rows } = res
@@ -605,18 +628,18 @@ export default {
         }
       })
     },
-    saveDetectHeartRate (index) {
+    saveDetectHeartRate(index) {
       let data = {
-        detectDate: this.heartRate[index].detectDate,
-        morningValue: this.heartRate[index].morningValue,
-        noonValue: this.heartRate[index].noonValue,
-        nightValue: this.heartRate[index].nightValue,
+        detectDate: this.heartRate[ index ].detectDate,
+        morningValue: this.heartRate[ index ].morningValue,
+        noonValue: this.heartRate[ index ].noonValue,
+        nightValue: this.heartRate[ index ].nightValue,
         patientId: this.patientId,
         assessmentId: this.assessmentId
       }
       saveDetectHeartRate({ ...data }).then(res => {
         if (res.code === 200) {
-          this.heartRate[index].saved = true
+          this.heartRate[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -624,7 +647,7 @@ export default {
       })
     },
     // 血脂
-    getBloodLipids () {
+    getBloodLipids() {
       getDetectBloodLipidsList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -632,12 +655,12 @@ export default {
         }
       })
     },
-    savebloodLipids (index) {
-      let _data = JSON.parse(JSON.stringify(this.bloodLipids[index]))
+    savebloodLipids(index) {
+      let _data = JSON.parse(JSON.stringify(this.bloodLipids[ index ]))
       delete _data.saved
       saveDetectBloodLipids({ ..._data, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.bloodLipids[index].saved = true
+          this.bloodLipids[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -645,29 +668,31 @@ export default {
       })
     },
     // 血糖
-    pushBloodSugar () {
+    pushBloodSugar() {
       this.bloodSugar.push({
         detectDate: '',
         fastingBloodGlucose: '',
-        glycatedHemoglobin: '',
         twoHoursPostprandial: '',
+        randomBloodSugar: '',
+        glycatedHemoglobin: '',
+        cpeptide: '',
         urineMicroalbumin: '',
         saved: false
       })
     },
-    saveBloodSugar (index) {
-      let _dataBL = JSON.parse(JSON.stringify(this.bloodLipids[index]))
+    saveBloodSugar(index) {
+      let _dataBL = JSON.parse(JSON.stringify(this.bloodSugar[ index ]))
       delete _dataBL.saved
       saveDetectBloodSugar({ ..._dataBL, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.bloodSugar[index].saved = true
+          this.bloodSugar[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getBloodSugar () {
+    getBloodSugar() {
       getDetectBloodSugarList({ patientId: this.patientId }).then(res => {
         console.log(res)
         let { rows } = res
@@ -677,26 +702,26 @@ export default {
       })
     },
     // 同型半胱氨酸
-    pushHomocysteine () {
+    pushHomocysteine() {
       this.homocysteine.push({
         detectDate: '',
         homocysteineValue: '',
         saved: false
       })
     },
-    saveHomocysteine (index) {
-      let _dataH = JSON.parse(JSON.stringify(this.homocysteine[index]))
+    saveHomocysteine(index) {
+      let _dataH = JSON.parse(JSON.stringify(this.homocysteine[ index ]))
       delete _dataH.saved
       saveDetectHomocysteine({ ..._dataH, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.homocysteine[index].saved = true
+          this.homocysteine[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getHomocysteine () {
+    getHomocysteine() {
       getDetectHomocysteineList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -705,26 +730,26 @@ export default {
       })
     },
     // 血尿酸
-    pushBloodUricAcid () {
+    pushBloodUricAcid() {
       this.bloodUricAcid.push({
         saved: false,
         detectDate: '',
         bloodUricAcidValue: ''
       })
     },
-    saveBloodUricAcid (index) {
-      let _dataBUA = JSON.parse(JSON.stringify(this.bloodUricAcid[index]))
+    saveBloodUricAcid(index) {
+      let _dataBUA = JSON.parse(JSON.stringify(this.bloodUricAcid[ index ]))
       delete _dataBUA.saved
       saveDetectBloodUricAcid({ ..._dataBUA, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.bloodUricAcid[index].saved = true
+          this.bloodUricAcid[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getBloodUricAcid () {
+    getBloodUricAcid() {
       getDetectBloodUricAcidList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -733,27 +758,30 @@ export default {
       })
     },
     // 肝功能
-    pushLiverFunction () {
+    pushLiverFunction() {
       this.liverFunction.push({
         saved: false,
         detectDate: '',
         alt: '',
-        ast: ''
+        ast: '',
+        totalBilirubin: '',
+        directBilirubin: '',
+        indirectBilirubin: ''
       })
     },
-    saveLiverFunction (index) {
-      let _dataLF = JSON.parse(JSON.stringify(this.liverFunction[index]))
+    saveLiverFunction(index) {
+      let _dataLF = JSON.parse(JSON.stringify(this.liverFunction[ index ]))
       delete _dataLF.saved
       saveDetectLiverFunction({ ..._dataLF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.liverFunction[index].saved = true
+          this.liverFunction[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getLiverFunction () {
+    getLiverFunction() {
       getDetectLiverFunctionList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -762,30 +790,29 @@ export default {
       })
     },
     // 肾功能
-    pushKidneyFunction () {
+    pushKidneyFunction() {
       this.kidneyFunctionList.push({
         saved: false,
         detectDate: '',
-        creatineKinase: '',
+        serumCreatinine: '',
         twentyFourHourUrineProtein: '',
         glomerularFiltrationRate: '',
-        creatinineClearanceRate: '',
-        creatineKinase: ''
+        creatinineClearanceRate: ''
       })
     },
-    saveDetectKidneyFunction () {
-      let _dataKF = JSON.parse(JSON.stringify(this.kidneyFunctionList[index]))
+    saveDetectKidneyFunction(index) {
+      let _dataKF = JSON.parse(JSON.stringify(this.kidneyFunctionList[ index ]))
       delete _dataKF.saved
-      saveDetectLiverFunction({ ..._dataKF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
+      saveDetectKidneyFunction({ ..._dataKF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.kidneyFunctionList[index].saved = true
+          this.kidneyFunctionList[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getDetectKidneyFunctionList () {
+    getDetectKidneyFunctionList() {
       getDetectKidneyFunctionList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -794,7 +821,7 @@ export default {
       })
     },
     // 电解质
-    pushElectrolyte () {
+    pushElectrolyte() {
       this.electrolyte.push({
         saved: false,
         calcium: '',
@@ -802,19 +829,19 @@ export default {
         tfOhVitd: ''
       })
     },
-    saveDetectElectrolyte (index) {
-      let _dataE = JSON.parse(JSON.stringify(this.electrolyte[index]))
+    saveDetectElectrolyte(index) {
+      let _dataE = JSON.parse(JSON.stringify(this.electrolyte[ index ]))
       delete _dataE.saved
       saveDetectElectrolyte({ ..._dataE, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
-          this.electrolyte[index].saved = true
+          this.electrolyte[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
         }
       })
     },
-    getDetectElectrolyteList () {
+    getDetectElectrolyteList() {
       getDetectElectrolyteList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -823,16 +850,16 @@ export default {
       })
     },
     // 其他
-    pushOther () {
+    pushOther() {
       this.detectOtherList.push({
         saved: false,
-        "detectDate": "",
-        "detectName": "",
-        "detectUnit": "",
-        "detectValue": ""
+        'detectDate': '',
+        'detectName': '',
+        'detectUnit': '',
+        'detectValue': ''
       })
     },
-    getOtherList () {
+    getOtherList() {
       getDetectOtherList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -840,18 +867,18 @@ export default {
         }
       })
     },
-    saveDetectOther (index) {
+    saveDetectOther(index) {
       let data = {
-        "detectDate": this.detectOtherList[index].detectDate,
-        "detectName": this.detectOtherList[index].detectName,
-        "detectUnit": this.detectOtherList[index].detectUnit,
-        "detectValue": this.detectOtherList[index].detectValue,
+        'detectDate': this.detectOtherList[ index ].detectDate,
+        'detectName': this.detectOtherList[ index ].detectName,
+        'detectUnit': this.detectOtherList[ index ].detectUnit,
+        'detectValue': this.detectOtherList[ index ].detectValue,
         patientId: this.patientId,
         assessmentId: this.assessmentId
       }
       saveDetectOther({ ...data }).then(res => {
         if (res.code === 200) {
-          this.detectOtherList[index].saved = true
+          this.detectOtherList[ index ].saved = true
           this.$message.success('添加成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -861,7 +888,7 @@ export default {
   },
   watch: {
     patientId: {
-      handler (v) {
+      handler(v) {
         this.getAllData()
       },
       immediate: true
@@ -875,12 +902,15 @@ export default {
   .flex {
     display: flex;
   }
+
   .table .column {
     width: 140px;
   }
+
   .table > .column:last-child > div {
     border-right: 1px solid #eee;
   }
+
   .column > div {
     border: 1px solid #eee;
     height: 30px;
@@ -890,72 +920,89 @@ export default {
     border-bottom: none;
     border-right: none;
   }
+
   .column.middle {
     width: 140px;
   }
+
   .column.middle > div {
     height: 50px;
     box-sizing: border-box;
     // line-height: 16px;
     overflow: hidden;
   }
+
   .column > div.title {
     margin: 0;
   }
+
   .column > div:first-child:not(.title) {
     line-height: 30px;
     padding: 0;
     overflow: hidden;
   }
+
   .column input {
     border: none !important;
     line-height: 30px;
   }
+
   .column.middle > div:first-child input {
     // padding: 0;
     height: 50px;
     line-height: 50px;
   }
+
   .column.middle input {
     height: 50px;
     line-height: 50px;
   }
+
   .column > div:last-child:not(.not-border) {
     border-bottom: 1px solid #eee;
   }
+
   .column > div input {
     height: 20px;
     border: none;
   }
+
   .column .title {
     background-color: #00b050;
     color: #fff;
   }
+
   .table-addbtn-box {
     width: 100%;
   }
+
   .ant-calendar-picker-input.ant-input {
     border: none;
   }
+
   .not-border {
     border-left: none !important;
     border-right: none !important;
     border-top: 1px solid #eee;
   }
+
   .last-table {
     // width: 600px;
     .column.middle {
       width: auto;
     }
+
     .row {
       overflow: hidden;
       padding: 0;
+
       > div {
         float: left;
         width: 150px;
         line-height: 50px;
         overflow: hidden;
       }
+
       > div:not(:last-child) {
         border-right: 1px solid #eee;
       }

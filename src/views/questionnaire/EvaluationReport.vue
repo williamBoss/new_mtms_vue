@@ -443,7 +443,7 @@
         </div>
       </div> -->
       <!-- 问题计划 -->
-      <div class="problemPlan-table table-box">
+      <!--<div class="problemPlan-table table-box">
         <div class="table-header">
           问题及干预
           <a-button type="link"
@@ -475,7 +475,7 @@
             </a-button>
           </div>
         </div>
-      </div>
+      </div>-->
       <!-- 转归 -->
       <div class="back-table table-box">
         <div class="table-header">
