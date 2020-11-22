@@ -381,7 +381,7 @@ export default {
     },
     assessmentId: {}
   },
-  data() {
+  data () {
     return {
       height: '',
       weight: '',
@@ -420,12 +420,12 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     console.log('LifeStyle Page')
     this.getPatientInfoById()
   },
   methods: {
-    getPatientInfoById() {
+    getPatientInfoById () {
       if (!this.patientId) return
       getPatientInfoById(this.patientId).then(res => {
         console.log(res)
@@ -437,7 +437,15 @@ export default {
         }
       })
     },
-    async confirmData() {
+    calWeeklyExerciseTime (eachExerciseTime, weeklyExerciseFrequency) {
+      if (eachExerciseTime && weeklyExerciseFrequency) {
+        this.form.weeklyExerciseTime = Number(
+          (Number(eachExerciseTime) * Number(weeklyExerciseFrequency) / 60).toFixed(2))
+      } else {
+        this.form.weeklyExerciseTime = 0
+      }
+    },
+    async confirmData () {
       let _usualSports = ''
       if (this.form.otherAction) {
         // const _arr = JSON.parse(JSON.stringify(this.form.usualSports)).split(',').push(this.otherAction)
@@ -461,11 +469,24 @@ export default {
         })
     }
   },
+  computed: {
+    weeklyExerciseTime: function () {
+      const { eachExerciseTime, weeklyExerciseFrequency } = this.form
+      return {
+        eachExerciseTime,
+        weeklyExerciseFrequency
+      }
+    }
+  },
   watch: {
-    patientId: function(v) {
+    patientId: function (v) {
       if (v) {
         this.getPatientInfoById()
       }
+    },
+    weeklyExerciseTime: function (val) {
+      console.log(val)
+      this.calWeeklyExerciseTime(val.eachExerciseTime, val.weeklyExerciseFrequency)
     }
   }
 }

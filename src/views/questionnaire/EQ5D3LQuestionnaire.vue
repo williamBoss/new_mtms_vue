@@ -75,7 +75,7 @@
       </a-radio-group>
     </a-form-model-item>
     <a-form-model-item>
-      总分：{{eq5d3lForm.eq5d3lScore}}
+      总分：{{ eq5d3lForm.eq5d3lScore }}
     </a-form-model-item>
     <div class="footer-btn-box">
       <a-button type="primary"
@@ -88,23 +88,24 @@
 <script>
 import {
   saveEq5d3lInfo,
-  getEq5d3lInfo,
+  getEq5d3lInfo
 } from '@/api/mtms'
+
 export default {
   name: 'EQ5D3LQuestionnaire',
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
       layout: 'vertical',
       eq5d3lForm: {
-        "actionQ": 0,
-        "anxietyQ": 0,
-        "assessmentId": this.assessmentId,
-        "dailyActQ": 0,
-        "eq5d3lScore": 0,
-        "lookAfterSelfQ": 0,
-        "painQ": 0,
-        "patId": this.patientId
+        'actionQ': '',
+        'anxietyQ': '',
+        'assessmentId': this.assessmentId,
+        'dailyActQ': '',
+        'eq5d3lScore': '',
+        'lookAfterSelfQ': '',
+        'painQ': '',
+        'patId': this.patientId
       }
     }
   },
@@ -133,7 +134,7 @@ export default {
       })
     },
     getScore () {
-      let _scoreNum = 0;
+      let _scoreNum = 0
       if (this.eq5d3lForm.actionQ === 1) {
         _scoreNum += 69
       } else if (this.eq5d3lForm.actionQ === 2) {

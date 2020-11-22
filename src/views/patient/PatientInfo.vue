@@ -64,9 +64,9 @@
                   <a-radio-button :value="2">
                     女
                   </a-radio-button>
-                  <a-radio-button :value="0">
+                  <!--<a-radio-button :value="0">
                     未知
-                  </a-radio-button>
+                  </a-radio-button>-->
                 </a-radio-group>
               </a-form-model-item>
               <a-form-model-item label="患者ID"

@@ -345,7 +345,7 @@
       </a-radio-group>
     </a-form-model-item>
     <a-form-model-item>
-      总分：{{sdsForm.sdsScore}}
+      总分：{{ sdsForm.sdsScore }}
     </a-form-model-item>
     <div class="footer-btn-box">
       <a-button type="primary"
@@ -360,36 +360,37 @@ import {
   saveSDSlInfo,
   getSDSlInfo
 } from '@/api/mtms'
+
 export default {
   name: 'SDSQuestionnaire',
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
       layout: 'vertical',
       sdsForm: {
-        "assessmentId": this.assessmentId,
-        "patId": this.patientId,
-        "sdsQ1": 1,
-        "sdsQ10": 1,
-        "sdsQ11": 1,
-        "sdsQ12": 1,
-        "sdsQ13": 1,
-        "sdsQ14": 1,
-        "sdsQ15": 1,
-        "sdsQ16": 1,
-        "sdsQ17": 1,
-        "sdsQ18": 1,
-        "sdsQ19": 1,
-        "sdsQ2": 1,
-        "sdsQ20": 1,
-        "sdsQ3": 1,
-        "sdsQ4": 1,
-        "sdsQ5": 1,
-        "sdsQ6": 1,
-        "sdsQ7": 1,
-        "sdsQ8": 1,
-        "sdsQ9": 1,
-        "sdsScore": 0
+        'assessmentId': this.assessmentId,
+        'patId': this.patientId,
+        'sdsQ1': '',
+        'sdsQ10': '',
+        'sdsQ11': '',
+        'sdsQ12': '',
+        'sdsQ13': '',
+        'sdsQ14': '',
+        'sdsQ15': '',
+        'sdsQ16': '',
+        'sdsQ17': '',
+        'sdsQ18': '',
+        'sdsQ19': '',
+        'sdsQ2': '',
+        'sdsQ20': '',
+        'sdsQ3': '',
+        'sdsQ4': '',
+        'sdsQ5': '',
+        'sdsQ6': '',
+        'sdsQ7': '',
+        'sdsQ8': '',
+        'sdsQ9': '',
+        'sdsScore': 0
       }
     }
   },
@@ -399,7 +400,7 @@ export default {
   methods: {
     getSDSlInfo () {
       getSDSlInfo({ patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
-        let { data } = res
+        const { data } = res
         if (data) {
           this.sdsForm = data
         }
@@ -416,12 +417,12 @@ export default {
     },
     getScore () {
       let _num = 0
-      let _arr = Object.entries(this.sdsForm)
+      const _arr = Object.entries(this.sdsForm)
       // console.log(_arr)
-      for (let [key, value] of _arr) {
-        if (key.includes('sdsQ')) {
-          let num = parseInt(key.split('sdsQ')[1])
-          if ([2, 5, 6, 11, 12, 14, 16, 17, 18, 20].includes(num)) {
+      for (const [ key, value ] of _arr) {
+        if (key.includes('sdsQ') && value !== '') {
+          const num = parseInt(key.split('sdsQ')[ 1 ])
+          if ([ 2, 5, 6, 11, 12, 14, 16, 17, 18, 20 ].includes(num)) {
             _num += 5 - value
           } else {
             _num += value
@@ -429,7 +430,7 @@ export default {
         }
       }
       this.sdsForm.sdsScore = parseInt(_num * 1.25)
-    },
+    }
   },
   watch: {
     sdsForm: {

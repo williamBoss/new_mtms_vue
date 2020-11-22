@@ -93,7 +93,7 @@
           </template>
         </a-table-column>
         <a-table-column key="remark"
-                        title="备注（新增/停用）"
+                        title="备注"
                         :width="100"
                         data-index="remark">
           <template slot-scope="text, record">
@@ -170,7 +170,7 @@ export default {
     },
     assessmentId: {}
   },
-  data () {
+  data() {
     return {
       // patientId: '',
       patientName: '',
@@ -182,7 +182,7 @@ export default {
       data: []
     }
   },
-  mounted () {
+  mounted() {
     this.getMedList()
     if (this.patientId) {
       this.getBaseInfo()
@@ -192,14 +192,14 @@ export default {
   },
   methods: {
     // 药物列表
-    getMedList () {
+    getMedList() {
       getAllMed().then(res => {
         if (res.data) {
           this.medicData = res.data
         }
       })
     },
-    changeMedicData (searchText) {
+    changeMedicData(searchText) {
       const _data = this.medicData.filter(item => { return item.medName.includes(searchText) })
       const _arr = []
       _data.forEach(item => {
@@ -207,7 +207,7 @@ export default {
       })
       this.medicFilterData = _arr
     },
-    async getBaseInfo () {
+    async getBaseInfo() {
       if (this.patientId) {
         getPatientInfoById(this.patientId).then(res => {
           console.log(res.data)
@@ -222,7 +222,7 @@ export default {
       }
     },
     // 家族史既往史
-    getMedicationSideEffectList () {
+    getMedicationSideEffectList() {
       getMedicationSideEffectList({ patientId: this.patientId }).then(res => {
         console.log('家族史既往史:', res)
         let { data } = res
@@ -234,7 +234,7 @@ export default {
       })
     },
     // 用药记录
-    getUseMedRecordList () {
+    getUseMedRecordList() {
       getUseMedRecordList({ patientId: this.patientId }).then(res => {
         let { rows } = res
         if (rows) {
@@ -248,7 +248,7 @@ export default {
 
       })
     },
-    pushData () {
+    pushData() {
       this.data.unshift({
         useStartTime: '',
         useEndTime: '',
@@ -263,10 +263,10 @@ export default {
         saved: false
       })
     },
-    deleteData (index) {
+    deleteData(index) {
       this.data.splice(index, 1)
     },
-    confirmData (record) {
+    confirmData(record) {
       this.medicData.forEach(item => {
         if (item.medName === record.medName) {
           record.medId = item.medId
@@ -288,7 +288,7 @@ export default {
   },
   watch: {
     patientId: {
-      handler (v) {
+      handler(v) {
         if (v) {
           this.getBaseInfo()
           this.getUseMedRecordList()
@@ -299,7 +299,7 @@ export default {
       deep: true
     },
     data: {
-      handler (v) {
+      handler(v) {
         console.log(v)
       },
       deep: true

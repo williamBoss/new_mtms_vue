@@ -537,7 +537,7 @@ export function saveSf36Info (data) {
 export function getSf36Info (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/sf36_info',
-    method: 'post',
+    method: 'get',
     params
   })
 }
@@ -551,7 +551,7 @@ export function saveParInfo (data) {
 export function getParInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/par_info',
-    method: 'post',
+    method: 'get',
     params
   })
 }

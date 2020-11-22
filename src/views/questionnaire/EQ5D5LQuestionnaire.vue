@@ -105,7 +105,7 @@
       </a-radio-group>
     </a-form-model-item>
     <a-form-model-item>
-      总分：{{eq5d5lForm.eq5d5lScore}}
+      总分：{{ eq5d5lForm.eq5d5lScore }}
     </a-form-model-item>
     <div class="footer-btn-box">
       <a-button type="primary"
@@ -120,21 +120,22 @@ import {
   saveEq5d5lInfo,
   getEq5d5lInfo
 } from '@/api/mtms'
+
 export default {
   name: 'EQ5D5LQuestionnaire',
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
       layout: 'vertical',
       eq5d5lForm: {
-        "actionQ": 1,
-        "anxietyQ": 1,
-        "assessmentId": this.assessmentId,
-        "dailyActQ": 1,
-        "eq5d5lScore": 0,
-        "lookAfterSelfQ": 1,
-        "painQ": 1,
-        "patId": this.patientId
+        'actionQ': '',
+        'anxietyQ': '',
+        'assessmentId': this.assessmentId,
+        'dailyActQ': '',
+        'eq5d5lScore': '',
+        'lookAfterSelfQ': '',
+        'painQ': '',
+        'patId': this.patientId
       }
     }
   },
@@ -163,7 +164,7 @@ export default {
       })
     },
     getScore () {
-      let _scoreNum = 0;
+      let _scoreNum = 0
       if (this.eq5d5lForm.actionQ === 2) {
         _scoreNum += 66
       } else if (this.eq5d5lForm.actionQ === 3) {

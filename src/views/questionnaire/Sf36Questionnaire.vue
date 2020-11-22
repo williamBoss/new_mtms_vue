@@ -652,51 +652,52 @@ import {
   saveSf36Info,
   getSf36Info
 } from '@/api/mtms'
+
 export default {
   name: 'Sf36Questionnaire',
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
       layout: 'vertical',
       sf36Form: {
-        "assessmentId": this.assessmentId,
-        "patId": this.patientId,
-        "sf361": 1,
-        "sf36101": 1,
-        "sf36102": 1,
-        "sf36103": 1,
-        "sf36104": 1,
-        "sf362": 1,
-        "sf3631": 1,
-        "sf36310": 1,
-        "sf3632": 1,
-        "sf3633": 1,
-        "sf3634": 1,
-        "sf3635": 1,
-        "sf3636": 1,
-        "sf3637": 1,
-        "sf3638": 1,
-        "sf3639": 1,
-        "sf3641": 1,
-        "sf3642": 1,
-        "sf3643": 1,
-        "sf3644": 1,
-        "sf3651": 1,
-        "sf3652": 1,
-        "sf3653": 1,
-        "sf366": 1,
-        "sf367": 1,
-        "sf368": 1,
-        "sf3691": 1,
-        "sf36910": 1,
-        "sf3692": 1,
-        "sf3693": 1,
-        "sf3694": 1,
-        "sf3695": 1,
-        "sf3696": 1,
-        "sf3697": 1,
-        "sf3698": 1,
-        "sf3699": 1
+        'assessmentId': this.assessmentId,
+        'patId': this.patientId,
+        'sf361': '',
+        'sf36101': '',
+        'sf36102': '',
+        'sf36103': '',
+        'sf36104': '',
+        'sf362': '',
+        'sf3631': '',
+        'sf36310': '',
+        'sf3632': '',
+        'sf3633': '',
+        'sf3634': '',
+        'sf3635': '',
+        'sf3636': '',
+        'sf3637': '',
+        'sf3638': '',
+        'sf3639': '',
+        'sf3641': '',
+        'sf3642': '',
+        'sf3643': '',
+        'sf3644': '',
+        'sf3651': '',
+        'sf3652': '',
+        'sf3653': '',
+        'sf366': '',
+        'sf367': '',
+        'sf368': '',
+        'sf3691': '',
+        'sf36910': '',
+        'sf3692': '',
+        'sf3693': '',
+        'sf3694': '',
+        'sf3695': '',
+        'sf3696': '',
+        'sf3697': '',
+        'sf3698': '',
+        'sf3699': ''
       }
     }
   },
@@ -716,7 +717,7 @@ export default {
       })
     },
     confirmData () {
-      console.log('保存！');
+      console.log('保存！')
       saveSf36Info({ ...this.sf36Form }).then(res => {
         if (res.code === 200) {
           this.$message.success('保存成功')

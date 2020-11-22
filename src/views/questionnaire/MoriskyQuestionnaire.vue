@@ -146,15 +146,15 @@ export default {
       moriskyForm: {
         'assessmentId': this.assessmentId,
         'morCountScore': 0,
-        'moriskyId': 0,
-        'moriskyQuestion1': 0,
-        'moriskyQuestion2': 0,
-        'moriskyQuestion3': 0,
-        'moriskyQuestion4': 0,
-        'moriskyQuestion5': 1,
-        'moriskyQuestion6': 0,
-        'moriskyQuestion7': 0,
-        'moriskyQuestion8': 5,
+        'moriskyId': '',
+        'moriskyQuestion1': '',
+        'moriskyQuestion2': '',
+        'moriskyQuestion3': '',
+        'moriskyQuestion4': '',
+        'moriskyQuestion5': '',
+        'moriskyQuestion6': '',
+        'moriskyQuestion7': '',
+        'moriskyQuestion8': '',
         'patId': this.patientId
       }
     }
@@ -169,8 +169,8 @@ export default {
         assessmentId: this.assessmentId
       }).then(res => {
         console.log(res)
-        let { data } = res
-        if (data) {
+        const { data } = res
+        if (data.moriskyId != null) {
           this.moriskyForm = data
         }
       })
@@ -188,16 +188,30 @@ export default {
     },
     getScore () {
       let _scoreNum = 0
-      _scoreNum = this.moriskyForm.moriskyQuestion1 +
-        this.moriskyForm.moriskyQuestion2 +
-        this.moriskyForm.moriskyQuestion3 +
-        this.moriskyForm.moriskyQuestion4 +
-        !this.moriskyForm.moriskyQuestion5 +
-        this.moriskyForm.moriskyQuestion6 +
-        this.moriskyForm.moriskyQuestion7
-      let _num8 = this.moriskyForm.moriskyQuestion8 * 25
-      let num8 = (125 - _num8) / 100
-      _scoreNum += num8
+      if (this.moriskyForm.moriskyQuestion1 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion1
+      }
+      if (this.moriskyForm.moriskyQuestion2 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion2
+      }
+      if (this.moriskyForm.moriskyQuestion3 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion3
+      }
+      if (this.moriskyForm.moriskyQuestion4 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion4
+      }
+      if (this.moriskyForm.moriskyQuestion5 !== '') {
+        _scoreNum += !this.moriskyForm.moriskyQuestion5
+      }
+      if (this.moriskyForm.moriskyQuestion6 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion6
+      }
+      if (this.moriskyForm.moriskyQuestion7 !== '') {
+        _scoreNum += this.moriskyForm.moriskyQuestion7
+      }
+      if (this.moriskyForm.moriskyQuestion8 !== '') {
+        _scoreNum += (125 - this.moriskyForm.moriskyQuestion8 * 25) / 100
+      }
       this.moriskyForm.morCountScore = _scoreNum
     }
   },
