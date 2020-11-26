@@ -50,6 +50,12 @@
         <a-tab-pane :key="'SDSQuestionnaire'"
                     :tab="'SDS焦虑抑郁量表'">
         </a-tab-pane>
+        <a-tab-pane :key="'VASQuestionnaire'"
+                    :tab="'VAS疼痛评分表'">
+        </a-tab-pane>
+        <a-tab-pane :key="'CapriniQuestionnaire'"
+                    :tab="'caprini静脉血栓评分表'">
+        </a-tab-pane>
         <a-tab-pane :key="'AssessmentScale'"
                     :tab="'心脑血管病风险评估（China-PAR）'">
         </a-tab-pane>
@@ -113,6 +119,8 @@ import Sf36Questionnaire from '@/views/questionnaire/Sf36Questionnaire'
 import {
   saveAssessment
 } from '@/api/mtms'
+import VASQuestionnaire from '@/views/questionnaire/VASQuestionnaire'
+import CapriniQuestionnaire from '@/views/questionnaire/CapriniQuestionnaire'
 
 export default {
   name: 'PatientAssessment',
@@ -131,7 +139,9 @@ export default {
     EQ5D3LQuestionnaire,
     EQ5D5LQuestionnaire,
     SDSQuestionnaire,
-    Sf36Questionnaire
+    Sf36Questionnaire,
+    VASQuestionnaire,
+    CapriniQuestionnaire
   },
   data () {
     return {
@@ -165,7 +175,7 @@ export default {
     this.saveAssessment()
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
-    this.clientHeight = `${document.documentElement.clientHeight}`
+    this.clientHeight = `${ document.documentElement.clientHeight }`
     console.log(this.$route)
     if (this.$route.query.patientId && this.$route.query.type) {
       if (this.$route.query.type === 'detail') {
@@ -206,7 +216,7 @@ export default {
     goBackTab () {
       let _index = this.tabs.indexOf(this.activeKey)
       if (_index > 0) {
-        this.activeKey = this.tabs[_index - 1]
+        this.activeKey = this.tabs[ _index - 1 ]
       }
     },
     changeFixed (clientHeight) {
@@ -217,15 +227,15 @@ export default {
       if (this.activeKey === 'BasicInformation') {
         this.$refs.patientInfo.handleSubmit()
       }
-      if (this.$refs[this.activeKey]) {
-        let { onSubmit } = this.$refs[this.activeKey]
+      if (this.$refs[ this.activeKey ]) {
+        let { onSubmit } = this.$refs[ this.activeKey ]
         if (onSubmit) {
           onSubmit()
         }
         // this.$refs[this.activeKey].onSubmit()
         let _index = this.tabs.indexOf(this.activeKey)
         if (_index < this.tabs.length - 1) {
-          this.activeKey = this.tabs[_index + 1]
+          this.activeKey = this.tabs[ _index + 1 ]
         }
         console.log(_index)
       }

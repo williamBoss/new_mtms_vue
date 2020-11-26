@@ -10,6 +10,7 @@ const api = {
   detect: baseUrl + '/detect'
 }
 export default api
+
 // disease
 export function getDiseaseList (parameter) {
   return axios({
@@ -18,12 +19,14 @@ export function getDiseaseList (parameter) {
     params: parameter
   })
 }
+
 export function getAllDiseaseList () {
   return axios({
     url: api.disease + '/allDisease',
     method: 'get'
   })
 }
+
 export function saveDisease (parameter) {
   return axios({
     url: api.disease + '/',
@@ -34,6 +37,7 @@ export function saveDisease (parameter) {
     }
   })
 }
+
 export function updateDisease (id, parameter) {
   return axios({
     url: api.disease + '/' + id,
@@ -44,12 +48,14 @@ export function updateDisease (id, parameter) {
     }
   })
 }
+
 export function delDisease (parameter) {
   return axios({
     url: api.disease + '/' + parameter,
     method: 'DELETE'
   })
 }
+
 // patient
 export function getPatientListByPhone (parameter) {
   return axios({
@@ -58,18 +64,21 @@ export function getPatientListByPhone (parameter) {
     params: parameter
   })
 }
+
 export function getPatientInfoByPhone (phone) {
   return axios({
     url: api.patient + '/phone/' + phone,
     method: 'get'
   })
 }
+
 export function getPatientInfoById (id) {
   return axios({
     url: api.patient + '/id/' + id,
     method: 'get'
   })
 }
+
 export function savePatientInfo (parameter) {
   return axios({
     url: api.patient + '/',
@@ -80,6 +89,7 @@ export function savePatientInfo (parameter) {
     }
   })
 }
+
 export function updatePatientInfo (id, parameter) {
   return axios({
     url: api.patient + '/' + id,
@@ -90,6 +100,7 @@ export function updatePatientInfo (id, parameter) {
     }
   })
 }
+
 // assessment
 export function getAssessmentList (parameter) {
   return axios({
@@ -101,12 +112,14 @@ export function getAssessmentList (parameter) {
     }
   })
 }
+
 export function delAssessment (parameter) {
   return axios({
     url: api.assessment + '/del_assessment/' + parameter,
     method: 'DELETE'
   })
 }
+
 export function getAssessmentListByPatientId (parameter) {
   return axios({
     url: api.assessment + '/patientId',
@@ -114,6 +127,7 @@ export function getAssessmentListByPatientId (parameter) {
     params: parameter
   })
 }
+
 // lifeStyle
 export function saveLifestyle (parameter) {
   return axios({
@@ -122,6 +136,7 @@ export function saveLifestyle (parameter) {
     data: parameter
   })
 }
+
 export function getUseMedRecordList (data) {
   return axios({
     url: api.assessment + '/getUseMedRecordList',
@@ -129,6 +144,7 @@ export function getUseMedRecordList (data) {
     data
   })
 }
+
 export function saveMedicationSideEffect (data) {
   return axios({
     url: api.assessment + '/saveMedicationSideEffect',
@@ -136,6 +152,7 @@ export function saveMedicationSideEffect (data) {
     data
   })
 }
+
 export function saveExistSymptoms (data) {
   return axios({
     url: api.assessment + '/save_exist_symptoms',
@@ -143,6 +160,7 @@ export function saveExistSymptoms (data) {
     data
   })
 }
+
 export function saveDiagnosis (data) {
   return axios({
     url: api.assessment + '/save_diagnosis',
@@ -150,6 +168,7 @@ export function saveDiagnosis (data) {
     data
   })
 }
+
 export function saveUseMedRecord (data) {
   return axios({
     url: api.assessment + '/saveUseMedRecord',
@@ -157,6 +176,7 @@ export function saveUseMedRecord (data) {
     data
   })
 }
+
 export function getMedicationSideEffectList (params) {
   return axios({
     url: api.assessment + '/getMedicationSideEffectList',
@@ -164,6 +184,7 @@ export function getMedicationSideEffectList (params) {
     params
   })
 }
+
 export function saveFamilyMedicalHistory (data) {
   return axios({
     url: api.assessment + '/save_family_medical_history',
@@ -171,6 +192,7 @@ export function saveFamilyMedicalHistory (data) {
     data
   })
 }
+
 export function savePastHistoryMedicalHistory (data) {
   return axios({
     url: api.assessment + '/save_past_medical_history',
@@ -178,6 +200,7 @@ export function savePastHistoryMedicalHistory (data) {
     data
   })
 }
+
 export function savePastSurgicalHistories (data) {
   return axios({
     url: api.assessment + '/save_past_surgical_histories',
@@ -185,6 +208,7 @@ export function savePastSurgicalHistories (data) {
     data
   })
 }
+
 export function saveAllergyHistory (data) {
   return axios({
     url: api.assessment + '/save_allergy_history',
@@ -192,6 +216,7 @@ export function saveAllergyHistory (data) {
     data
   })
 }
+
 export function saveLiverDamage (data) {
   return axios({
     url: api.assessment + '/save_liver_damage',
@@ -199,6 +224,7 @@ export function saveLiverDamage (data) {
     data
   })
 }
+
 export function allSurgicalHistory (paarams) {
   return axios({
     url: api.assessment + '/all_surgical_history',
@@ -206,6 +232,7 @@ export function allSurgicalHistory (paarams) {
     paarams
   })
 }
+
 export function getFamilyMedicalHistory (params) {
   return axios({
     url: api.assessment + '/get_family_medical_history',
@@ -213,6 +240,7 @@ export function getFamilyMedicalHistory (params) {
     params
   })
 }
+
 export function getPastMedicalHistory (params) {
   return axios({
     url: api.assessment + '/get_past_medical_history',
@@ -220,6 +248,7 @@ export function getPastMedicalHistory (params) {
     params
   })
 }
+
 export function getPastSurgicalHistories (params) {
   return axios({
     url: api.assessment + '/get_past_surgical_histories',
@@ -227,6 +256,7 @@ export function getPastSurgicalHistories (params) {
     params
   })
 }
+
 export function saveLifestyleSummary (data) {
   return axios({
     url: api.assessment + '/save_lifestyle_summary',
@@ -239,6 +269,7 @@ export function saveLifestyleSummary (data) {
     }
   })
 }
+
 export function saveSequelae (data) {
   return axios({
     url: api.assessment + '/save_sequelae',
@@ -251,6 +282,7 @@ export function saveSequelae (data) {
     }
   })
 }
+
 export function saveKidneyDamage (data) {
   return axios({
     url: api.assessment + '/save_kidney_damage',
@@ -258,6 +290,7 @@ export function saveKidneyDamage (data) {
     data
   })
 }
+
 export function saveAssessment (data) {
   return axios({
     url: api.assessment + '/saveAssessment',
@@ -265,6 +298,7 @@ export function saveAssessment (data) {
     data
   })
 }
+
 export function getDiagnosis (params) {
   return axios({
     url: api.assessment + '/get_diagnosis',
@@ -272,6 +306,7 @@ export function getDiagnosis (params) {
     params
   })
 }
+
 export function getAssessmentInfo (params) {
   return axios({
     url: api.assessment + '/get_assessment_info',
@@ -279,6 +314,7 @@ export function getAssessmentInfo (params) {
     params
   })
 }
+
 export function getLifestyle (params) {
   return axios({
     url: api.assessment + '/get_lifestyle',
@@ -286,6 +322,7 @@ export function getLifestyle (params) {
     params
   })
 }
+
 export function getExistingSymptoms (params) {
   return axios({
     url: api.assessment + '/get_existing_symptoms',
@@ -293,6 +330,7 @@ export function getExistingSymptoms (params) {
     params
   })
 }
+
 // med
 export function getMedByName (params) {
   return axios({
@@ -301,12 +339,14 @@ export function getMedByName (params) {
     params
   })
 }
+
 export function getAllMed () {
   return axios({
     url: api.med + '/allMed',
     method: 'get'
   })
 }
+
 // 检验检测
 export function saveDetectBloodPressure (data) {
   return axios({
@@ -315,6 +355,7 @@ export function saveDetectBloodPressure (data) {
     data
   })
 }
+
 export function getDetectBloodPressureList (params) {
   return axios({
     url: api.detect + '/getDetectBloodPressureList',
@@ -322,6 +363,7 @@ export function getDetectBloodPressureList (params) {
     params
   })
 }
+
 export function saveDetectHeartRate (data) {
   return axios({
     url: api.detect + '/saveDetectHeartRate',
@@ -329,6 +371,7 @@ export function saveDetectHeartRate (data) {
     data
   })
 }
+
 export function getDetectHeartRateList (params) {
   return axios({
     url: api.detect + '/getDetectHeartRateList',
@@ -336,6 +379,7 @@ export function getDetectHeartRateList (params) {
     params
   })
 }
+
 export function getDetectBloodLipidsList (params) {
   return axios({
     url: api.detect + '/getDetectBloodLipidsList',
@@ -343,6 +387,7 @@ export function getDetectBloodLipidsList (params) {
     params
   })
 }
+
 export function saveDetectBloodLipids (data) {
   return axios({
     url: api.detect + '/saveDetectBloodLipids',
@@ -350,6 +395,7 @@ export function saveDetectBloodLipids (data) {
     data
   })
 }
+
 export function getDetectBloodSugarList (params) {
   return axios({
     url: api.detect + '/getDetectBloodSugarList',
@@ -357,6 +403,7 @@ export function getDetectBloodSugarList (params) {
     params
   })
 }
+
 export function saveDetectBloodSugar (data) {
   return axios({
     url: api.detect + '/saveDetectBloodSugar',
@@ -364,6 +411,7 @@ export function saveDetectBloodSugar (data) {
     data
   })
 }
+
 export function saveDetectHomocysteine (data) {
   return axios({
     url: api.detect + '/saveDetectHomocysteine',
@@ -371,6 +419,7 @@ export function saveDetectHomocysteine (data) {
     data
   })
 }
+
 export function getDetectHomocysteineList (params) {
   return axios({
     url: api.detect + '/getDetectHomocysteineList',
@@ -378,6 +427,7 @@ export function getDetectHomocysteineList (params) {
     params
   })
 }
+
 export function saveDetectBloodUricAcid (data) {
   return axios({
     url: api.detect + '/saveDetectBloodUricAcid',
@@ -385,6 +435,7 @@ export function saveDetectBloodUricAcid (data) {
     data
   })
 }
+
 export function getDetectBloodUricAcidList (params) {
   return axios({
     url: api.detect + '/getDetectBloodUricAcidList',
@@ -392,6 +443,7 @@ export function getDetectBloodUricAcidList (params) {
     params
   })
 }
+
 export function saveDetectLiverFunction (data) {
   return axios({
     url: api.detect + '/saveDetectLiverFunction',
@@ -399,6 +451,7 @@ export function saveDetectLiverFunction (data) {
     data
   })
 }
+
 export function getDetectLiverFunctionList (params) {
   return axios({
     url: api.detect + '/getDetectLiverFunctionList',
@@ -406,6 +459,7 @@ export function getDetectLiverFunctionList (params) {
     params
   })
 }
+
 export function saveDetectKidneyFunction (data) {
   return axios({
     url: api.detect + '/saveDetectKidneyFunction',
@@ -413,6 +467,7 @@ export function saveDetectKidneyFunction (data) {
     data
   })
 }
+
 export function getDetectKidneyFunctionList (params) {
   return axios({
     url: api.detect + '/getDetectKidneyFunctionList',
@@ -420,6 +475,7 @@ export function getDetectKidneyFunctionList (params) {
     params
   })
 }
+
 export function saveDetectElectrolyte (data) {
   return axios({
     url: api.detect + '/saveDetectElectrolyte',
@@ -427,6 +483,7 @@ export function saveDetectElectrolyte (data) {
     data
   })
 }
+
 export function getDetectElectrolyteList (params) {
   return axios({
     url: api.detect + '/getDetectElectrolyteList',
@@ -434,6 +491,7 @@ export function getDetectElectrolyteList (params) {
     params
   })
 }
+
 export function saveDetectOther (data) {
   return axios({
     url: api.detect + '/saveDetectOther',
@@ -441,6 +499,7 @@ export function saveDetectOther (data) {
     data
   })
 }
+
 export function getDetectOtherList (params) {
   return axios({
     url: api.detect + '/getDetectOtherList',
@@ -448,6 +507,7 @@ export function getDetectOtherList (params) {
     params
   })
 }
+
 //
 export function saveMedicationProblem (data) {
   return axios({
@@ -456,6 +516,7 @@ export function saveMedicationProblem (data) {
     data
   })
 }
+
 export function getMedicationProblem (params) {
   return axios({
     url: baseUrl + '/medication_problem/',
@@ -463,6 +524,7 @@ export function getMedicationProblem (params) {
     params
   })
 }
+
 export function medicationProblemsDict (params) {
   return axios({
     url: baseUrl + '/medication_problem/medication_problems_dict',
@@ -470,6 +532,7 @@ export function medicationProblemsDict (params) {
     params
   })
 }
+
 //
 export function saveMoriskyInfo (data) {
   return axios({
@@ -478,6 +541,7 @@ export function saveMoriskyInfo (data) {
     data
   })
 }
+
 export function getMoriskyInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/morisky_info',
@@ -485,6 +549,7 @@ export function getMoriskyInfo (params) {
     params
   })
 }
+
 export function saveEq5d3lInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_eq5d3l_info',
@@ -492,6 +557,7 @@ export function saveEq5d3lInfo (data) {
     data
   })
 }
+
 export function getEq5d3lInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/eq5d3l_info',
@@ -499,6 +565,7 @@ export function getEq5d3lInfo (params) {
     params
   })
 }
+
 export function saveEq5d5lInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_eq5d5l_info',
@@ -506,6 +573,7 @@ export function saveEq5d5lInfo (data) {
     data
   })
 }
+
 export function getEq5d5lInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/eq5d5l_info',
@@ -513,6 +581,7 @@ export function getEq5d5lInfo (params) {
     params
   })
 }
+
 export function saveSDSlInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_sds_info',
@@ -520,6 +589,7 @@ export function saveSDSlInfo (data) {
     data
   })
 }
+
 export function getSDSlInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/sds_info',
@@ -527,6 +597,7 @@ export function getSDSlInfo (params) {
     params
   })
 }
+
 export function saveSf36Info (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_sf36_info',
@@ -534,6 +605,7 @@ export function saveSf36Info (data) {
     data
   })
 }
+
 export function getSf36Info (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/sf36_info',
@@ -541,6 +613,7 @@ export function getSf36Info (params) {
     params
   })
 }
+
 export function saveParInfo (data) {
   return axios({
     url: baseUrl + '/evaluation_scale/save_par_info',
@@ -548,6 +621,7 @@ export function saveParInfo (data) {
     data
   })
 }
+
 export function getParInfo (params) {
   return axios({
     url: baseUrl + '/evaluation_scale/par_info',
@@ -555,10 +629,43 @@ export function getParInfo (params) {
     params
   })
 }
+
 export function saveEvaluationReportProblem (data) {
   return axios({
     url: baseUrl + '/save_evaluation_report_problem',
     method: 'post',
     data
+  })
+}
+
+export function saveVasInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_vas_info',
+    method: 'post',
+    data
+  })
+}
+
+export function getVasInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/vas_info',
+    method: 'get',
+    params
+  })
+}
+
+export function saveCapriniInfo (data) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/save_caprini_info',
+    method: 'post',
+    data
+  })
+}
+
+export function getCapriniInfo (params) {
+  return axios({
+    url: baseUrl + '/evaluation_scale/caprini_info',
+    method: 'get',
+    params
   })
 }

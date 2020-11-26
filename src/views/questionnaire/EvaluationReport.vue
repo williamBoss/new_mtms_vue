@@ -237,6 +237,16 @@
               <span>得分：{{ sdsScore }}</span>
             </div>
           </div>
+          <div class="row flex">
+            <div class="label-div">VAS疼痛评分</div>
+            <div>
+              <span>得分：{{ vasScore }}</span>
+            </div>
+            <div class="label-div">caprini静脉血栓评分</div>
+            <div>
+              <span>得分：{{ capriniScore }}</span>
+            </div>
+          </div>
         </div>
       </div>
       <!-- 费用 -->
@@ -451,7 +461,7 @@ import {
   medicationProblemsDict,
   getMedicationProblem,
   getDiseaseList,
-  getAllMed, getEq5d3lInfo, getEq5d5lInfo, getSDSlInfo
+  getAllMed, getEq5d3lInfo, getEq5d5lInfo, getSDSlInfo, getVasInfo, getCapriniInfo
 } from '@/api/mtms'
 
 export default {
@@ -472,6 +482,8 @@ export default {
       eq5d3lScore: '',
       eq5d5lScore: '',
       sdsScore: '',
+      vasScore: '',
+      capriniScore: '',
       description: '',
       sequelae: '',
       medicHostoryList: [], // 药物不良反应
@@ -503,6 +515,8 @@ export default {
         this.getMoriskyInfo()
         this.getEq5d3lInfo()
         this.getEq5d5lInfo()
+        this.getVasInfo()
+        this.getCapriniInfo()
         this.getSDSlInfo()
         this.getMedicationSideEffectList()
         // this.getDiagnosis()
@@ -714,6 +728,30 @@ export default {
         const { data } = res
         if (data) {
           this.sdsScore = data.sdsScore
+        }
+      })
+    },
+    getVasInfo () {
+      getVasInfo({
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
+      }).then(res => {
+        console.log('vas:', res)
+        const { data } = res
+        if (data) {
+          this.vasScore = data.vasScore
+        }
+      })
+    },
+    getCapriniInfo () {
+      getCapriniInfo({
+        patientId: this.patientId,
+        assessmentId: this.assessmentId
+      }).then(res => {
+        console.log('caprini:', res)
+        const { data } = res
+        if (data) {
+          this.capriniScore = data.capriniScore
         }
       })
     },

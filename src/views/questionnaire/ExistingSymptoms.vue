@@ -25,53 +25,77 @@
                                  prop="diseaseIds">
                 <a-checkbox-group v-model="diagnosisDiseaseIds">
                   <a-checkbox value="1"
-                              name="diseaseIds">高血压</a-checkbox>
+                              name="diseaseIds">高血压
+                  </a-checkbox>
                   <a-checkbox value="2"
-                              name="diseaseIds">高血脂</a-checkbox>
+                              name="diseaseIds">高血脂
+                  </a-checkbox>
                   <a-checkbox value="3"
-                              name="diseaseIds">高尿酸</a-checkbox>
+                              name="diseaseIds">高尿酸
+                  </a-checkbox>
                   <a-checkbox value="4"
-                              name="diseaseIds">高同型半胱氨酸</a-checkbox>
+                              name="diseaseIds">高同型半胱氨酸
+                  </a-checkbox>
                   <a-checkbox value="5"
-                              name="diseaseIds">心肌梗死</a-checkbox>
+                              name="diseaseIds">心肌梗死
+                  </a-checkbox>
                   <a-checkbox value="6"
-                              name="diseaseIds">PCI术后</a-checkbox>
+                              name="diseaseIds">PCI术后
+                  </a-checkbox>
                   <a-checkbox value="7"
-                              name="diseaseIds">1型糖尿病</a-checkbox>
+                              name="diseaseIds">1型糖尿病
+                  </a-checkbox>
                   <a-checkbox value="8"
-                              name="diseaseIds">2型糖尿病</a-checkbox>
+                              name="diseaseIds">2型糖尿病
+                  </a-checkbox>
                   <a-checkbox value="9"
-                              name="diseaseIds">脑梗死</a-checkbox>
+                              name="diseaseIds">脑梗死
+                  </a-checkbox>
                   <a-checkbox value="10"
-                              name="diseaseIds">脑卒中</a-checkbox>
+                              name="diseaseIds">脑卒中
+                  </a-checkbox>
                   <a-checkbox value="11"
-                              name="diseaseIds">冠心病</a-checkbox>
+                              name="diseaseIds">冠心病
+                  </a-checkbox>
                   <a-checkbox value="12"
-                              name="diseaseIds">心律不齐（房颤）</a-checkbox>
+                              name="diseaseIds">心律不齐（房颤）
+                  </a-checkbox>
                   <a-checkbox value="13"
-                              name="diseaseIds">哮喘</a-checkbox>
+                              name="diseaseIds">哮喘
+                  </a-checkbox>
                   <a-checkbox value="14"
-                              name="diseaseIds">慢性阻塞性肺疾病</a-checkbox>
+                              name="diseaseIds">慢性阻塞性肺疾病
+                  </a-checkbox>
                   <a-checkbox value="15"
-                              name="diseaseIds">疼痛</a-checkbox>
+                              name="diseaseIds">疼痛
+                  </a-checkbox>
                   <a-checkbox value="16"
-                              name="diseaseIds">胃食管反流病</a-checkbox>
+                              name="diseaseIds">胃食管反流病
+                  </a-checkbox>
                   <a-checkbox value="17"
-                              name="diseaseIds">消化道溃疡（胃/肠）</a-checkbox>
+                              name="diseaseIds">消化道溃疡（胃/肠）
+                  </a-checkbox>
                   <a-checkbox value="18"
-                              name="diseaseIds">焦虑/抑郁症</a-checkbox>
+                              name="diseaseIds">焦虑/抑郁症
+                  </a-checkbox>
                   <a-checkbox value="19"
-                              name="diseaseIds">甲状腺疾病</a-checkbox>
+                              name="diseaseIds">甲状腺疾病
+                  </a-checkbox>
                   <a-checkbox value="20"
-                              name="diseaseIds">肿瘤</a-checkbox>
+                              name="diseaseIds">肿瘤
+                  </a-checkbox>
                   <a-checkbox value="21"
-                              name="diseaseIds">慢性肾病</a-checkbox>
+                              name="diseaseIds">慢性肾病
+                  </a-checkbox>
                   <a-checkbox value="22"
-                              name="diseaseIds">前列腺增生</a-checkbox>
+                              name="diseaseIds">前列腺增生
+                  </a-checkbox>
                   <a-checkbox value="23"
-                              name="diseaseIds">腰椎间盘突出</a-checkbox>
-                  <a-checkbox value="23"
-                              name="diseaseIds">类风湿关节炎</a-checkbox>
+                              name="diseaseIds">腰椎间盘突出
+                  </a-checkbox>
+                  <a-checkbox value="24"
+                              name="diseaseIds">类风湿关节炎
+                  </a-checkbox>
                 </a-checkbox-group>
               </a-form-model-item>
               <a-form-model-item label="其他病种"
@@ -589,17 +613,18 @@ import moment from 'moment'
 import {
   saveDiagnosis,
   saveExistSymptoms,
-  getDiagnosis,
+  getDiagnosis
 } from '@/api/mtms'
+
 export default {
   name: 'BasicInformation',
   components: {
     MedicationSideEffectTemplate
   },
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
-      collapseActiveKey: ['MainConsult'],
+      collapseActiveKey: [ 'MainConsult' ],
       customStyle:
         'background: #ffffff;border-radius: 4px;',
       dataSource: [
@@ -693,9 +718,9 @@ export default {
         patientId: this.patientId,
         assessmentId: this.assessmentId
       })
-      Promise.all([res1, res2]).then(data => {
+      Promise.all([ res1, res2 ]).then(data => {
         console.log(data)
-        if (data[0].code === 200 && data[1].code === 200) {
+        if (data[ 0 ].code === 200 && data[ 1 ].code === 200) {
           this.$message.success('保存成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -703,26 +728,26 @@ export default {
       })
     },
     onCellChange (key, dataIndex, value) {
-      const dataSource = [...this.dataSource]
+      const dataSource = [ ...this.dataSource ]
       const target = dataSource.find(item => item.key === key)
       if (target) {
-        target[dataIndex] = value
+        target[ dataIndex ] = value
         this.dataSource = dataSource
       }
     },
     onDelete (key) {
-      const dataSource = [...this.dataSource]
+      const dataSource = [ ...this.dataSource ]
       this.dataSource = dataSource.filter(item => item.key !== key)
     },
     addMedicationSideEffect () {
       const { count, dataSource } = this
       const newData = {
         key: count,
-        name: `Edward King ${count}`,
+        name: `Edward King ${ count }`,
         age: 32,
-        address: `London, Park Lane no. ${count}`
+        address: `London, Park Lane no. ${ count }`
       }
-      this.dataSource = [...dataSource, newData]
+      this.dataSource = [ ...dataSource, newData ]
       this.count = count + 1
     },
     getDiagnosis () {
@@ -742,31 +767,39 @@ export default {
   .ant-collapse-header {
     background-color: #fafafa;
   }
+
   .ant-form-item-label {
     width: 150px;
   }
+
   .ant-form-item-control,
   .ant-form-item-children,
   .ant-checkbox-group {
     width: 100% !important;
+
     .ant-checkbox-wrapper {
       width: 25%;
       display: inline-block;
     }
   }
+
   .ant-form-item label {
     display: block;
     margin-left: 0;
   }
+
   .title {
     width: 90px;
   }
+
   .flex {
     margin-bottom: 10px;
+
     .title + div {
       flex: 1;
     }
   }
+
   input {
     margin-left: 10px;
   }
