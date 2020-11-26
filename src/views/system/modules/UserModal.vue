@@ -10,29 +10,35 @@
     <a-spin :spinning="spinning">
       <a-form :form="form">
         <a-form-item style="display:none">
-          <a-input v-decorator="['userId']"/>
+          <a-input v-decorator="['userId']" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="用户名"
+          label="登录账号"
         >
-          <a-input placeholder="用户名" v-decorator="['loginName', {rules: [{ required: true, message: '请输入用户名' }]}]" />
+          <a-input placeholder="登录账号" v-decorator="['loginName', {rules: [{ required: true, message: '请输入登录账号' }]}]" />
         </a-form-item>
-
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="昵称"
+          label="登录密码"
+        >
+          <a-input placeholder="登录密码" v-decorator="['password', {rules: [{ required: true, message: '请输入登录密码' }]}]" />
+        </a-form-item>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="真实姓名"
         >
           <a-input
             v-decorator="[
               'userName',
               {
-                rules: [{ required: true, message: '请输入昵称' }]
+                rules: [{ required: true, message: '请输入真实姓名' }]
               }
             ]"
-            placeholder="起一个名字"/>
+            placeholder="请输入真实姓名" />
         </a-form-item>
 
         <a-form-item
@@ -62,13 +68,14 @@
           </a-tree-select>
         </a-form-item>
 
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="描述"
-        >
-          <a-textarea :rows="5" placeholder="..." v-decorator="['remark', {rules: [{ required: true, message: '请输入描述' }]}]"/>
-        </a-form-item>
+        <!-- <a-form-item
+           :labelCol="labelCol"
+           :wrapperCol="wrapperCol"
+           label="描述"
+         >
+           <a-textarea :rows="5" placeholder="..."
+                       v-decorator="['remark', {rules: [{ required: true, message: '请输入描述' }]}]" />
+         </a-form-item>-->
 
         <a-form-item
           :labelCol="labelCol"
@@ -82,7 +89,7 @@
             v-decorator="['roleIds', {rules: [{ required: true, message: '请选择角色' }]}]"
             :allowClear="true"
           >
-            <a-select-option v-for="(action) in roleAll" :key="action.roleId" >{{ action.roleName }}</a-select-option>
+            <a-select-option v-for="(action) in roleAll" :key="action.roleId">{{ action.roleName }}</a-select-option>
           </a-select>
         </a-form-item>
 
@@ -93,6 +100,7 @@
 <script>
 import { getRoleAll, saveUser, getUser } from '@/api/system'
 import pick from 'lodash.pick'
+
 export default {
   name: 'UserModal',
   props: {
@@ -101,8 +109,7 @@ export default {
       required: true
     }
   },
-  components: {
-  },
+  components: {},
   data () {
     return {
       description: '',
@@ -134,7 +141,8 @@ export default {
       this.mdl = Object.assign({}, { userId: 0, deptId: '' })
       this.visible = true
       this.$nextTick(() => {
-        this.form.setFieldsValue(pick(this.mdl, 'userId', 'loginName', 'userName', 'status', 'roleIds', 'remark', 'deptId'))
+        this.form.setFieldsValue(
+          pick(this.mdl, 'userId', 'loginName', 'userName', 'status', 'roleIds', 'remark', 'deptId'))
       })
     },
     edit (record) {
@@ -144,7 +152,8 @@ export default {
           this.mdl = Object.assign({}, res)
           this.visible = true
           this.$nextTick(() => {
-            this.form.setFieldsValue(pick(this.mdl, 'userId', 'loginName', 'userName', 'status', 'roleIds', 'remark', 'deptId'))
+            this.form.setFieldsValue(
+              pick(this.mdl, 'userId', 'loginName', 'userName', 'status', 'roleIds', 'remark', 'deptId'))
             this.spinning = false
             // this.form.setFieldsValue({ ...record })
           })
@@ -153,7 +162,7 @@ export default {
     },
     onChange (value, label, extra) {
       if (extra.triggerNode.$children.length > 0) {
-        this.$message.error('不能选择父节点' + `${label}`)
+        this.$message.error('不能选择父节点' + `${ label }`)
         this.deptCheck = false
       } else {
         this.deptCheck = true

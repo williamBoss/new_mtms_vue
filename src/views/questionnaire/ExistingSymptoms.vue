@@ -24,78 +24,20 @@
                                  ref="diseaseIds"
                                  prop="diseaseIds">
                 <a-checkbox-group v-model="diagnosisDiseaseIds">
-                  <a-checkbox value="1"
-                              name="diseaseIds">高血压
-                  </a-checkbox>
-                  <a-checkbox value="2"
-                              name="diseaseIds">高血脂
-                  </a-checkbox>
-                  <a-checkbox value="3"
-                              name="diseaseIds">高尿酸
-                  </a-checkbox>
-                  <a-checkbox value="4"
-                              name="diseaseIds">高同型半胱氨酸
-                  </a-checkbox>
-                  <a-checkbox value="5"
-                              name="diseaseIds">心肌梗死
-                  </a-checkbox>
-                  <a-checkbox value="6"
-                              name="diseaseIds">PCI术后
-                  </a-checkbox>
-                  <a-checkbox value="7"
-                              name="diseaseIds">1型糖尿病
-                  </a-checkbox>
-                  <a-checkbox value="8"
-                              name="diseaseIds">2型糖尿病
-                  </a-checkbox>
-                  <a-checkbox value="9"
-                              name="diseaseIds">脑梗死
-                  </a-checkbox>
-                  <a-checkbox value="10"
-                              name="diseaseIds">脑卒中
-                  </a-checkbox>
-                  <a-checkbox value="11"
-                              name="diseaseIds">冠心病
-                  </a-checkbox>
-                  <a-checkbox value="12"
-                              name="diseaseIds">心律不齐（房颤）
-                  </a-checkbox>
-                  <a-checkbox value="13"
-                              name="diseaseIds">哮喘
-                  </a-checkbox>
-                  <a-checkbox value="14"
-                              name="diseaseIds">慢性阻塞性肺疾病
-                  </a-checkbox>
-                  <a-checkbox value="15"
-                              name="diseaseIds">疼痛
-                  </a-checkbox>
-                  <a-checkbox value="16"
-                              name="diseaseIds">胃食管反流病
-                  </a-checkbox>
-                  <a-checkbox value="17"
-                              name="diseaseIds">消化道溃疡（胃/肠）
-                  </a-checkbox>
-                  <a-checkbox value="18"
-                              name="diseaseIds">焦虑/抑郁症
-                  </a-checkbox>
-                  <a-checkbox value="19"
-                              name="diseaseIds">甲状腺疾病
-                  </a-checkbox>
-                  <a-checkbox value="20"
-                              name="diseaseIds">肿瘤
-                  </a-checkbox>
-                  <a-checkbox value="21"
-                              name="diseaseIds">慢性肾病
-                  </a-checkbox>
-                  <a-checkbox value="22"
-                              name="diseaseIds">前列腺增生
-                  </a-checkbox>
-                  <a-checkbox value="23"
-                              name="diseaseIds">腰椎间盘突出
-                  </a-checkbox>
-                  <a-checkbox value="24"
-                              name="diseaseIds">类风湿关节炎
-                  </a-checkbox>
+                  <template v-for="(sitem,index) in painList" v-if="index%2===0">
+                    <a-row :gutter="[8,8]">
+                      <a-col :span="8">
+                        <a-checkbox :value="sitem">
+                          {{ sitem.diseaseName }}
+                        </a-checkbox>
+                      </a-col>
+                      <a-col :span="8" v-if="index+1<painList.length">
+                        <a-checkbox :value="painList[ index + 1 ]">
+                          {{ painList[ index + 1 ].diseaseName }}
+                        </a-checkbox>
+                      </a-col>
+                    </a-row>
+                  </template>
                 </a-checkbox-group>
               </a-form-model-item>
               <a-form-model-item label="其他病种"
@@ -613,7 +555,7 @@ import moment from 'moment'
 import {
   saveDiagnosis,
   saveExistSymptoms,
-  getDiagnosis
+  getDiagnosis, getDiseaseList
 } from '@/api/mtms'
 
 export default {
@@ -664,10 +606,10 @@ export default {
         }
       ],
       diagnosisDiseaseIds: [],
+      painList: [],
       form: {
         mainConsult: '',
         physiques: [],
-        psychologicalOtherDesc: '',
         facialFeaturess: [],
         facialFeaturesOtherDesc: '',
         endocrines: [],
@@ -699,10 +641,20 @@ export default {
     }
   },
   mounted () {
+    this.getDiseaseList()
     this.getDiagnosis()
   },
   methods: {
     moment,
+    // 所有疾病列表
+    getDiseaseList () {
+      getDiseaseList({ pageSize: 100 }).then(res => {
+        const { rows } = res
+        if (rows) {
+          this.painList = rows
+        }
+      })
+    },
     getCurrentDate () {
       return new Date().toLocaleDateString()
     },

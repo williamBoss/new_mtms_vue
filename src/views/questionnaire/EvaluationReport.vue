@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="evaluation-report-page">
+      <a-button type="primary" icon="reload" @click="getAllInfo">
+        刷新本页面数据
+      </a-button>
       <!-- 基本信息 -->
       <div class="userInfo-table table-box">
         <div class="table-header">

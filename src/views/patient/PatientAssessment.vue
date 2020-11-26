@@ -138,8 +138,8 @@ export default {
     MoriskyQuestionnaire,
     EQ5D3LQuestionnaire,
     EQ5D5LQuestionnaire,
-    SDSQuestionnaire,
     Sf36Questionnaire,
+    SDSQuestionnaire,
     VASQuestionnaire,
     CapriniQuestionnaire
   },
@@ -163,6 +163,8 @@ export default {
         'EQ5D5LQuestionnaire',
         'Sf36Questionnaire',
         'SDSQuestionnaire',
+        'VASQuestionnaire',
+        'CapriniQuestionnaire',
         'AssessmentScale',
         'EvaluationReport'
       ]
