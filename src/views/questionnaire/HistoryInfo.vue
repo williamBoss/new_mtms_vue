@@ -189,14 +189,21 @@
              class="paintDiolag"
              @ok="handleOk">
       <div class="checkPainBoxList">
-        <a-checkbox-group v-model="choicedList">
-          <div class="item"
-               v-for="(sitem, sindex) in painList"
-               :key="sindex">
-            <a-checkbox :value="sitem">
-              {{ sitem.diseaseName }}
-            </a-checkbox>
-          </div>
+        <a-checkbox-group v-model="choicedList" style="width: 100%">
+          <template v-for="(sitem,index) in painList" v-if="index%2===0">
+            <a-row :gutter="[8,8]">
+              <a-col :span="12">
+                <a-checkbox :value="sitem">
+                  {{ sitem.diseaseName }}
+                </a-checkbox>
+              </a-col>
+              <a-col :span="12" v-if="index+1<painList.length">
+                <a-checkbox :value="painList[ index + 1 ]">
+                  {{ painList[ index + 1 ].diseaseName }}
+                </a-checkbox>
+              </a-col>
+            </a-row>
+          </template>
         </a-checkbox-group>
       </div>
     </a-modal>
