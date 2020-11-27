@@ -497,7 +497,7 @@
                     保存
                   </a-button>
                   <a-button type="link"
-                            @click="deleteData(index, 'electrolyte')">
+                            @click="deleteData(index, 'detectOtherList')">
                     取消
                   </a-button>
                 </div>
@@ -537,7 +537,7 @@ import {
 export default {
   name: 'InspectionAndInspection',
   props: [ 'patientId', 'assessmentId' ],
-  data() {
+  data () {
     return {
       bloodPressure: [],
       heartRate: [],
@@ -552,7 +552,7 @@ export default {
     }
   },
   methods: {
-    getAllData() {
+    getAllData () {
       this.getBloodPressure()
       this.getDetectHeartRateList()
       this.getBloodLipids()
@@ -565,7 +565,7 @@ export default {
       this.getDetectElectrolyteList()
       this.getOtherList()
     },
-    pushData(type) {
+    pushData (type) {
       this[ type ].push({
         detectDate: '',
         morningValue: '',
@@ -574,7 +574,7 @@ export default {
         saved: false
       })
     },
-    pushBloodLipidsData() {
+    pushBloodLipidsData () {
       this.bloodLipids.push({
         detectDate: '',
         tc: '',
@@ -587,21 +587,21 @@ export default {
         saved: false
       })
     },
-    deleteData(index, type) {
+    deleteData (index, type) {
       this[ type ].splice(index, 1)
     },
     // 血压
-    getBloodPressure() {
+    getBloodPressure () {
       getDetectBloodPressureList({ patientId: this.patientId }).then(res => {
         console.log(res)
-        let { rows } = res
-        if (rows) {
-          this.bloodPressure = rows
+        const { data } = res
+        if (data) {
+          this.bloodPressure = data.records
         }
       })
     },
-    saveDetectBloodPressure(index) {
-      let data = {
+    saveDetectBloodPressure (index) {
+      const data = {
         detectDate: this.bloodPressure[ index ].detectDate,
         morningValue: this.bloodPressure[ index ].morningValue,
         noonValue: this.bloodPressure[ index ].noonValue,
@@ -619,17 +619,17 @@ export default {
       })
     },
     // 心率
-    getDetectHeartRateList() {
+    getDetectHeartRateList () {
       getDetectHeartRateList({ patientId: this.patientId }).then(res => {
         console.log(res)
-        let { rows } = res
-        if (rows) {
-          this.heartRate = rows
+        const { data } = res
+        if (data) {
+          this.heartRate = data.records
         }
       })
     },
-    saveDetectHeartRate(index) {
-      let data = {
+    saveDetectHeartRate (index) {
+      const data = {
         detectDate: this.heartRate[ index ].detectDate,
         morningValue: this.heartRate[ index ].morningValue,
         noonValue: this.heartRate[ index ].noonValue,
@@ -647,16 +647,16 @@ export default {
       })
     },
     // 血脂
-    getBloodLipids() {
+    getBloodLipids () {
       getDetectBloodLipidsList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.bloodLipids = rows
+        const { data } = res
+        if (data) {
+          this.bloodLipids = data.records
         }
       })
     },
-    savebloodLipids(index) {
-      let _data = JSON.parse(JSON.stringify(this.bloodLipids[ index ]))
+    savebloodLipids (index) {
+      const _data = JSON.parse(JSON.stringify(this.bloodLipids[ index ]))
       delete _data.saved
       saveDetectBloodLipids({ ..._data, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -668,7 +668,7 @@ export default {
       })
     },
     // 血糖
-    pushBloodSugar() {
+    pushBloodSugar () {
       this.bloodSugar.push({
         detectDate: '',
         fastingBloodGlucose: '',
@@ -680,8 +680,8 @@ export default {
         saved: false
       })
     },
-    saveBloodSugar(index) {
-      let _dataBL = JSON.parse(JSON.stringify(this.bloodSugar[ index ]))
+    saveBloodSugar (index) {
+      const _dataBL = JSON.parse(JSON.stringify(this.bloodSugar[ index ]))
       delete _dataBL.saved
       saveDetectBloodSugar({ ..._dataBL, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -692,25 +692,25 @@ export default {
         }
       })
     },
-    getBloodSugar() {
+    getBloodSugar () {
       getDetectBloodSugarList({ patientId: this.patientId }).then(res => {
         console.log(res)
-        let { rows } = res
-        if (rows) {
-          this.bloodSugar = rows
+        const { data } = res
+        if (data) {
+          this.bloodSugar = data.records
         }
       })
     },
     // 同型半胱氨酸
-    pushHomocysteine() {
+    pushHomocysteine () {
       this.homocysteine.push({
         detectDate: '',
         homocysteineValue: '',
         saved: false
       })
     },
-    saveHomocysteine(index) {
-      let _dataH = JSON.parse(JSON.stringify(this.homocysteine[ index ]))
+    saveHomocysteine (index) {
+      const _dataH = JSON.parse(JSON.stringify(this.homocysteine[ index ]))
       delete _dataH.saved
       saveDetectHomocysteine({ ..._dataH, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -721,24 +721,24 @@ export default {
         }
       })
     },
-    getHomocysteine() {
+    getHomocysteine () {
       getDetectHomocysteineList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.bloodLipids = rows
+        const { data } = res
+        if (data) {
+          this.bloodLipids = data.records
         }
       })
     },
     // 血尿酸
-    pushBloodUricAcid() {
+    pushBloodUricAcid () {
       this.bloodUricAcid.push({
         saved: false,
         detectDate: '',
         bloodUricAcidValue: ''
       })
     },
-    saveBloodUricAcid(index) {
-      let _dataBUA = JSON.parse(JSON.stringify(this.bloodUricAcid[ index ]))
+    saveBloodUricAcid (index) {
+      const _dataBUA = JSON.parse(JSON.stringify(this.bloodUricAcid[ index ]))
       delete _dataBUA.saved
       saveDetectBloodUricAcid({ ..._dataBUA, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -749,16 +749,16 @@ export default {
         }
       })
     },
-    getBloodUricAcid() {
+    getBloodUricAcid () {
       getDetectBloodUricAcidList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.bloodUricAcid = rows
+        const { data } = res
+        if (data) {
+          this.bloodUricAcid = data.records
         }
       })
     },
     // 肝功能
-    pushLiverFunction() {
+    pushLiverFunction () {
       this.liverFunction.push({
         saved: false,
         detectDate: '',
@@ -769,8 +769,8 @@ export default {
         indirectBilirubin: ''
       })
     },
-    saveLiverFunction(index) {
-      let _dataLF = JSON.parse(JSON.stringify(this.liverFunction[ index ]))
+    saveLiverFunction (index) {
+      const _dataLF = JSON.parse(JSON.stringify(this.liverFunction[ index ]))
       delete _dataLF.saved
       saveDetectLiverFunction({ ..._dataLF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -781,16 +781,16 @@ export default {
         }
       })
     },
-    getLiverFunction() {
+    getLiverFunction () {
       getDetectLiverFunctionList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.liverFunction = rows
+        const { data } = res
+        if (data) {
+          this.liverFunction = data.records
         }
       })
     },
     // 肾功能
-    pushKidneyFunction() {
+    pushKidneyFunction () {
       this.kidneyFunctionList.push({
         saved: false,
         detectDate: '',
@@ -800,8 +800,8 @@ export default {
         creatinineClearanceRate: ''
       })
     },
-    saveDetectKidneyFunction(index) {
-      let _dataKF = JSON.parse(JSON.stringify(this.kidneyFunctionList[ index ]))
+    saveDetectKidneyFunction (index) {
+      const _dataKF = JSON.parse(JSON.stringify(this.kidneyFunctionList[ index ]))
       delete _dataKF.saved
       saveDetectKidneyFunction({ ..._dataKF, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -812,16 +812,16 @@ export default {
         }
       })
     },
-    getDetectKidneyFunctionList() {
+    getDetectKidneyFunctionList () {
       getDetectKidneyFunctionList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.kidneyFunctionList = rows
+        const { data } = res
+        if (data) {
+          this.kidneyFunctionList = data.records
         }
       })
     },
     // 电解质
-    pushElectrolyte() {
+    pushElectrolyte () {
       this.electrolyte.push({
         saved: false,
         calcium: '',
@@ -829,8 +829,8 @@ export default {
         tfOhVitd: ''
       })
     },
-    saveDetectElectrolyte(index) {
-      let _dataE = JSON.parse(JSON.stringify(this.electrolyte[ index ]))
+    saveDetectElectrolyte (index) {
+      const _dataE = JSON.parse(JSON.stringify(this.electrolyte[ index ]))
       delete _dataE.saved
       saveDetectElectrolyte({ ..._dataE, patientId: this.patientId, assessmentId: this.assessmentId }).then(res => {
         if (res.code === 200) {
@@ -841,16 +841,16 @@ export default {
         }
       })
     },
-    getDetectElectrolyteList() {
+    getDetectElectrolyteList () {
       getDetectElectrolyteList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.electrolyte = rows
+        const { data } = res
+        if (data) {
+          this.electrolyte = data.records
         }
       })
     },
     // 其他
-    pushOther() {
+    pushOther () {
       this.detectOtherList.push({
         saved: false,
         'detectDate': '',
@@ -859,16 +859,16 @@ export default {
         'detectValue': ''
       })
     },
-    getOtherList() {
+    getOtherList () {
       getDetectOtherList({ patientId: this.patientId }).then(res => {
-        let { rows } = res
-        if (rows) {
-          this.electrolyte = rows
+        const { data } = res
+        if (data) {
+          this.detectOtherList = data.records
         }
       })
     },
-    saveDetectOther(index) {
-      let data = {
+    saveDetectOther (index) {
+      const data = {
         'detectDate': this.detectOtherList[ index ].detectDate,
         'detectName': this.detectOtherList[ index ].detectName,
         'detectUnit': this.detectOtherList[ index ].detectUnit,
@@ -888,7 +888,7 @@ export default {
   },
   watch: {
     patientId: {
-      handler(v) {
+      handler (v) {
         this.getAllData()
       },
       immediate: true

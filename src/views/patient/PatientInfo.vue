@@ -380,7 +380,7 @@ export default {
           { required: true, message: '请填写患者姓名', trigger: 'blur' }
         ],
         birthday: [
-          { required: true, message: '请填写患者生日！', trigger: ['blur', 'change'] }
+          { required: true, message: '请填写患者生日！', trigger: [ 'blur', 'change' ] }
         ],
         gender: [
           { required: true, message: '请选择患者性别', trigger: 'change' }
@@ -395,7 +395,8 @@ export default {
     getDistTree().then(res => {
       this.distOptionTrees = res.data.districtsTrees
     }).catch(() => {
-      this.notification('error', '查询失败', '系统错误，地区数据获取失败，请稍后再试')
+      // this.notification('error', '查询失败', '系统错误，地区数据获取失败，请稍后再试')
+      console.error('系统错误，地区数据获取失败，请稍后再试')
     })
 
   },
@@ -447,7 +448,7 @@ export default {
       this.$emit('onChangeCardContentWidth', this.visible)
     },
     resetForm () {
-      this.$refs['patientBasicInfoForm'].resetFields()
+      this.$refs[ 'patientBasicInfoForm' ].resetFields()
       this.form.hospitalizationNum = ''
     },
     calBMI (weight, height) {
@@ -501,49 +502,49 @@ export default {
     },
     handleSubmit () {
       console.log('click!!!')
-      this.$refs['patientBasicInfoForm'].validate((valid) => {
-        const values = this.form
-        if (valid) {
-          console.log('Received values of form: ', values)
-          this.confirmLoading = true
-          if (this.patientId === 0) {
-            savePatientInfo(values).then(res => {
-              if (res.code === 200) {
-                this.patientId = res.data.patientId
-                this.notification('success', '保存成功', '患者基本信息保存成功')
-                this.$store.dispatch('SET_INFO',
-                  { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
-              } else {
-                this.notification('error', '保存失败', res.msg)
-              }
-            }).catch(() => {
-              this.notification('error', '保存失败', '系统错误，请稍后再试')
-            }).finally(() => {
-              this.confirmLoading = false
-              this.$emit('patient-id', this.patientId)
-            })
-          } else {
-            updatePatientInfo(this.patientId, values).then(res => {
-              if (res.code === 200) {
-                this.notification('success', '修改成功', '患者基本信息修改成功')
-                this.$store.dispatch('SET_INFO',
-                  { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
-              } else {
-                this.notification('error', '修改失败', res.msg)
-              }
-            }).catch(() => {
-              this.notification('error', '修改失败', '系统错误，请稍后再试')
-            }).finally(() => {
-              this.confirmLoading = false
-              this.$emit('patient-id', this.patientId)
-            })
+      this.$refs[ 'patientBasicInfoForm' ].validate((valid) => {
+          const values = this.form
+          if (valid) {
+            console.log('Received values of form: ', values)
+            this.confirmLoading = true
+            if (this.patientId === 0) {
+              savePatientInfo(values).then(res => {
+                if (res.code === 200) {
+                  this.patientId = res.data.patientId
+                  this.notification('success', '保存成功', '患者基本信息保存成功')
+                  this.$store.dispatch('SET_INFO',
+                    { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
+                } else {
+                  this.notification('error', '保存失败', res.msg)
+                }
+              }).catch(() => {
+                this.notification('error', '保存失败', '系统错误，请稍后再试')
+              }).finally(() => {
+                this.confirmLoading = false
+                this.$emit('patient-id', this.patientId)
+              })
+            } else {
+              updatePatientInfo(this.patientId, values).then(res => {
+                if (res.code === 200) {
+                  this.notification('success', '修改成功', '患者基本信息修改成功')
+                  this.$store.dispatch('SET_INFO',
+                    { patientName: this.form.patientName, patientId: this.patientId, phone: this.form.phone })
+                } else {
+                  this.notification('error', '修改失败', res.msg)
+                }
+              }).catch(() => {
+                this.notification('error', '修改失败', '系统错误，请稍后再试')
+              }).finally(() => {
+                this.confirmLoading = false
+                this.$emit('patient-id', this.patientId)
+              })
+            }
           }
         }
-      }
       )
     },
     notification (type, message, description) {
-      this.$notification[type]({
+      this.$notification[ type ]({
         message: message,
         description: description
       })

@@ -257,9 +257,9 @@ export default {
     },
     goDetail (data) {
       console.log(data)
-      let { assessmentId, patientInfoVO } = data
+      const { assessmentId, patientInfoVO } = data
       if (patientInfoVO) {
-        let { patientId } = patientInfoVO
+        const { patientId } = patientInfoVO
         this.$router.push({
           name: 'PatientAssessment',
           query: {

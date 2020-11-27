@@ -56,8 +56,7 @@ export default {
   },
   mounted () {
     this.getVasInfo()
-  }
-  ,
+  },
   methods: {
     getVasInfo () {
       getVasInfo({
@@ -67,10 +66,10 @@ export default {
         const { data } = res
         if (data) {
           this.vasForm = data
+          this.getScore(data.vasScore)
         }
       })
-    }
-    ,
+    },
     confirmData () {
       saveVasInfo({ ...this.vasForm }).then(res => {
         if (res.code === 200) {
@@ -79,9 +78,9 @@ export default {
           this.$message.error('系统错误，保存失败，请稍后再试')
         }
       })
-    }
-    ,
+    },
     getScore (val) {
+      console.log(val)
       if (val === 0) {
         this.vasForm.desc = '无痛'
       } else if (val <= 3) {
@@ -92,20 +91,16 @@ export default {
         this.vasForm.desc = '患者出现强烈的疼痛，难以忍受，影响睡眠和食欲'
       }
     }
-  }
-  ,
+  },
   watch: {
     vasForm: {
       handler () {
         this.getScore()
-      }
-      ,
+      },
       deep: true,
-      immediate
-:
-true
-}
-}
+      immediate: true
+    }
+  }
 }
 </script>
 <style lang="less">

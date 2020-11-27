@@ -171,14 +171,21 @@
              class="paintDiolag"
              @ok="handleOk">
       <div class="checkPainBoxList">
-        <a-radio-group v-model="choicedList">
-          <div class="item"
-               v-for="(sitem, sindex) in painList"
-               :key="sindex">
-            <a-radio :value="sitem">
-              {{ sitem.diseaseName }}
-            </a-radio>
-          </div>
+        <a-radio-group v-model="choicedList" style="width: 100%">
+          <template v-for="(sitem,index) in painList" v-if="index%2===0">
+            <a-row :gutter="[8,8]">
+              <a-col :span="12">
+                <a-radio :value="sitem">
+                  {{ sitem.diseaseName }}
+                </a-radio>
+              </a-col>
+              <a-col :span="12" v-if="index+1<painList.length">
+                <a-radio :value="painList[ index + 1 ]">
+                  {{ painList[ index + 1 ].diseaseName }}
+                </a-radio>
+              </a-col>
+            </a-row>
+          </template>
         </a-radio-group>
       </div>
     </a-modal>
@@ -187,14 +194,21 @@
              class="paintDiolag"
              @ok="handleOkM">
       <div class="checkPainBoxList">
-        <a-radio-group v-model="choicedListM">
-          <div class="item"
-               v-for="(sitem, sindex) in medicData"
-               :key="sindex">
-            <a-radio :value="sitem">
-              {{ sitem.medName }}
-            </a-radio>
-          </div>
+        <a-radio-group v-model="choicedListM" style="width: 100%">
+          <template v-for="(sitem,index) in medicData" v-if="index%2===0">
+            <a-row :gutter="[8,8]">
+              <a-col :span="12">
+                <a-radio :value="sitem">
+                  {{ sitem.medName }}
+                </a-radio>
+              </a-col>
+              <a-col :span="12" v-if="index+1<medicData.length">
+                <a-radio :value="medicData[ index + 1 ]">
+                  {{ medicData[ index + 1 ].medName }}
+                </a-radio>
+              </a-col>
+            </a-row>
+          </template>
         </a-radio-group>
       </div>
     </a-modal>

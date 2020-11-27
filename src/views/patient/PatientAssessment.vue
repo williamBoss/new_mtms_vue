@@ -174,7 +174,6 @@ export default {
     // if (!this.patientId) {
     //   this.$message.error('尚未获取患者信息！')
     // }
-    this.saveAssessment()
     this.onChangeCardContentWidth(true)
     // 获取浏览器可视区域高度
     this.clientHeight = `${ document.documentElement.clientHeight }`
@@ -185,6 +184,8 @@ export default {
         this.patientId = this.$route.query.patientId
         this.assessmentId = this.$route.query.assessmentId
       }
+    } else {
+      this.saveAssessment()
     }
   },
   watch: {
