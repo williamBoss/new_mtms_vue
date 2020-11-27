@@ -17,12 +17,12 @@
             <a-row :gutter="48">
               <a-col :md="5" d:sm="15">
                 <a-form-item label="用户名">
-                  <a-input placeholder="请输入" v-model="queryParam.loginName"/>
+                  <a-input placeholder="请输入" v-model="queryParam.loginName" />
                 </a-form-item>
               </a-col>
               <a-col :md="5" d:sm="15">
                 <a-form-item label="状态">
-                  <a-select placeholder="请选择" v-model="queryParam.status" >
+                  <a-select placeholder="请选择" v-model="queryParam.status">
                     <a-select-option :value="''">全部</a-select-option>
                     <a-select-option :value="'0'">正常</a-select-option>
                     <a-select-option :value="'1'">禁用</a-select-option>
@@ -63,7 +63,7 @@
           defaultSort="createTime"
         >
           <span slot="status" slot-scope="text,record">
-            <a-switch :checked="record.status=='0'" @change="onChangeStatus(record)"/>
+            <a-switch :checked="record.status=='0'" @change="onChangeStatus(record)" />
           </span>
           <span slot="action" slot-scope="text, record">
             <a v-if="editEnabel" @click="handleEdit(record)">编辑</a>
@@ -75,8 +75,8 @@
         </s-table>
       </a-col>
     </a-row>
-    <user-modal ref="modal" @ok="handleOk" :deptTree="deptTree"/>
-    <user-pwd-modal ref="pwdmodal"/>
+    <user-modal ref="modal" @ok="handleOk" :deptTree="deptTree" />
+    <user-pwd-modal ref="pwdmodal" />
   </a-card>
 </template>
 
@@ -87,6 +87,7 @@ import UserModal from './modules/UserModal'
 import UserPwdModal from './modules/UserPwdModal'
 import pick from 'lodash.pick'
 import { checkPermission } from '@/utils/permissions'
+
 export default {
   name: 'UserList',
   components: {
@@ -119,7 +120,7 @@ export default {
           dataIndex: 'loginName'
         },
         {
-          title: '昵称',
+          title: '真实姓名',
           dataIndex: 'userName'
         },
         {
@@ -226,7 +227,7 @@ export default {
     // 下面是树相关方法
     handleSelect (selectedKeys, info) {
       this.queryParam = {
-        deptId: selectedKeys[0]
+        deptId: selectedKeys[ 0 ]
       }
       this.$refs.table.refresh(true)
     }

@@ -18,7 +18,7 @@
                         title="序号"
                         :width="100"
                         data-index="index">
-          <template slot-scope="text, record, index">{{index+1}}</template>
+          <template slot-scope="text, record, index">{{ index + 1 }}</template>
         </a-table-column>
         <a-table-column key="sick"
                         title="相关疾病"
@@ -28,8 +28,9 @@
             <a-button type="link"
                       v-if="!record.saved"
                       class="innerDiv"
-                      @click="chiocePain(index)">{{record.diseaseName||'选择疾病'}}</a-button>
-            <span v-else>{{record.diseaseName||'-'}}</span>
+                      @click="chiocePain(index)">{{ record.diseaseName || '选择疾病' }}
+            </a-button>
+            <span v-else>{{ record.diseaseName || '-' }}</span>
           </template>
         </a-table-column>
         <a-table-column key="medicine"
@@ -45,7 +46,7 @@
                              @change="changeMedicData"
                              v-if="!record.saved"
                              placeholder="药品名称" />
-            <span v-else>{{record.medName||'-'}}</span>
+            <span v-else>{{ record.medName || '-' }}</span>
           </template>
         </a-table-column>
         <a-table-column key="indicationses"
@@ -110,7 +111,7 @@
           <template slot-scope="text, record">
             <a-textarea v-if="!record.saved"
                         v-model="record.problem" />
-            <span v-else>{{record.problem}}</span>
+            <span v-else>{{ record.problem }}</span>
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -120,7 +121,7 @@
           <template slot-scope="text, record">
             <a-textarea v-if="!record.saved"
                         v-model="record.treatmentSuggestion" />
-            <span v-else>{{record.treatmentSuggestion}}</span>
+            <span v-else>{{ record.treatmentSuggestion }}</span>
           </template>
         </a-table-column>
         <a-table-column key="detail"
@@ -129,9 +130,9 @@
                         data-index="detail">
           <template slot-scope="text, record">
             <a-radio-group v-model="record.isResolved">
-              <a-radio :value="1"> 本次就诊解决 </a-radio>
-              <a-radio :value="2"> 未解决 </a-radio>
-              <a-radio :value="3"> 待解决 </a-radio>
+              <a-radio :value="1"> 本次就诊解决</a-radio>
+              <a-radio :value="2"> 未解决</a-radio>
+              <a-radio :value="3"> 待解决</a-radio>
             </a-radio-group>
           </template>
         </a-table-column>
@@ -142,7 +143,7 @@
           <template slot-scope="text, record">
             <a-textarea v-if="!record.saved"
                         v-model="record.improvementDetails" />
-            <span v-else>{{record.improvementDetails}}</span>
+            <span v-else>{{ record.improvementDetails }}</span>
           </template>
         </a-table-column>
         <a-table-column key="action"
@@ -206,11 +207,12 @@ import {
   getDiseaseList,
   saveMedicationProblem,
   getMedicationProblem,
-  medicationProblemsDict,
+  medicationProblemsDict
 } from '@/api/mtms'
+
 export default {
   name: 'MedicationProblems',
-  props: ['patientId', 'assessmentId'],
+  props: [ 'patientId', 'assessmentId' ],
   data () {
     return {
       visible: false,
@@ -232,10 +234,10 @@ export default {
     }
   },
   mounted () {
-    this.getDateList();
-    this.getMedList();
-    this.getDiseaseList();
-    this.medicationProblemsDict();
+    this.getDateList()
+    this.getMedList()
+    this.getDiseaseList()
+    this.medicationProblemsDict()
   },
   methods: {
     // 获取记录
@@ -301,7 +303,7 @@ export default {
     },
     // 所有疾病列表
     getDiseaseList () {
-      getDiseaseList().then(res => {
+      getDiseaseList({ pageSize: 1000 }).then(res => {
         console.log('所有病种：', res)
         let { rows } = res
         if (rows) {
@@ -315,14 +317,14 @@ export default {
     },
     //
     handleOk () {
-      this.data[this.actionIndex].diseaseName = this.choicedList.diseaseName
-      this.data[this.actionIndex].diseaseId = this.choicedList.diseaseId
+      this.data[ this.actionIndex ].diseaseName = this.choicedList.diseaseName
+      this.data[ this.actionIndex ].diseaseId = this.choicedList.diseaseId
       this.visible = false
     },
     //
     handleOkM () {
-      this.data[this.actionIndex].medName = this.choicedListM.medName
-      this.data[this.actionIndex].medId = this.choicedListM.medId
+      this.data[ this.actionIndex ].medName = this.choicedListM.medName
+      this.data[ this.actionIndex ].medId = this.choicedListM.medId
       this.visibleM = false
     },
     //
@@ -346,22 +348,22 @@ export default {
     //
     confirmData (index) {
       console.log(index)
-      console.log(this.data[index])
+      console.log(this.data[ index ])
       const _data = {
         patientId: this.patientId,
         assessmentId: this.assessmentId,
-        compliances: this.data[this.actionIndex].compliances,
-        effectivenessies: this.data[this.actionIndex].effectivenessies,
-        indicationses: this.data[this.actionIndex].indicationses,
-        safeties: this.data[this.actionIndex].safeties,
-        diseaseId: this.data[this.actionIndex].diseaseId,
-        diseaseName: this.data[this.actionIndex].diseaseName,
+        compliances: this.data[ this.actionIndex ].compliances,
+        effectivenessies: this.data[ this.actionIndex ].effectivenessies,
+        indicationses: this.data[ this.actionIndex ].indicationses,
+        safeties: this.data[ this.actionIndex ].safeties,
+        diseaseId: this.data[ this.actionIndex ].diseaseId,
+        diseaseName: this.data[ this.actionIndex ].diseaseName,
         medId: '',
-        medName: this.data[this.actionIndex].medName,
-        problem: this.data[this.actionIndex].problem,
-        treatmentSuggestion: this.data[this.actionIndex].treatmentSuggestion,
-        isResolved: this.data[this.actionIndex].isResolved,
-        improvementDetails: this.data[this.actionIndex].improvementDetails
+        medName: this.data[ this.actionIndex ].medName,
+        problem: this.data[ this.actionIndex ].problem,
+        treatmentSuggestion: this.data[ this.actionIndex ].treatmentSuggestion,
+        isResolved: this.data[ this.actionIndex ].isResolved,
+        improvementDetails: this.data[ this.actionIndex ].improvementDetails
       }
       this.medicData.forEach(item => {
         if (item.medName === _data.medName) {
@@ -370,7 +372,7 @@ export default {
       })
       saveMedicationProblem({ ..._data }).then(res => {
         if (res.code === 200) {
-          this.data[this.actionIndex].saved = true
+          this.data[ this.actionIndex ].saved = true
           this.$message.success('新增成功')
         } else {
           this.$message.error('系统错误，获取患者信息失败，请稍后再试')
@@ -406,6 +408,7 @@ export default {
   textarea {
     min-width: 300px;
   }
+
   .ant-cascader-picker {
     width: 100%;
   }

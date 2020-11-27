@@ -656,7 +656,7 @@ export default {
     },
     // 所有疾病列表
     getDiseaseList () {
-      getDiseaseList().then(res => {
+      getDiseaseList({ pageSize: 1000 }).then(res => {
         console.log('所有病种：', res)
         const { rows } = res
         if (rows) {

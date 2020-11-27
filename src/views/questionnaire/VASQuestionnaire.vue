@@ -12,7 +12,8 @@
                   :min="0"
                   :max="10"
                   v-model="vasForm.vasScore"
-                  @change="getScore" />
+                  @change="getScore"
+                  style="width:85%;height: 250px;margin-left: 50px" />
       </a-form-model-item>
       <a-form-model-item>
         得分描述：{{ vasForm.desc }}
@@ -44,18 +45,19 @@ export default {
         desc: ''
       },
       marks: {
-        0: '0',
-        2: '2',
-        4: '4',
-        6: '6',
-        8: '8',
-        10: '10'
+        0: { label: <img src="/10001_01.png" /> },
+        2: { label: <img src="/10001_02.png" /> },
+        4: { label: <img src="/10001_03.png" /> },
+        6: { label: <img src="/10001_04.png" /> },
+        8: { label: <img src="/10001_05.png" /> },
+        10: { label: <img src="/10001_06.png" /> }
       }
     }
   },
   mounted () {
     this.getVasInfo()
-  },
+  }
+  ,
   methods: {
     getVasInfo () {
       getVasInfo({
@@ -67,7 +69,8 @@ export default {
           this.vasForm = data
         }
       })
-    },
+    }
+    ,
     confirmData () {
       saveVasInfo({ ...this.vasForm }).then(res => {
         if (res.code === 200) {
@@ -76,7 +79,8 @@ export default {
           this.$message.error('系统错误，保存失败，请稍后再试')
         }
       })
-    },
+    }
+    ,
     getScore (val) {
       if (val === 0) {
         this.vasForm.desc = '无痛'
@@ -88,22 +92,27 @@ export default {
         this.vasForm.desc = '患者出现强烈的疼痛，难以忍受，影响睡眠和食欲'
       }
     }
-  },
+  }
+  ,
   watch: {
     vasForm: {
       handler () {
         this.getScore()
-      },
+      }
+      ,
       deep: true,
-      immediate: true
-    }
-  }
+      immediate
+:
+true
+}
+}
 }
 </script>
 <style lang="less">
 .vas {
+  .ant-form-item-control-wrapper,
   .ant-form-item-control {
-    width: 100%;
+    width: 100% !important;
   }
 }
 </style>

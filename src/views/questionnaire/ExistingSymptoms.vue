@@ -27,12 +27,12 @@
                   <template v-for="(sitem,index) in painList" v-if="index%2===0">
                     <a-row :gutter="[8,8]">
                       <a-col :span="12">
-                        <a-checkbox :value="sitem">
+                        <a-checkbox :value="sitem.diseaseId" name="diseaseIds">
                           {{ sitem.diseaseName }}
                         </a-checkbox>
                       </a-col>
                       <a-col :span="12" v-if="index+1<painList.length">
-                        <a-checkbox :value="painList[ index + 1 ]">
+                        <a-checkbox :value="painList[ index + 1 ].diseaseId" name="diseaseIds">
                           {{ painList[ index + 1 ].diseaseName }}
                         </a-checkbox>
                       </a-col>
@@ -648,7 +648,7 @@ export default {
     moment,
     // 所有疾病列表
     getDiseaseList () {
-      getDiseaseList({ pageSize: 100 }).then(res => {
+      getDiseaseList({ pageSize: 1000 }).then(res => {
         const { rows } = res
         if (rows) {
           this.painList = rows

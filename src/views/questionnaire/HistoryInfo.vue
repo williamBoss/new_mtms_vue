@@ -306,7 +306,7 @@ export default {
     },
     // 所有疾病列表
     getDiseaseList () {
-      getDiseaseList({ pageSize: 100 }).then(res => {
+      getDiseaseList({ pageSize: 1000 }).then(res => {
         const { rows } = res
         if (rows) {
           this.painList = rows
