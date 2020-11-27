@@ -133,7 +133,8 @@
             <div class="table-body">
               <div class="row flex"
                    :key="index"
-                   v-for="(item, index) in medicHostoryList">
+                   v-for="(item, index) in medicHostoryList"
+                   style="width: 100%">
                 <div>{{ index + 1 }}</div>
                 <!-- medId -->
                 <div>
@@ -628,7 +629,7 @@ export default {
   }
 
   .table-div {
-    width: 800px;
+    width: 100%;
 
     .table-title {
       background: #ccc;
@@ -662,12 +663,12 @@ export default {
 
     .table-title > div:nth-child(2),
     .row > div:nth-child(2) {
-      width: 200px;
+      width: 30%;
     }
 
     .table-title > div:nth-child(3),
     .row > div:nth-child(3) {
-      width: 200px;
+      width: 30%;
 
       .ant-checkbox-wrapper {
         display: inline-block;
