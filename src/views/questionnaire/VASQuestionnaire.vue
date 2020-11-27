@@ -1,28 +1,30 @@
 <template>
-  <a-form-model ref="vasForm"
-                :model="vasForm"
-                layout="vertical"
-                :label-col="{ span: 14 }"
-                :wrapper-col="{ span: 14 }">
-    <a-form-model-item label="1.疼痛得分：">
-      <a-slider :marks="marks"
-                :step="1"
-                :default-value="0"
-                :min="0"
-                :max="10"
-                v-model="vasForm.vasScore"
-                @change="getScore" />
-    </a-form-model-item>
-    <a-form-model-item>
-      得分描述：{{ vasForm.desc }}
-    </a-form-model-item>
-    <div class="footer-btn-box">
-      <a-button type="primary"
-                @click="confirmData">
-        保存
-      </a-button>
-    </div>
-  </a-form-model>
+  <div class="vas">
+    <a-form-model ref="vasForm"
+                  :model="vasForm"
+                  layout="vertical"
+                  :label-col="{ span: 14 }"
+                  :wrapper-col="{ span: 14 }">
+      <a-form-model-item label="1.疼痛得分：">
+        <a-slider :marks="marks"
+                  :step="1"
+                  :default-value="0"
+                  :min="0"
+                  :max="10"
+                  v-model="vasForm.vasScore"
+                  @change="getScore" />
+      </a-form-model-item>
+      <a-form-model-item>
+        得分描述：{{ vasForm.desc }}
+      </a-form-model-item>
+      <div class="footer-btn-box">
+        <a-button type="primary"
+                  @click="confirmData">
+          保存
+        </a-button>
+      </div>
+    </a-form-model>
+  </div>
 </template>
 <script>
 import {
@@ -98,8 +100,10 @@ export default {
   }
 }
 </script>
-<style>
-.patientAss .ant-form-item:not(.user-set) .ant-form-item-control {
-  width: 100% !important;
+<style lang="less">
+.vas {
+  .ant-form-item-control {
+    width: 100%;
+  }
 }
 </style>

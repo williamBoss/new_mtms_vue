@@ -1,5 +1,6 @@
 <template>
-  <a-form-model ref="capriniForm"
+  <a-form-model class="caprini"
+                ref="capriniForm"
                 :model="capriniForm"
                 layout="vertical"
                 :label-col="{ span: 14 }">
@@ -317,11 +318,11 @@ export default {
 }
 </script>
 <style>
-.patientAss .ant-form-item-control-wrapper {
-  width: 100% !important;
+.caprini .ant-form-item-control-wrapper {
+  width: 100%;
 }
 
-.ant-checkbox-group {
+.caprini .ant-checkbox-group {
   display: block;
 }
 </style>

@@ -26,12 +26,12 @@
                 <a-checkbox-group v-model="diagnosisDiseaseIds">
                   <template v-for="(sitem,index) in painList" v-if="index%2===0">
                     <a-row :gutter="[8,8]">
-                      <a-col :span="8">
+                      <a-col :span="12">
                         <a-checkbox :value="sitem">
                           {{ sitem.diseaseName }}
                         </a-checkbox>
                       </a-col>
-                      <a-col :span="8" v-if="index+1<painList.length">
+                      <a-col :span="12" v-if="index+1<painList.length">
                         <a-checkbox :value="painList[ index + 1 ]">
                           {{ painList[ index + 1 ].diseaseName }}
                         </a-checkbox>
@@ -730,7 +730,7 @@ export default {
     width: 100% !important;
 
     .ant-checkbox-wrapper {
-      width: 25%;
+      //width: 25%;
       display: inline-block;
     }
   }
